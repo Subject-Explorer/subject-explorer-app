@@ -1,17 +1,11 @@
-import { memo, FC, CSSProperties } from "react";
+import { memo, FC } from "react";
 import { Handle, Position, NodeProps } from "reactflow";
-
-const sourceHandleStyleA: CSSProperties = { left: 50 };
-const sourceHandleStyleB: CSSProperties = {
-  right: 50,
-  left: "auto",
-};
 
 const CustomNode: FC<NodeProps> = ({ data, xPos, yPos }) => {
   return (
     <>
-      <Handle type='target' position={Position.Right} />
-      <div>
+      <Handle type='target' position={Position.Left} />
+      <div className='p-4 bg-slate-500 rounded-md w-72 h-96'>
         <div>
           Label: <strong>{data.label}</strong>
         </div>
@@ -23,18 +17,7 @@ const CustomNode: FC<NodeProps> = ({ data, xPos, yPos }) => {
         </div>
       </div>
 
-      <Handle
-        type='source'
-        position={Position.Bottom}
-        id='a'
-        style={sourceHandleStyleA}
-      />
-      <Handle
-        type='source'
-        position={Position.Bottom}
-        id='b'
-        style={sourceHandleStyleB}
-      />
+      <Handle type='source' position={Position.Right} />
     </>
   );
 };
