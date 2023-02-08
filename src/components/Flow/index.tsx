@@ -26,7 +26,7 @@ const initialNodes: Node[] = [
     id: "4",
     data: { label: "Node 4" },
     position: { x: 400, y: 200 },
-    type: "asd",
+    type: "custom",
   },
 ];
 
