@@ -179,7 +179,7 @@ function Flow() {
   // );
 
   return (
-    <div className='flex-grow bg-secondary stroke-modeler'>
+    <div className='flex-grow bg-grey-darker stroke-modeler'>
       <ReactFlow
         nodes={nodes}
         onNodesChange={onNodesChange}

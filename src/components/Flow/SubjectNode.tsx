@@ -16,7 +16,7 @@ const SubjectNode: FC<NodeProps> = ({ data, xPos, yPos }: Props) => {
 
   return (
     <>
-      <div className='p-5 bg-primary rounded-2xl w-72 shadow-md transition-transform duration-300'>
+      <div className='p-5 bg-grey-dark rounded-2xl w-72 shadow-md transition-transform duration-300'>
         <div className='text-sm text-subject-code'>{subject.id}</div>
         <div className='text-xl font-bold'>{subject.name}</div>
         <hr className='my-2' />
@@ -39,12 +39,12 @@ const SubjectNode: FC<NodeProps> = ({ data, xPos, yPos }: Props) => {
           {subject.specializations.map((spec, index) => (
             <div
               key={index}
-              className={`w-10 h-10 text-lg text-secondary font-bold flex justify-center items-center rounded-md ${
+              className={`w-10 h-10 text-lg text-grey-darker font-bold flex justify-center items-center rounded-md ${
                 spec === "A"
-                  ? "bg-modeler"
+                  ? "bg-accent-dark"
                   : spec === "B"
-                  ? "bg-engineer"
-                  : "bg-developer"
+                  ? "bg-accent"
+                  : "bg-accent-lighter"
               }`}
             >
               {spec}
