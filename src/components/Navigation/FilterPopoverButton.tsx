@@ -23,19 +23,12 @@ export default function FilterPopoverButton({ label, panel }: Props) {
                 group transition-all inline-flex items-center rounded-md px-3 py-2 text-base font-medium hover:text-opacity-100 focus:outline-none bg-opacity-90 hover:bg-opacity-100`}
           >
             <span>{label}</span>
-            {open ? (
-              <ChevronUpIcon
-                className={`${open ? "" : "text-opacity-70"}
+
+            <ChevronDownIcon
+              className={`${open ? "-rotate-180 transform" : "text-opacity-70"}
                   ml-2 h-5 w-5 text-orange-300 transition duration-150 ease-in-out group-hover:text-opacity-80`}
-                aria-hidden='true'
-              />
-            ) : (
-              <ChevronDownIcon
-                className={`${open ? "" : "text-opacity-70"}
-                  ml-2 h-5 w-5 text-orange-300 transition duration-150 ease-in-out group-hover:text-opacity-80`}
-                aria-hidden='true'
-              />
-            )}
+              aria-hidden='true'
+            />
           </Popover.Button>
           <Transition
             as={Fragment}
@@ -46,7 +39,7 @@ export default function FilterPopoverButton({ label, panel }: Props) {
             leaveFrom='opacity-100 translate-y-0'
             leaveTo='opacity-0 translate-y-1'
           >
-            <Popover.Panel className='absolute left-1/2 z-10 mt-3 w-screen max-w-sm -translate-x-1/2 transform px-4 sm:px-0 lg:max-w-3xl'>
+            <Popover.Panel className='absolute left-1/2 z-10 mt-3 max-w-sm -translate-x-1/2 transform px-4 sm:px-0 lg:max-w-3xl'>
               {panel}
             </Popover.Panel>
           </Transition>
