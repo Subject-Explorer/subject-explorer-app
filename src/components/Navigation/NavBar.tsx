@@ -1,11 +1,19 @@
 import React from "react";
+import FieldPopoverPanel from "./FieldPopoverPanel";
+import FilterPopoverButton from "./FilterPopoverButton";
+import SearchBar from "./SearchBar";
+import SpecialtyPopoverPanel from "./SpecialtyPopoverPanel";
 
 export default function NavBar() {
   return (
     <header className='h-20 absolute flex items-center justify-center w-full z-50'>
-      <div className='bg-tertiary w-max rounded-md p-3 gap-2 flex flex-nowrap shadow-lg'>
-        <div className=''>placeholder</div>
-        <div className=''>placeholder</div>
+      <div className='bg-grey rounded-md p-2 gap-2 shadow-lg sm:hidden md:flex'>
+        <SearchBar />
+        <FilterPopoverButton label='Ismeretkör' panel={<FieldPopoverPanel />} />
+        <FilterPopoverButton
+          label='Specializáció'
+          panel={<SpecialtyPopoverPanel />}
+        />
       </div>
     </header>
   );
