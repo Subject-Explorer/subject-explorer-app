@@ -6,11 +6,12 @@ export default interface SubjectData {
   credit: number;
   semesters: number[];
   prerequisites: string[];
-  field: "informatics" | "computers" | "mathematics";
-  specializations: ("A" | "B" | "C")[];
+  field: Field;
+  specializations: Specialization[];
 }
-
-interface LessonCount {
+export type Field = "informatics" | "computers" | "mathematics";
+export type Specialization = "A" | "B" | "C";
+export interface LessonCount {
   lecture: number;
   practice: number;
   laboratory: number;
