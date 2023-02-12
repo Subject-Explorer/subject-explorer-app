@@ -1,36 +1,36 @@
 import { useFilterSettings } from "@/utils/hooks/useFilterSettings";
-import { Field } from "@/utils/subjectData";
+import { Specialization } from "@/utils/subjectData";
 import React, { useEffect, useState } from "react";
 
 interface SpecOption {
-  id: Field;
+  id: Specialization;
   label: string;
 }
 
 const specializationOptions: SpecOption[] = [
   {
-    id: "mathematics",
-    label: "Matematika",
+    id: "A",
+    label: "Modellező",
   },
   {
-    id: "informatics",
-    label: "Informatika",
+    id: "B",
+    label: "Tervező",
   },
   {
-    id: "computers",
-    label: "Számítástechnika",
+    id: "C",
+    label: "Fejlesztő",
   },
 ];
 
 export default function SpecializationPopoverPanel() {
   const { settings, setSettings } = useFilterSettings();
-  const [selected, setSelected] = useState(settings.fields);
+  const [selected, setSelected] = useState(settings.specializations);
 
   useEffect(() => {
-    setSettings({ fields: selected });
+    setSettings({ specializations: selected });
   }, [selected, setSettings]);
 
-  const handleSelectedChange = (id: Field) => {
+  const handleSelectedChange = (id: Specialization) => {
     let newSelected = selected;
     newSelected.includes(id)
       ? newSelected.splice(newSelected.indexOf(id), 1)
@@ -48,7 +48,11 @@ export default function SpecializationPopoverPanel() {
           className={`
                   ${
                     selected.includes(option.id)
-                      ? "bg-accent-lighter"
+                      ? option.id === "A"
+                        ? "bg-accent-dark"
+                        : option.id === "B"
+                        ? "bg-accent"
+                        : "bg-accent-lighter"
                       : "bg-grey-dark"
                   }
                   ${selected.includes(option.id) && " text-grey-darker"}
@@ -71,7 +75,7 @@ export default function SpecializationPopoverPanel() {
                 }
                     text-sm`}
               >
-                {option.label}
+                {option.label} ({option.id})
               </div>
             </div>
           </div>

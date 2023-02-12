@@ -2,7 +2,7 @@ import React from "react";
 import FieldPopoverPanel from "./FieldPopoverPanel";
 import FilterPopoverButton from "./FilterPopoverButton";
 import SearchBar from "./SearchBar";
-import SpecialtyPopoverPanel from "./SpecialtyPopoverPanel";
+import SpecializationPopoverPanel from "./SpecializationPopoverPanel";
 
 export default function NavBar() {
   return (
@@ -12,7 +12,7 @@ export default function NavBar() {
         <FilterPopoverButton label='Ismeretkör' panel={<FieldPopoverPanel />} />
         <FilterPopoverButton
           label='Specializáció'
-          panel={<SpecialtyPopoverPanel />}
+          panel={<SpecializationPopoverPanel />}
         />
       </div>
     </header>
