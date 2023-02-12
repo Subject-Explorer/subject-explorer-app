@@ -1,0 +1,41 @@
+﻿Kód;Tanegység;Előadás;Gyakorlat;Labor;Konzultáció;Számonkérés;Kredit;Ajánlott félév;Előfeltétel(ek);1. félév;2. félév;3. félév;4. félév;5. félév;6. félév;Ismeretkör;Specalizáció FTM
+IP-18KVISZGE;Számítógépes grafika;2;0;0;0;K;2;3,5;IP-18MATAG;;;2+0+0+0;;2+0+0+0;;Inf;FTM
+IP-18KVISZGG;Számítógépes grafika;0;0;2;1;G;3;3,5;IP-18MATAG, IP-18OEPROGEG;;;0+0+2+1;;0+0+2+1;;Inf;FTM
+IP-18KVIWAFEG;Web-es alkalmazások fejlesztése;1;0;1;1;XFG;3;4,6;IP-18aEVALKEG;;;;1+0+1+1;;1+0+1+1;Inf;TM
+IP-18KVSZKRBE;Kriptográfia és biztonság;2;0;0;0;K;2;5;IP-18KVSZKRBG (gyenge);;;;;2+0+0+0;;Szám;FTM
+IP-18KVSZKRBG;Kriptográfia és biztonság;0;0;2;1;G;3;5;IP-18DM1E;;;;;0+0+2+1;;Szám;FTM
+IP-18KVIGPUEG;GPU programozás;1;0;2;1;XG;3;3,5;IP-18MATAG, IP- 18OEPROGEG;;;1+0+2+0;;1+0+2+0;;Inf;FTM
+IP-18KWEBPROGEG;Webprogramozás;1;0;2;1;XFG;4;3;IP-18WF1EG;;;1+0+2+1;;;;Inf;TM
+IP-18KVIKWPROGEG;Kliensoldali webprogramozás;1;0;2;1;XFG;4;5,6;IP-18cWEBPROGEG;;;;;1+0+2+1;1+0+2+1;Inf;FTM
+IP-18KVISZWPROGEG;Szerveroldali webprogramozás;1;0;2;1;XFG;4;5,6;IP-18cWEBPROGEG;;;;;1+0+2+1;1+0+2+1;Inf;FTM
+IP-18KVIFSWPROGG;Full stack webprogramozás;0;0;2;1;FG;3;4,5,6;IP-18KVIKWPROGEG, IP-18KVISZWPROGEG;;;;0+0+2+1;0+0+2+1;0+0+2+1;Inf;FTM
+IP-18KVIVISZE;Vállalati információs rendszerek és architektúrák;2;0;0;0;K;2;6;IP-18KVIVISZG (gyenge);;;;;;2+0+0+0;Inf;FTM
+IP-18KVIVISZG;Vállalati információs rendszerek és architektúrák;0;2;0;1;G;3;6;IP-18AB1E;;;;;;0+2+0+1;Inf;FTM
+IP-18KVIBDAE;Big Data architektúrák és elemző módszerek;2;0;0;0;K;2;5;IP-18KVIBDAG (gyenge);;;;;2+0+0+0;;Inf;FTM
+IP-18KVIBDAG;Big Data architektúrák és elemző módszerek;0;0;2;1;G;3;5;IP-18OEPROGEG;;;;;0+0+2+1;;Inf;FTM
+IP-18KVIHJEG;Haladó Java;2;0;2;1;G;5;4,6;IP-18PNYEG;;;;2+0+2+1;;2+0+2+1;Inf;FTM
+IP-18KVIKFINNL;Kutatásfejlesztési és innovációs labor;0;3;0;2;G;5;3,4,5,6;;;;0+3+0+2;0+3+0+2;0+3+0+2;0+3+0+2;Inf;FTM
+IP-18KVSZBGTE;Bevezetés a gépi tanulásba;1;0;0;1;K;2;3;IP-18MATAG;;;1+0+0+1;;;;Szám;FTM
+IP-18KVISZMNAGE;Szoftver mély neuronhálók alkalmazásához;2;0;0;2;K;4;2,4;IP-18MATAG;;2+0+0+2;;2+0+0+2;;;Inf;FTM
+IP-18KVIMNFEG;Mély neuronhálok algoritmusai és fajtái;2;0;0;1;G;3;5;IP-18KVISZMNAEG;;;;;2+0+0+1;;Inf;FTM
+IP-18KVSZPREE;Programozáselmélet;2;0;0;0;K;2;3,5;IP-18KVSZPREG (gyenge);;;2+0+0+0;;2+0+0+0;;Szám;FM
+IP-18KVSZPREG;Programozáselmélet;0;2;0;1;G;3;3,5;IP-18MATAG;;;0+2+0+1;;0+2+0+1;;Szám;FM
+IP-18KVSZPME;Programozási módszertan;2;0;0;0;K;2;4,6;IP-18KVSZPMG (gyenge);;;;2+0+0+0;;2+0+0+0;Szám;FTM
+IP-18KVSZPMG;Programozási módszertan;0;2;0;1;FG;3;4,6;IP-18KVSZPREE;;;;0+2+0+1;;0+2+0+1;Szám;FTM
+IP-18KVSZORSIE;Osztott rendszerek specifikációja és implementációja;2;0;0;0;K;2;6;;;;;;;2+0+0+0;Szám;FTM
+IP-18KVSZORSIG;Osztott rendszerek specifikációja és implementációja;0;2;0;1;FG;3;6;IP-18KVSZPREE, IP-18KVSZPME;;;;;;0+2+0+1;Szám;FTM
+IP-18KVSZSZME;Számítási modellek;2;0;0;0;K;2;5;IP-18KVSZSZMG (gyenge);;;;;2+0+0+0;;Szám;FTM
+IP-18KVSZSZMG;Számítási modellek;0;2;0;1;G;3;5;IP-18bSZEE (gyenge), IP-18cSZÁMEA1E /IP-18aBSZEE;;;;;0+2+0+1;;Szám;FTM
+IP-18KVSZTME;Típuselmélet;2;0;0;0;K;2;3;IP-18KVSZTMG (gyenge);;;2+0+0+0;;;;Szám;FTM
+IP-18KVSZTMG;Típuselmélet;0;0;2;1;FG;3;3;;;;0+0+2+1;;;;Szám;FTM
+IP-18KVELE;Logika;2;0;0;0;K;2;4;IP-18KVELG (gyenge);;;;2+0+0+0;;;Szám;FTM
+IP-18KVELG;Logika;0;2;0;1;FG;3;4;;;;;0+2+0+1;;;Szám;FTM
+IP-18KVFPNYEG;Funkcionális nyelvek;2;0;2;1;XK;5;4,6;;;;;2+0+2+1;;2+0+2+1;Inf;FTM
+IP-18KVPNY1EG;Programozási nyelvek (C++);2;0;2;1;XK;5;3,4,5;IK-18IMPROGEG;;;2+0+2+1;2+0+2+1;2+0+2+1;;Inf;FTM
+IP-18KVMNMALEG;Numerikus algoritmusok;1;0;2;1;XFG;4;5;IP-18aNM2E;;;;;1+0+2+1;;Szám;TM
+IP-18KVPRJG;Projekteszközök;0;2;0;1;FG;3;4;IP-18PNYEG;;;;0+2+0+1;;;Inf;FTM
+IP-18KVIHSZGE;Haladó Számítógépes Grafika;2;0;0;0;K;2;5;IP-18KVISZGE, IP-18KVISZGG;;;;;2+0+0+0;;Inf;FTM
+IP-18KVIHSZGG;Haladó Számítógépes Grafika;0;0;2;1;G;3;5;IP-18KVISZGE, IP-18KVISZGG;;;;;0+0+2+1;;Inf;FTM
+IP-18KVIGUIQTEG;GUI programozás Qt-vel;1;0;2;1;XG;4;3;IP-18OEPROGEG;;;1+0+2+1;;;;Inf;FTM
+IP-18KVPYEG;Python;2;0;2;1;XK;5;3,4,5,6;;;;2+0+2+1;2+0+2+1;2+0+2+1;2+0+2+1;Inf;FTM
+IP-18KVaSZKRBG;Kriptográfia és biztonság;0;0;2;2;G;4;4,6;IP-18DM1E;;;;0+0+2+2;;0+0+2+2;Szám;TM

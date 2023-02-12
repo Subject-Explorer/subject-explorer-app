@@ -1,0 +1,20 @@
+﻿Kód;Tanegység;Előadás;Gyakorlat;Labor;Konzultáció;Számonkérés;Kredit;Ajánlott félév;Előfeltétel(ek);1. félév;2. félév;3. félév;4. félév;5. félév;6. félév;Ismeretkör
+IP-18aEVALKEG;Eseményvezérelt alkalmazások;2;0;2;1;FG;5;3;IP-18OEPROGEG;;;2+0+2+1;;;;Inf
+IP-18aAN2E;Analízis II;2;0;0;0;K;2;3;IP-18aAN2G (gyenge);;;2+0+0+0;;;;Mat
+IP-18aAN2G;Analízis II;0;2;0;1;G;3;3;IP-18AN1E;;;0+2+0+1;;;;Mat
+IP-18aDM2E;Diszkrét matematika II;2;0;0;0;K;2;3;IP-18aDM2G (gyenge);;;2+0+0+0;;;;Mat
+IP-18aDM2G;Diszkrét matematika II;0;2;0;1;G;3;3;IP-18DM1E;;;0+2+0+1;;;;Mat
+IP-18aNM1E;Numerikus módszerek I;2;0;0;0;K;2;3;IP-18aNM1G (gyenge);;;2+0+0+0;;;;Mat
+IP-18aNM1G;Numerikus módszerek I;0;2;0;1;G;3;3;IP-18aAN1E;;;0+2+0+1;;;;Mat
+IP-18aBSZEE;Bevezetés a számításelméletbe;2;0;0;0;K;2;4;IP-18aBSZEG (gyenge);;;;2+0+0+0;;;Szám
+IP-18aBSZEG;Bevezetés a számításelméletbe;0;2;0;1;G;3;4;IP-18DM1E;;;;0+2+0+1;;;Szám
+IP-18aNM2E;Numerikus módszerek II;2;0;0;0;K;2;4;IP-18aNM2G (gyenge);;;;2+0+0+0;;;Mat
+IP-18aNM2G;Numerikus módszerek II;0;0;2;1;G;3;4;IP-18aNM1E;;;;0+0+2+1;;;Mat
+IP-18aVSZEG;Valószínűségszámítás;1;2;0;1;G;4;4;IP-18aAN2E;;;;1+2+0+1;;;Mat
+IP-18aAN3E;Analízis III;2;0;0;0;K;2;4;IP-18aAN3G (gyenge);;;;2+0+0+0;;;Mat
+IP-18aAN3G;Analízis III;0;2;0;1;G;3;4;IP-18aAN2E;;;;0+2+0+1;;;Mat
+IP-18aSZTEG;Szoftvertechnológia TM;2;0;2;1;FG;5;4;IP-18aEVALKEG;;;;2+0+2+1;;;Mat
+IP-18aDMME;Diszkrét matematikai modellek és alkalmazásaik;2;0;0;1;K;3;5;IP-18DM1E;;;;;2+0+0+1;;Mat
+IP-18aMSAEG;Matematikai statisztika;1;0;2;1;G;4;5;IP-18aVSZEG;;;;;1+0+2+1;;Mat
+IP-18aANA1E;Analízis alkalmazásai;2;0;0;0;K;2;5;IP-18aANA1G (gyenge);;;;;2+0+0+0;;Mat
+IP-18aANA1G;Analízis alkalmazásai;0;2;0;1;G;3;5;IP-18aAN3E;;;;;0+2+0+1;;Mat
