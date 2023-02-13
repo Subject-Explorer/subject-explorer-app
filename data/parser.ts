@@ -1,12 +1,14 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import * as fs from 'fs';
 import path from 'path';
-import SubjectData, { LessonCount, Prerequisite } from '@/utils/subjectData';
+import SubjectData, { LessonCount, Prerequisite, Test } from '@/utils/subjectData';
 
-function parseSubjectsCSV(fileName: string): SubjectData[] {
+let alldata = [[],[],[],[],[],[]] as SubjectData[][];
+
+function parseSubjectsCSV(fileName: string) {
     const fileData = fs.readFileSync(fileName, 'utf8');
     const lines = fileData.trim().split('\r').slice(1);
-    let data = [];
+    let data = [] as SubjectData[];
 
     for (let i = 0; i < lines.length; i++) {
         const line = lines[i];
@@ -25,7 +27,7 @@ function parseSubjectsCSV(fileName: string): SubjectData[] {
         lessonCount.consultation = parseInt(fields[5]);
         record.lessonCount = lessonCount;
 
-        record.test = fields[6];
+        record.test = fields[6] as Test;
         record.credit = parseInt(fields[7]);
         record.semesters = fields[8].split(',').map((x) => parseInt(x));
 
@@ -34,7 +36,7 @@ function parseSubjectsCSV(fileName: string): SubjectData[] {
             if (requirementsCSVArray[j] == "") continue;
             const currentRequirement = requirementsCSVArray[j];
             let prerequisite = {} as Prerequisite;
-            prerequisite.parent = currentRequirement.split('(gyenge)')[0].replace(' ', '');
+            prerequisite.id = currentRequirement.split('(gyenge)')[0].replace(' ', '');
             prerequisite.weak = currentRequirement.includes('(gyenge)');
             prerequisites.push(prerequisite);
         }
@@ -64,26 +66,22 @@ function parseSubjectsCSV(fileName: string): SubjectData[] {
                 record.specializations.push('C');
         }
 
-        data.push(record);
+        alldata[record.semesters[0] - 1].push(record);
     }
-
-    return data;
 }
 
-function parseCVSs(files: string[]): SubjectData[] {
+function parseCVSs(files: string[]) {
     const dataDirectory = path.join(process.cwd(), 'data\\csv');
-    let data = [] as SubjectData[];
     for (let i = 0; i < files.length; i++) {
         const file = files[i];
         const filePath = dataDirectory + '\\' + file;
-        data = data.concat(parseSubjectsCSV(filePath));
+        parseSubjectsCSV(filePath);
     }
-    return data;
 }
 
 export default function handler(
     req: NextApiRequest,
-    res: NextApiResponse<SubjectData[]>
+    res: NextApiResponse<SubjectData[][]>
 ) {
     const filesToProcess = [
         "A_spec_kotelezo.csv",
@@ -94,6 +92,6 @@ export default function handler(
         "C_spec_kotval.csv",
         "torzsanyag.csv",
     ];
-    const jsonData = parseCVSs(filesToProcess);
-    res.status(200).json(jsonData)
+    parseCVSs(filesToProcess);
+    res.status(200).json(alldata);
 }

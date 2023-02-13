@@ -2,7 +2,7 @@ export default interface SubjectData {
   id: string;
   name: string;
   lessonCount: LessonCount;
-  test: string;
+  test: Test;
   credit: number;
   semesters: number[];
   prerequisites: Prerequisite[];
@@ -11,6 +11,8 @@ export default interface SubjectData {
 }
 export type Field = "informatics" | "computers" | "mathematics";
 export type Specialization = "A" | "B" | "C";
+export type Test = "G" | "K" | "FG" | "XG" | "XFG" | "XK";
+
 export interface LessonCount {
   lecture: number;
   practice: number;
@@ -18,6 +20,6 @@ export interface LessonCount {
   consultation: number;
 }
 export interface Prerequisite{
-    parent: string;
+    id: string;
     weak: boolean;
 }
