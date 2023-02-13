@@ -101,8 +101,8 @@ const SubjectNode: FC<NodeProps> = ({ data, xPos, yPos }: Props) => {
           />
         </button>
       </div>
-      <Handle type='target' position={Position.Left} className='invisible' />
-      <Handle type='source' position={Position.Right} className='invisible' />
+      <Handle type='target' position={Position.Top} className='invisible' />
+      <Handle type='source' position={Position.Bottom} className='invisible' />
     </>
   );
 };

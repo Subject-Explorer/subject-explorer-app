@@ -1,0 +1,306 @@
+[
+  {
+    "id": "IP-18aEVALKEG",
+    "name": "Eseményvezérelt alkalmazások",
+    "lessonCount": {
+      "lecture": 2,
+      "practice": 0,
+      "laboratory": 2,
+      "consultation": 1
+    },
+    "test": "FG",
+    "credit": 5,
+    "semesters": [3],
+    "prerequisites": [{ "parent": "IP-18OEPROGEG", "weak": false }],
+    "field": "informatics",
+    "specializations": []
+  },
+  {
+    "id": "IP-18aAN2E",
+    "name": "Analízis II",
+    "lessonCount": {
+      "lecture": 2,
+      "practice": 0,
+      "laboratory": 0,
+      "consultation": 0
+    },
+    "test": "K",
+    "credit": 2,
+    "semesters": [3],
+    "prerequisites": [{ "parent": "IP-18aAN2G", "weak": true }],
+    "field": "mathematics",
+    "specializations": []
+  },
+  {
+    "id": "IP-18aAN2G",
+    "name": "Analízis II",
+    "lessonCount": {
+      "lecture": 0,
+      "practice": 2,
+      "laboratory": 0,
+      "consultation": 1
+    },
+    "test": "G",
+    "credit": 3,
+    "semesters": [3],
+    "prerequisites": [{ "parent": "IP-18AN1E", "weak": false }],
+    "field": "mathematics",
+    "specializations": []
+  },
+  {
+    "id": "IP-18aDM2E",
+    "name": "Diszkrét matematika II",
+    "lessonCount": {
+      "lecture": 2,
+      "practice": 0,
+      "laboratory": 0,
+      "consultation": 0
+    },
+    "test": "K",
+    "credit": 2,
+    "semesters": [3],
+    "prerequisites": [{ "parent": "IP-18aDM2G", "weak": true }],
+    "field": "mathematics",
+    "specializations": []
+  },
+  {
+    "id": "IP-18aDM2G",
+    "name": "Diszkrét matematika II",
+    "lessonCount": {
+      "lecture": 0,
+      "practice": 2,
+      "laboratory": 0,
+      "consultation": 1
+    },
+    "test": "G",
+    "credit": 3,
+    "semesters": [3],
+    "prerequisites": [{ "parent": "IP-18DM1E", "weak": false }],
+    "field": "mathematics",
+    "specializations": []
+  },
+  {
+    "id": "IP-18aNM1E",
+    "name": "Numerikus módszerek I",
+    "lessonCount": {
+      "lecture": 2,
+      "practice": 0,
+      "laboratory": 0,
+      "consultation": 0
+    },
+    "test": "K",
+    "credit": 2,
+    "semesters": [3],
+    "prerequisites": [{ "parent": "IP-18aNM1G", "weak": true }],
+    "field": "mathematics",
+    "specializations": []
+  },
+  {
+    "id": "IP-18aNM1G",
+    "name": "Numerikus módszerek I",
+    "lessonCount": {
+      "lecture": 0,
+      "practice": 2,
+      "laboratory": 0,
+      "consultation": 1
+    },
+    "test": "G",
+    "credit": 3,
+    "semesters": [3],
+    "prerequisites": [{ "parent": "IP-18aAN1E", "weak": false }],
+    "field": "mathematics",
+    "specializations": []
+  },
+  {
+    "id": "IP-18aBSZEE",
+    "name": "Bevezetés a számításelméletbe",
+    "lessonCount": {
+      "lecture": 2,
+      "practice": 0,
+      "laboratory": 0,
+      "consultation": 0
+    },
+    "test": "K",
+    "credit": 2,
+    "semesters": [4],
+    "prerequisites": [{ "parent": "IP-18aBSZEG", "weak": true }],
+    "field": "computers",
+    "specializations": []
+  },
+  {
+    "id": "IP-18aBSZEG",
+    "name": "Bevezetés a számításelméletbe",
+    "lessonCount": {
+      "lecture": 0,
+      "practice": 2,
+      "laboratory": 0,
+      "consultation": 1
+    },
+    "test": "G",
+    "credit": 3,
+    "semesters": [4],
+    "prerequisites": [{ "parent": "IP-18DM1E", "weak": false }],
+    "field": "computers",
+    "specializations": []
+  },
+  {
+    "id": "IP-18aNM2E",
+    "name": "Numerikus módszerek II",
+    "lessonCount": {
+      "lecture": 2,
+      "practice": 0,
+      "laboratory": 0,
+      "consultation": 0
+    },
+    "test": "K",
+    "credit": 2,
+    "semesters": [4],
+    "prerequisites": [{ "parent": "IP-18aNM2G", "weak": true }],
+    "field": "mathematics",
+    "specializations": []
+  },
+  {
+    "id": "IP-18aNM2G",
+    "name": "Numerikus módszerek II",
+    "lessonCount": {
+      "lecture": 0,
+      "practice": 0,
+      "laboratory": 2,
+      "consultation": 1
+    },
+    "test": "G",
+    "credit": 3,
+    "semesters": [4],
+    "prerequisites": [{ "parent": "IP-18aNM1E", "weak": false }],
+    "field": "mathematics",
+    "specializations": []
+  },
+  {
+    "id": "IP-18aVSZEG",
+    "name": "Valószínűségszámítás",
+    "lessonCount": {
+      "lecture": 1,
+      "practice": 2,
+      "laboratory": 0,
+      "consultation": 1
+    },
+    "test": "G",
+    "credit": 4,
+    "semesters": [4],
+    "prerequisites": [{ "parent": "IP-18aAN2E", "weak": false }],
+    "field": "mathematics",
+    "specializations": []
+  },
+  {
+    "id": "IP-18aAN3E",
+    "name": "Analízis III",
+    "lessonCount": {
+      "lecture": 2,
+      "practice": 0,
+      "laboratory": 0,
+      "consultation": 0
+    },
+    "test": "K",
+    "credit": 2,
+    "semesters": [4],
+    "prerequisites": [{ "parent": "IP-18aAN3G", "weak": true }],
+    "field": "mathematics",
+    "specializations": []
+  },
+  {
+    "id": "IP-18aAN3G",
+    "name": "Analízis III",
+    "lessonCount": {
+      "lecture": 0,
+      "practice": 2,
+      "laboratory": 0,
+      "consultation": 1
+    },
+    "test": "G",
+    "credit": 3,
+    "semesters": [4],
+    "prerequisites": [{ "parent": "IP-18aAN2E", "weak": false }],
+    "field": "mathematics",
+    "specializations": []
+  },
+  {
+    "id": "IP-18aSZTEG",
+    "name": "Szoftvertechnológia TM",
+    "lessonCount": {
+      "lecture": 2,
+      "practice": 0,
+      "laboratory": 2,
+      "consultation": 1
+    },
+    "test": "FG",
+    "credit": 5,
+    "semesters": [4],
+    "prerequisites": [{ "parent": "IP-18aEVALKEG", "weak": false }],
+    "field": "mathematics",
+    "specializations": []
+  },
+  {
+    "id": "IP-18aDMME",
+    "name": "Diszkrét matematikai modellek és alkalmazásaik",
+    "lessonCount": {
+      "lecture": 2,
+      "practice": 0,
+      "laboratory": 0,
+      "consultation": 1
+    },
+    "test": "K",
+    "credit": 3,
+    "semesters": [5],
+    "prerequisites": [{ "parent": "IP-18DM1E", "weak": false }],
+    "field": "mathematics",
+    "specializations": []
+  },
+  {
+    "id": "IP-18aMSAEG",
+    "name": "Matematikai statisztika",
+    "lessonCount": {
+      "lecture": 1,
+      "practice": 0,
+      "laboratory": 2,
+      "consultation": 1
+    },
+    "test": "G",
+    "credit": 4,
+    "semesters": [5],
+    "prerequisites": [{ "parent": "IP-18aVSZEG", "weak": false }],
+    "field": "mathematics",
+    "specializations": []
+  },
+  {
+    "id": "IP-18aANA1E",
+    "name": "Analízis alkalmazásai",
+    "lessonCount": {
+      "lecture": 2,
+      "practice": 0,
+      "laboratory": 0,
+      "consultation": 0
+    },
+    "test": "K",
+    "credit": 2,
+    "semesters": [5],
+    "prerequisites": [{ "parent": "IP-18aANA1G", "weak": true }],
+    "field": "mathematics",
+    "specializations": []
+  },
+  {
+    "id": "IP-18aANA1G",
+    "name": "Analízis alkalmazásai",
+    "lessonCount": {
+      "lecture": 0,
+      "practice": 2,
+      "laboratory": 0,
+      "consultation": 1
+    },
+    "test": "G",
+    "credit": 3,
+    "semesters": [5],
+    "prerequisites": [{ "parent": "IP-18aAN3E", "weak": false }],
+    "field": "mathematics",
+    "specializations": []
+  }
+]
