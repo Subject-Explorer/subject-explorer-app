@@ -12,9 +12,8 @@ import ReactFlow, {
 } from "reactflow";
 import CustomNode from "./CustomNode";
 import SubjectNode from "./SubjectNode";
+// import data from "../../../public/data.json";
 import test from "./test.json";
-
-// const subjects: SubjectData[] = test as SubjectData[];
 const getSemesters: () => SubjectData[][] = () => {
   let semesters: SubjectData[][] = [];
   const semesterCount = 6;
@@ -26,7 +25,6 @@ const getSemesters: () => SubjectData[][] = () => {
   });
   return semesters;
 };
-// const semesters: SubjectData[][] = getSemesters();
 
 const nodeTypes = {
   custom: CustomNode,
@@ -50,7 +48,6 @@ function Flow() {
   //TODO: Implement filters state
 
   useEffect(() => {
-    console.log(semesters);
     let newNodes: Node[] = [];
     let newEdges: Edge[] = [];
     semesters.map((subjects, semesterIndex) => {

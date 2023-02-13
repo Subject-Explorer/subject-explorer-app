@@ -302,5 +302,21 @@
     "prerequisites": [{ "parent": "IP-18aAN3E", "weak": false }],
     "field": "mathematics",
     "specializations": []
+  },
+  {
+    "id": "IP-18KVIGUIQTEG",
+    "name": "GUI programozás Qt-vel",
+    "lessonCount": {
+      "lecture": 1,
+      "practice": 0,
+      "laboratory": 2,
+      "consultation": 1
+    },
+    "test": "",
+    "credit": 4,
+    "semesters": [3],
+    "prerequisites": [{ "parent": "IP-18OEPROGEG", "weak": false }],
+    "field": "informatics",
+    "specializations": ["A", "B", "C"]
   }
 ]
