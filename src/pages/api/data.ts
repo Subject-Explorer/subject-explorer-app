@@ -3,30 +3,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import * as fs from 'fs';
 import path from 'path';
-
-type SubjectData = {
-    subject_code: string
-    subject_field: string
-    subject_weekly_distribution: WeeklyLessonDistribution;
-    exam_type: string
-    credit_value: number
-    recommended_semesters: number[]
-    requirements: RequiredSubject[]
-    subject_type: string
-    specialization_ftm: string
-}
-
-type RequiredSubject = {
-    subject_code: string
-    is_weak: boolean
-}
-
-type WeeklyLessonDistribution = {
-    lecture_count: number
-    exercise_count: number
-    lab_count: number
-    consultation_count: number
-}
+import SubjectData, { LessonCount, Prerequisite } from '@/utils/subjectData';
 
 function parseSubjectsCSV(fileName: string): SubjectData[] {
     const fileData = fs.readFileSync(fileName, 'utf8');
@@ -38,38 +15,55 @@ function parseSubjectsCSV(fileName: string): SubjectData[] {
         const fields = line.split(';').map((x) => x.replace('\n', '').trim());
 
         let record = {} as SubjectData;
-        let lessonDistribution = {} as WeeklyLessonDistribution;
-        let requirements = [] as RequiredSubject[];
+        let lessonCount = {} as LessonCount;
+        let prerequisites = [] as Prerequisite[];
 
-        record.subject_code = fields[0].replace(' ', '');
-        record.subject_field = fields[1];
+        record.id = fields[0].replace(' ', '');
+        record.name = fields[1];
 
-        lessonDistribution.lecture_count = parseInt(fields[2]);
-        lessonDistribution.exercise_count = parseInt(fields[3]);
-        lessonDistribution.lab_count = parseInt(fields[4]);
-        lessonDistribution.consultation_count = parseInt(fields[5]);
-        record.subject_weekly_distribution = lessonDistribution;
+        lessonCount.lecture = parseInt(fields[2]);
+        lessonCount.practice = parseInt(fields[3]);
+        lessonCount.laboratory = parseInt(fields[4]);
+        lessonCount.consultation = parseInt(fields[5]);
+        record.lessonCount = lessonCount;
 
-        record.exam_type = fields[6];
-        record.credit_value = parseInt(fields[7]);
-        record.recommended_semesters = fields[8].split(',').map((x) => parseInt(x));
+        record.test = fields[6];
+        record.credit = parseInt(fields[7]);
+        record.semesters = fields[8].split(',').map((x) => parseInt(x));
 
         const requirementsCSVArray = fields[9].trim().split(', ');
         for (let j = 0; j < requirementsCSVArray.length; j++) {
             if (requirementsCSVArray[j] == "") continue;
             const currentRequirement = requirementsCSVArray[j];
-            let requirement = {} as RequiredSubject;
-            requirement.subject_code = currentRequirement.split('(gyenge)')[0].replace(' ', '');
-            requirement.is_weak = currentRequirement.includes('(gyenge)');
-            requirements.push(requirement);
+            let prerequisite = {} as Prerequisite;
+            prerequisite.parent = currentRequirement.split('(gyenge)')[0].replace(' ', '');
+            prerequisite.weak = currentRequirement.includes('(gyenge)');
+            prerequisites.push(prerequisite);
         }
-        record.requirements = requirements;
+        record.prerequisites = prerequisites;
 
-        record.subject_type = fields[16];
+        switch (fields[16]) {
+            case 'Inf':
+                record.field = 'informatics';
+                break;
+            case 'Szám':
+                record.field = 'computers';
+                break;
+            case 'Mat':
+                record.field = 'mathematics';
+                break;
+        }
+
         if (fields[17] == null)
-            record.specialization_ftm = '-';
-        else
-            record.specialization_ftm = fields[17];
+            record.specializations = [];
+        else {
+            if (fields[17].includes('M'))
+                record.specializations.push('A');
+            if (fields[17].includes('T'))
+                record.specializations.push('B');
+            if (fields[17].includes('F'))
+                record.specializations.push('C');
+        }
 
         data.push(record);
     }
