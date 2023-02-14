@@ -12,22 +12,10 @@ import ReactFlow, {
 } from "reactflow";
 import CustomNode from "./CustomNode";
 import SubjectNode from "./SubjectNode";
-// import data from "../../../public/data.json";
-import test from "./test.json";
-// const getSemesters: () => SubjectData[][] = () => {
-//   let semesters: SubjectData[][] = [];
-//   const semesterCount = 6;
-//   for (let i = 0; i < semesterCount; i++) {
-//     semesters.push([]);
-//   }
-//   (test as SubjectData[]).forEach((subject) => {
-//     semesters[subject.semesters[0] - 1].push(subject);
-//   });
-//   return semesters;
-// };
+import data from "../../../public/data.json";
 
-// const semesters: SubjectData[][] = getSemesters();
-const semesters: SubjectData[][] = test as SubjectData[][];
+// TODO: Make this an API request
+const semesters: SubjectData[][] = data as SubjectData[][];
 
 const nodeTypes = {
   custom: CustomNode,
@@ -44,10 +32,6 @@ function Flow() {
   const [nodes, setNodes, onNodesChange] = useNodesState([]);
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
 
-  // const [semesters, setSemesters] = useState<SubjectData[][]>(getSemesters());
-  // const semesters: SubjectData[][] = getSemesters();
-  // console.log(semesters);
-  // const semesters: SubjectData[][] = useRef(getSemesters());
   //TODO: Implement filters state
 
   useEffect(() => {
