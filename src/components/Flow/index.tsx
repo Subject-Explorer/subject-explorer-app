@@ -14,19 +14,20 @@ import CustomNode from "./CustomNode";
 import SubjectNode from "./SubjectNode";
 // import data from "../../../public/data.json";
 import test from "./test.json";
-const getSemesters: () => SubjectData[][] = () => {
-  let semesters: SubjectData[][] = [];
-  const semesterCount = 6;
-  for (let i = 0; i < semesterCount; i++) {
-    semesters.push([]);
-  }
-  (test as SubjectData[]).forEach((subject) => {
-    semesters[subject.semesters[0] - 1].push(subject);
-  });
-  return semesters;
-};
+// const getSemesters: () => SubjectData[][] = () => {
+//   let semesters: SubjectData[][] = [];
+//   const semesterCount = 6;
+//   for (let i = 0; i < semesterCount; i++) {
+//     semesters.push([]);
+//   }
+//   (test as SubjectData[]).forEach((subject) => {
+//     semesters[subject.semesters[0] - 1].push(subject);
+//   });
+//   return semesters;
+// };
 
-const semesters: SubjectData[][] = getSemesters();
+// const semesters: SubjectData[][] = getSemesters();
+const semesters: SubjectData[][] = test as SubjectData[][];
 
 const nodeTypes = {
   custom: CustomNode,
@@ -54,6 +55,12 @@ function Flow() {
     let newEdges: Edge[] = [];
     semesters.map((subjects, semesterIndex) => {
       subjects.map((subject, subjectIndex) => {
+        console.log(
+          "semesterIndex:",
+          semesterIndex,
+          "subjectIndex:",
+          subjectIndex
+        );
         newNodes.push({
           id: subject.id,
           data: subject,
@@ -68,7 +75,7 @@ function Flow() {
           subject.prerequisites.map((prerequisite) => {
             newEdges.push({
               id: `e-${prerequisite}-${subject.id}`,
-              source: prerequisite.parent,
+              source: prerequisite.id,
               target: subject.id,
             });
           });
