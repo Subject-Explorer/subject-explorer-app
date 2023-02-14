@@ -52,6 +52,8 @@ function parseSubjectsCSV(fileName: string, letter: string) {
             case 'Mat':
                 record.field = 'matematika';
                 break;
+            default:
+                record.field = 'egyéb';
         }
 
         if (fields[17] == null) {

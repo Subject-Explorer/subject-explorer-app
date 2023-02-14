@@ -10,7 +10,7 @@ export default interface SubjectData {
   field: Field;
   specializations: Specialization[];
 }
-export type Field = "informatika" | "számítástechnika" | "matematika";
+export type Field = "informatika" | "számítástechnika" | "matematika" | "egyéb";
 export type Specialization = "A" | "B" | "C";
 export type Test = "G" | "K" | "FG" | "XG" | "XFG" | "XK";
 
