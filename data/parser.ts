@@ -5,10 +5,9 @@ import SubjectData, { LessonCount, Prerequisite, Test } from '@/utils/subjectDat
 
 let alldata = [[],[],[],[],[],[]] as SubjectData[][];
 
-function parseSubjectsCSV(fileName: string) {
+function parseSubjectsCSV(fileName: string, letter: string) {
     const fileData = fs.readFileSync(fileName, 'utf8');
     const lines = fileData.trim().split('\r').slice(1);
-    let data = [] as SubjectData[];
 
     for (let i = 0; i < lines.length; i++) {
         const line = lines[i];
@@ -18,7 +17,8 @@ function parseSubjectsCSV(fileName: string) {
         let lessonCount = {} as LessonCount;
         let prerequisites = [] as Prerequisite[];
 
-        record.id = fields[0].replace(' ', '');
+        record.id = fields[0] + '_' + letter;
+        record.code = fields[0];
         record.name = fields[1];
 
         lessonCount.lecture = parseInt(fields[2]);
@@ -44,18 +44,23 @@ function parseSubjectsCSV(fileName: string) {
 
         switch (fields[16]) {
             case 'Inf':
-                record.field = 'informatics';
+                record.field = 'informatika';
                 break;
             case 'Szám':
-                record.field = 'computers';
+                record.field = 'számítástechnika';
                 break;
             case 'Mat':
-                record.field = 'mathematics';
+                record.field = 'matematika';
                 break;
         }
 
-        if (fields[17] == null)
-            record.specializations = [];
+        if (fields[17] == null) {
+            if (letter != '') {
+                record.specializations = [letter as 'A' | 'B' | 'C'];
+            } else {
+                record.specializations = ['A', 'B', 'C'];
+            }
+        }
         else {
             record.specializations = [];
             if (fields[17].includes('M'))
@@ -75,7 +80,10 @@ function parseCVSs(files: string[]) {
     for (let i = 0; i < files.length; i++) {
         const file = files[i];
         const filePath = dataDirectory + '\\' + file;
-        parseSubjectsCSV(filePath);
+        if (file[0] == 't')
+            parseSubjectsCSV(filePath, '');
+        else
+            parseSubjectsCSV(filePath, file[0]);
     }
 }
 
@@ -92,6 +100,8 @@ export default function handler(
         "C_spec_kotval.csv",
         "torzsanyag.csv",
     ];
+    alldata = [[],[],[],[],[],[]] as SubjectData[][];
     parseCVSs(filesToProcess);
+    //fs.writeFileSync('\\public\\data.json', JSON.stringify(alldata));
     res.status(200).json(alldata);
 }
