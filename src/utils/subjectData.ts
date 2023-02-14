@@ -1,5 +1,6 @@
 export default interface SubjectData {
   id: string;
+  code: string;
   name: string;
   lessonCount: LessonCount;
   test: Test;
@@ -9,7 +10,7 @@ export default interface SubjectData {
   field: Field;
   specializations: Specialization[];
 }
-export type Field = "informatics" | "computers" | "mathematics";
+export type Field = "informatika" | "számítástechnika" | "matematika";
 export type Specialization = "A" | "B" | "C";
 export type Test = "G" | "K" | "FG" | "XG" | "XFG" | "XK";
 
