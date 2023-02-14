@@ -21,10 +21,12 @@ const getSemesters: () => SubjectData[][] = () => {
     semesters.push([]);
   }
   (test as SubjectData[]).forEach((subject) => {
-    semesters[subject.semesters[0]].push(subject);
+    semesters[subject.semesters[0] - 1].push(subject);
   });
   return semesters;
 };
+
+const semesters: SubjectData[][] = getSemesters();
 
 const nodeTypes = {
   custom: CustomNode,
@@ -32,7 +34,7 @@ const nodeTypes = {
 };
 
 const defaultEdgeOptions: DefaultEdgeOptions = {
-  animated: true,
+  animated: false,
   type: "simplebezier",
   style: { stroke: "#F2A869", strokeWidth: 5 },
 };
@@ -41,7 +43,7 @@ function Flow() {
   const [nodes, setNodes, onNodesChange] = useNodesState([]);
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
 
-  const [semesters, setSemesters] = useState<SubjectData[][]>(getSemesters());
+  // const [semesters, setSemesters] = useState<SubjectData[][]>(getSemesters());
   // const semesters: SubjectData[][] = getSemesters();
   // console.log(semesters);
   // const semesters: SubjectData[][] = useRef(getSemesters());
