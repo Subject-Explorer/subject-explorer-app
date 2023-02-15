@@ -4,6 +4,8 @@ def parseCSV(fileName: str, reqU: str) -> list:
     data: list(list) = [[],[],[],[],[],[]]
 
     with open("./csv/" + fileName, mode="r", encoding="utf-8") as f:
+        SPEC = fileName[0]
+
         lines = [line.rstrip() for line in f]
 
         # remove first line
@@ -20,17 +22,17 @@ def parseCSV(fileName: str, reqU: str) -> list:
 
         # convert to SubjectData
         for line in lines:
-            id:              str                = line[0] + '_' + fileName[0] if reqU == "spec-kotval" else line[0]
-            code:            str                = line[0]
-            subjectType:     str                = reqU
-            name:            str                = line[1]
-            lessonCount:     dict               = {"lecture": int(line[2]), "practice": int(line[3]), "laboratory": int(line[4]), "consultation": int(line[5])}
-            test:            str                = line[6]
-            credit:          int                = int(line[7])
-            semesters:       list(int)          = [int(x) for x in line[8].split(",")]
-            prerequisites:   list(dict)         = []
-            field:           str                = ""
-            specializations: list(str)          = []
+            id:              str        = line[0] + '_' + SPEC if reqU == "spec-kotval" else line[0]
+            code:            str        = line[0]
+            subjectType:     str        = reqU
+            name:            str        = line[1]
+            lessonCount:     dict       = {"lecture": int(line[2]), "practice": int(line[3]), "laboratory": int(line[4]), "consultation": int(line[5])}
+            test:            str        = line[6]
+            credit:          int        = int(line[7])
+            semesters:       list(int)  = [int(x) for x in line[8].split(",")]
+            prerequisites:   list(dict) = []
+            field:           str        = ""
+            specializations: list(str)  = []
 
             # prerequisites
             preqArray: str = line[9].strip().split(', ')
@@ -53,8 +55,8 @@ def parseCSV(fileName: str, reqU: str) -> list:
 
             # specializations
             if (len(line) < 18):
-                if (reqU == "spec-kotval"): specializations = [fileName[0]];
-                else:      specializations = ['A', 'B', 'C'];
+                if (reqU == "spec-kotval"): specializations = [SPEC];
+                else:                       specializations = ['A', 'B', 'C'];
             else:
                 if ('M' in line[17]): specializations.append('A')
                 if ('T' in line[17]): specializations.append('B')
@@ -77,22 +79,23 @@ def parseCSV(fileName: str, reqU: str) -> list:
             data[semesters[0] - 1].append(subjectData)
 
         if reqU == "spec-kotval":
-            fixPrerequisites(data)
+            fixPrerequisites(data, SPEC)
 
         return data
 
 
-def fixPrerequisites(data):
+def fixPrerequisites(data, spec):
     for semester in data:
         for subject in semester:
-            #if subject["subjectType"] is not "spec-kotval": continue
             for prereq in subject["prerequisites"]:
                 for semester2 in data:
                     for subject2 in semester2:
-                        #if subject2["subjectType"] is not "spec-kotval": continue
                         if subject2["id"].split('_')[0] == prereq["id"]:
-                            prereq["id"] = subject2["code"] + "_" + subject2["specializations"][0]
-                
+                            prereq["id"] = subject2["code"] + "_" + spec
+
+def sortData(data):
+    for semester in data:
+        semester.sort(key=lambda x: (x["code"], [prereq["id"] for prereq in x["prerequisites"]], x["field"]), reverse=False)
 
 def processCSVs(filesToProcess: list((str, bool))) -> object:
     data = [[],[],[],[],[],[]]
@@ -102,7 +105,7 @@ def processCSVs(filesToProcess: list((str, bool))) -> object:
         for subarrIndex in range(len(data)):
             data[subarrIndex] = data[subarrIndex] + newarr[subarrIndex]
 
-    #fixPrerequisites(data)
+    sortData(data)
 
     return data
 
@@ -117,7 +120,7 @@ def main():
         ("C_spec_kotval.csv",   "spec-kotval")
     ]
     data = processCSVs(filesToProcess)
-    with open("data.json", "wb") as f:
+    with open("../public/data.json", "wb") as f:
         f.write(json.dumps(data, ensure_ascii=False).encode("utf8"))
 
 
