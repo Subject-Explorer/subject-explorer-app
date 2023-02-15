@@ -1,127 +1,187 @@
 import json
 
-def parseCSV(fileName: str, reqU: str) -> list:
-    data: list(list) = [[],[],[],[],[],[]]
 
-    with open("./csv/" + fileName, mode="r", encoding="utf-8") as f:
-        SPEC = fileName[0]
+def parse_csv(file_name, specialization, table_type) -> list[list[dict]]:
+    data = [[], [], [], [], [], []]
 
-        lines = [line.rstrip() for line in f]
+    with open(f"./csv/{file_name}", mode="r", encoding="utf-8") as file:
+        lines = csv_to_lines(file)
 
-        # remove first line
-        lines = lines[1:]
+    for line in lines:
+        id = get_id(line[0], specialization, table_type)
+        name = line[1]
+        lesson_count = get_lesson_count(line)
+        test = line[6]
+        credit = int(line[7])
+        semesters = get_semesters(line[8])
+        prerequisites = get_prerequisites(line[9])
+        field = get_field(line[16])
+        specializations = get_specializations(line, table_type)
 
-        # remove empty lines
-        lines = [x for x in lines if x != ""]
+        subject_data = {
+            "id": id,
+            "code": line[0],
+            "type": table_type,
+            "name": name,
+            "lessonCount": lesson_count,
+            "test": test,
+            "credit": credit,
+            "semesters": semesters,
+            "prerequisites": prerequisites,
+            "field": field,
+            "specializations": specializations
+        }
 
-        # split by semicolon
-        lines = [x.split(";") for x in lines]
+        data[semesters[0] - 1].append(subject_data)
 
-        # remove trailing spaces
-        lines = [[x.strip() for x in y] for y in lines]
-
-        # convert to SubjectData
-        for line in lines:
-            id:              str        = line[0] + '_' + SPEC if reqU == "spec-kotval" else line[0]
-            code:            str        = line[0]
-            subjectType:     str        = reqU
-            name:            str        = line[1]
-            lessonCount:     dict       = {"lecture": int(line[2]), "practice": int(line[3]), "laboratory": int(line[4]), "consultation": int(line[5])}
-            test:            str        = line[6]
-            credit:          int        = int(line[7])
-            semesters:       list(int)  = [int(x) for x in line[8].split(",")]
-            prerequisites:   list(dict) = []
-            field:           str        = ""
-            specializations: list(str)  = []
-
-            # prerequisites
-            preqArray: str = line[9].strip().split(', ')
-            for preq in preqArray:
-                if (preq == ""): continue
-                preqId: str = preq.split('(gyenge)')[0].replace(' ', '')
-                preqWeak: bool = '(gyenge)' in preq
-                prerequisites.append({"id":preqId, "weak":preqWeak})
-
-            # field
-            match line[16]:
-                case 'Inf':
-                    field = 'informatika'
-                case 'Szám':
-                    field = 'számítástechnika'
-                case 'Mat':
-                    field = 'matematika'
-                case _:
-                    field = 'egyéb'
-
-            # specializations
-            if (len(line) < 18):
-                if (reqU == "spec-kotval"): specializations = [SPEC];
-                else:                       specializations = ['A', 'B', 'C'];
-            else:
-                if ('M' in line[17]): specializations.append('A')
-                if ('T' in line[17]): specializations.append('B')
-                if ('F' in line[17]): specializations.append('C')
-
-            subjectData = {
-                "id": id, 
-                "code": code,
-                "type": subjectType,
-                "name": name,
-                "lessonCount": lessonCount,
-                "test": test,
-                "credit": credit,
-                "semesters": semesters,
-                "prerequisites": prerequisites,
-                "field": field,
-                "specializations": specializations
-            }
-            
-            data[semesters[0] - 1].append(subjectData)
-
-        if reqU == "spec-kotval":
-            fixPrerequisites(data, SPEC)
-
-        return data
-
-
-def fixPrerequisites(data, spec):
-    for semester in data:
-        for subject in semester:
-            for prereq in subject["prerequisites"]:
-                for semester2 in data:
-                    for subject2 in semester2:
-                        if subject2["id"].split('_')[0] == prereq["id"]:
-                            prereq["id"] = subject2["code"] + "_" + spec
-
-def sortData(data):
-    for semester in data:
-        semester.sort(key=lambda x: (x["code"], [prereq["id"] for prereq in x["prerequisites"]], x["field"]), reverse=False)
-
-def processCSVs(filesToProcess: list((str, bool))) -> object:
-    data = [[],[],[],[],[],[]]
-
-    for (fileName, reqU) in filesToProcess:
-        newarr = parseCSV(fileName, reqU)
-        for subarrIndex in range(len(data)):
-            data[subarrIndex] = data[subarrIndex] + newarr[subarrIndex]
-
-    sortData(data)
+    if table_type == "spec-kotval":
+        fix_prerequisites(data, specialization)
 
     return data
 
-def main():
-    filesToProcess = [ # (filename, requiresUniquification)
-        ("torzsanyag.csv",      "torzs"),
-        ("A_spec_kotelezo.csv", "spec-kot"),
-        ("A_spec_kotval.csv",   "spec-kotval"),
-        ("B_spec_kotelezo.csv", "spec-kot"),
-        ("B_spec_kotval.csv",   "spec-kotval"),
-        ("C_spec_kotelezo.csv", "spec-kot"),
-        ("C_spec_kotval.csv",   "spec-kotval")
-    ]
-    data = processCSVs(filesToProcess)
+
+def csv_to_lines(file) -> list[list[str]]:
+    lines = file.readlines()
+    # remove trailing whitespaces
+    lines = [line.strip() for line in lines]
+    # remove header
+    lines = lines[1:]
+    # remove empty lines
+    lines = [line for line in lines if line]
+    # split lines
+    lines = [line.split(";") for line in lines]
+    # remove trailing spaces
+    lines = [[item.strip() for item in line] for line in lines]
+    return lines
+
+
+def get_id(code, specialization, table_type) -> str:
+    if table_type == "spec-kotval":
+        return f"{code}_{specialization}"
+    else:
+        return code
+
+
+def get_lesson_count(line) -> dict:
+    return {
+        "lecture": int(line[2]),
+        "practice": int(line[3]),
+        "laboratory": int(line[4]),
+        "consultation": int(line[5])
+    }
+
+
+def get_semesters(semesters_str) -> list[int]:
+    return [int(semester) for semester in semesters_str.split(",")]
+
+
+def get_prerequisites(prerequisites_str) -> list[dict]:
+    prerequisites = []
+    prerequisites_raw = prerequisites_str.strip().split(", ")
+    for prerequisite in prerequisites_raw:
+        if prerequisite:
+            prerequisite_id = prerequisite.split("(gyenge)")[0].replace(" ", "")
+            weak = "(gyenge)" in prerequisite
+            prerequisites.append({"id": prerequisite_id, "weak": weak})
+    return prerequisites
+
+
+def get_field(field_str) -> str:
+    match field_str:
+        case "Inf":
+            return "informatika"
+        case "Szám":
+            return "számítástechnika"
+        case "Mat":
+            return "matematika"
+        case _:
+            return "egyéb"
+
+
+def get_specializations(line, table_type) -> list[str]:
+    specializations = []
+    if len(line) < 18:
+        if table_type == "spec-kotval":
+            specializations = [line[0]]
+        else:
+            specializations = ["A", "B", "C"]
+    else:
+        if 'M' in line[17]:
+            specializations.append('A')
+        if 'T' in line[17]:
+            specializations.append('B')
+        if 'F' in line[17]:
+            specializations.append('C')
+    return specializations
+
+
+def fix_prerequisites(data, spec) -> None:
+    subjects_dict = {}
+
+    # create a dictionary of subjects, with their IDs as keys
+    for semester in data:
+        for subject in semester:
+            subject_id = subject["id"].split('_')[0]
+            subjects_dict[subject_id] = subject
+
+    # replace prerequisite IDs with subject codes
+    for semester in data:
+        for subject in semester:
+            for prerequisite in subject["prerequisites"]:
+                prerequisite_id = prerequisite["id"]
+                if prerequisite_id in subjects_dict:
+                    prerequisite_subject = subjects_dict[prerequisite_id]
+                    prerequisite["id"] = prerequisite_subject["code"] + "_" + spec
+
+
+def get_depth(subject_id, prerequisites_dict) -> int:
+    # base case: subject has no prerequisites
+    if subject_id not in prerequisites_dict:
+        return 0
+
+    # recursive case: return depth of deepest prerequisite plus one
+    depths = []
+    for prerequisite_id in prerequisites_dict[subject_id]:
+        depths.append(get_depth(prerequisite_id, prerequisites_dict))
+    return max(depths) + 1
+
+
+def sort_data(data) -> None:
+    for semester in data:
+        semester.sort(key=lambda x: (x["code"], [prereq["id"] for prereq in x["prerequisites"]], x["field"]),
+                      reverse=False)
+
+
+def process_files(files_to_process) -> list[list[dict]]:
+    semesters = 6
+    data = [[] for _ in range(semesters)]
+    for file_name, specialization, table_type in files_to_process:
+        # parse the current file
+        new_data = parse_csv(file_name, specialization, table_type)
+        # merge the new data of the current file with the existing data
+        data = [semester_data + new_semester_data for semester_data, new_semester_data in zip(data, new_data)]
+    return data
+
+
+def save_data(data) -> None:
     with open("../public/data.json", "wb") as f:
         f.write(json.dumps(data, ensure_ascii=False).encode("utf8"))
+
+
+def main():
+    files_to_process = [
+        # (filename, specialization, table_type)
+        ("torzsanyag.csv", "", "torzs"),
+        ("A_spec_kotelezo.csv", "A", "spec-kot"),
+        ("A_spec_kotval.csv", "A", "spec-kotval"),
+        ("B_spec_kotelezo.csv", "B", "spec-kot"),
+        ("B_spec_kotval.csv", "B", "spec-kotval"),
+        ("C_spec_kotelezo.csv", "C", "spec-kot"),
+        ("C_spec_kotval.csv", "C", "spec-kotval")
+    ]
+    data = process_files(files_to_process)
+    sort_data(data)
+    save_data(data)
 
 
 if __name__ == "__main__":
