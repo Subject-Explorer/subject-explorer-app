@@ -48,6 +48,8 @@ def parseCSV(fileName: str, reqU: str) -> list:
                     field = 'számítástechnika'
                 case 'Mat':
                     field = 'matematika'
+                case _:
+                    field = 'egyéb'
 
             # specializations
             if (len(line) < 18):
