@@ -37,7 +37,8 @@ const SubjectNode: FC<NodeProps> = ({ data, xPos, yPos }: Props) => {
           <SparklesIcon className='h-5 w-5' /> {subject.credit} kredit
         </div>
         <div className='flex flex-nowrap gap-2 font-semibold items-center'>
-          <BookOpenIcon className='h-5 w-5' /> {subject.field}
+          <BookOpenIcon className='h-5 w-5' />{" "}
+          {subject.field.charAt(0).toUpperCase() + subject.field.slice(1)}
         </div>
 
         {open && (

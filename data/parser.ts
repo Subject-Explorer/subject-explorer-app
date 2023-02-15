@@ -6,8 +6,16 @@ import SubjectData, { LessonCount, Prerequisite, Test } from '@/utils/subjectDat
 let alldata = [[],[],[],[],[],[]] as SubjectData[][];
 
 function parseSubjectsCSV(fileName: string, letter: string) {
+    // read the file
     const fileData = fs.readFileSync(fileName, 'utf8');
+    
+    // split the file into lines, remove the first line (header)
     const lines = fileData.trim().split('\r').slice(1);
+
+    /*
+    TODO:
+    minden kötválnak aminek kötvál a prerequisitje, annak a prerequisitjét írjuk át _A _B _C-re
+    */
 
     for (let i = 0; i < lines.length; i++) {
         const line = lines[i];

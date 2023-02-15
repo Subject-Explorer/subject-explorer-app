@@ -52,7 +52,7 @@ function Flow() {
           //TODO: Handle soft prerequisites
           subject.prerequisites.map((prerequisite) => {
             newEdges.push({
-              id: `e-${prerequisite}-${subject.id}`,
+              id: `e-${prerequisite.id}-${subject.id}`,
               source: prerequisite.id,
               target: subject.id,
             });
