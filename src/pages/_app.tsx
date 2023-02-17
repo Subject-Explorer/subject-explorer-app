@@ -14,7 +14,7 @@ const theme = createTheme({
             primaryLightHover: '$green300',
             primaryLightActive: '$green400',
             primaryLightContrast: '$green600',
-            // primary: '#4ADE7B',
+            primary: '#4ADE7B',
             primaryBorder: '$green500',
             primaryBorderHover: '$green600',
             primarySolidHover: '$green700',
@@ -26,17 +26,18 @@ const theme = createTheme({
              */
 
             // custom colors
-            primary_dark: '#191919',
-            primary: '#3D3D3D',
-            primary_light: '#5F5F5F',
-            accent_dark: '#263236',
-            accent: '#C4E2EC',
-            accent_light: '#FFFFFF',
-            inactive: '#BDBDBD',
-            highlight_A: '#C0F48B',
-            highlight_B: '#FFDC84',
-            highlight_C: '#FFA98E',
-            highlight_favorite: '#F4CF0B',
+            "primary-dark": '$primary-dark',
+            primary: '$primary',
+            "primary-light": '$primary-light',
+            "primary-inactive": '$primary-inactive',
+            "accent-dark": '$accent-dark',
+            accent: '$accent',
+            "accent-light": '$accent-light',
+            "accent-inactive": '$accent-inactive',
+            "highlight-a": '$highlight-a',
+            "highlight-b": '$highlight-b',
+            "highlight-c": '$highlight-c',
+            "highlight-favorite": '$highlight-favorite'
         },
         space: {},
         fonts: {}

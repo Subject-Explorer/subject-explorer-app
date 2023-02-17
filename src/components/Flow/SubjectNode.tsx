@@ -3,10 +3,8 @@ import {
   BookOpenIcon,
   ChevronDownIcon,
   ChevronUpIcon,
-  EllipsisHorizontalCircleIcon,
   SparklesIcon,
   StarIcon,
-  XCircleIcon,
 } from "@heroicons/react/20/solid";
 import { memo, FC, useState } from "react";
 import { Handle, Position, NodeProps } from "reactflow";
@@ -17,7 +15,7 @@ interface Props {
   yPos: number;
 }
 
-const SubjectNode: FC<NodeProps> = ({ data, xPos, yPos }: Props) => {
+const SubjectNode: FC<NodeProps> = ({ data}: Props) => {
   const subject = data; // For readability purposes
 
   const [open, setOpen] = useState<boolean>(false);
@@ -26,9 +24,9 @@ const SubjectNode: FC<NodeProps> = ({ data, xPos, yPos }: Props) => {
     <>
       <div
         className={`${
-          favorite ? "border-favorite border-2" : "border-grey-dark border-2"
+          favorite ? "border-highlight-favorite border-2" : "border-accent-dark border-2"
         }
-         p-5 bg-grey-dark rounded-2xl w-72 shadow-md transition-all duration-200 ease-in-out`}
+         p-5 bg-accent-dark rounded-2xl w-72 shadow-md transition-all duration-200 ease-in-out`}
       >
         <div className='text-sm text-subject-code'>{subject.id}</div>
         <div className='text-xl font-bold'>{subject.name}</div>
@@ -57,12 +55,12 @@ const SubjectNode: FC<NodeProps> = ({ data, xPos, yPos }: Props) => {
           {subject.specializations.map((spec, index) => (
             <div
               key={index}
-              className={`w-10 h-10 text-lg text-grey-darker font-bold flex justify-center items-center rounded-md ${
+              className={`w-10 h-10 text-lg text-primary-dark font-bold flex justify-center items-center rounded-md ${
                 spec === "A"
-                  ? "bg-accent-dark"
+                  ? "bg-highlight-a"
                   : spec === "B"
-                  ? "bg-accent"
-                  : "bg-accent-lighter"
+                  ? "bg-highlight-b"
+                  : "bg-highlight-c"
               }`}
             >
               {spec}
@@ -91,12 +89,12 @@ const SubjectNode: FC<NodeProps> = ({ data, xPos, yPos }: Props) => {
           onClick={() => setFavorite(!favorite)}
         >
           <StarIcon
-            className={`h-6 w-6 absolute transition-opacity duration-200 ease-in-out text-favorite ${
+            className={`h-6 w-6 absolute transition-opacity duration-200 ease-in-out text-highlight-favorite ${
               favorite ? "opacity-100" : "opacity-0"
             }`}
           />
           <StarIconOutline
-            className={`h-6 w-6 transition-opacity duration-200 ease-in-out text-white ${
+            className={`h-6 w-6 transition-opacity duration-200 ease-in-out text-primary-light ${
               !favorite ? "opacity-100" : "opacity-0"
             }`}
           />
