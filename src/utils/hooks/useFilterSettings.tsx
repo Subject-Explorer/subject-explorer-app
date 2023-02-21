@@ -30,7 +30,7 @@ interface Props {
 const FilterSettingsProvider = ({ children }: Props) => {
   const [settings, updateSettings] = useState<Settings>({
     query: "",
-    fields: ["mathematics", "informatics", "computers"],
+    fields: ["matematika", "informatika", "számítástechnika"],
     specializations: ["A", "B", "C"],
   });
 

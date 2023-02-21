@@ -1,13 +1,10 @@
 import SubjectData from "@/utils/subjectData";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect} from "react";
 import ReactFlow, {
   Node,
   useNodesState,
   useEdgesState,
-  addEdge,
-  Connection,
   Edge,
-  ConnectionLineType,
   DefaultEdgeOptions,
 } from "reactflow";
 import CustomNode from "./CustomNode";
@@ -70,7 +67,7 @@ function Flow() {
   // );
 
   return (
-    <div className='flex-grow bg-grey-darker stroke-modeler'>
+    <div className='flex-grow bg-primary-darker stroke-modeler'>
       <ReactFlow
         nodes={nodes}
         onNodesChange={onNodesChange}

@@ -40,7 +40,7 @@ export default function SpecializationPopoverPanel() {
   };
 
   return (
-    <div className='mx-auto w-full max-w-md bg-grey rounded-lg p-2 flex flex-col gap-2 shadow-lg'>
+    <div className='mx-auto w-full max-w-md bg-primary rounded-lg p-2 flex flex-col gap-2 shadow-lg'>
       {specializationOptions.map((option, index) => (
         <button
           key={index}
@@ -49,13 +49,13 @@ export default function SpecializationPopoverPanel() {
                   ${
                     selected.includes(option.id)
                       ? option.id === "A"
-                        ? "bg-accent-dark"
+                        ? "bg-highlight-a"
                         : option.id === "B"
-                        ? "bg-accent"
-                        : "bg-accent-lighter"
-                      : "bg-grey-dark"
+                        ? "bg-highlight-b"
+                        : "bg-highlight-c"
+                      : "bg-primary-dark"
                   }
-                  ${selected.includes(option.id) && " text-grey-darker"}
+                  ${selected.includes(option.id) && " text-primary-dark"}
                     relative flex cursor-pointer rounded-lg px-5 py-2 min-h-[40px] shadow-md focus:outline-none w-full transition-colors duration-150 ease-in-out`}
         >
           <div className='flex w-full items-center justify-start gap-4'>

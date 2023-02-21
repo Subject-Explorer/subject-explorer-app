@@ -8,7 +8,7 @@ export default function SearchBar() {
       <input
         type='text'
         id='query'
-        className='bg-grey-dark border-none h-max text-grey-light text-sm rounded-lg p-2 pl-9 placeholder-grey-light focus:ring-accent-dark focus:border-accent-dark flex-grow font-medium'
+        className='bg-primary-dark border-none h-max text-grey-light text-sm rounded-lg p-2 pl-9 placeholder-grey-light focus:ring-accent-dark focus:border-accent-dark flex-grow font-medium'
         placeholder='Search'
         required
       />
