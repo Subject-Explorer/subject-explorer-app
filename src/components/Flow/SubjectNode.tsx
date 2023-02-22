@@ -32,13 +32,13 @@ const SubjectNode: FC<NodeProps> = ({data}: Props) => {
       <>
         <div
             className={`${
-                favorite ? "border-highlight-favorite border-2" : "border-accent-dark border-2"
+                favorite ? "border-highlight-favorite border-2" : "border-primary-dark border-2"
             }
-                p-6 bg-accent-dark rounded-lg w-[280px] shadow-md transition-all duration-200 ease-in-out`}
+                p-6 bg-primary-dark rounded-lg w-[280px] shadow-md transition-all duration-200 ease-in-out`}
         >
-          <div className='text-xs text-primary-inactive'>{subject.id}</div>
+          <div className='text-xs text-neutral-inactive'>{subject.id}</div>
           <div className='text-2xl font-bold' style={spaceGrotesk.style}>{subject.name}</div>
-          <hr className='my-2 w-full h-px text-accent-light'/>
+          <hr className='my-2 w-full h-px text-primary-light'/>
           <div className='flex flex-col flex-nowrap gap-1 text-sm font-light items-start'>
             <div className='flex flex-nowrap gap-2 items-center'>
               <SparklesIcon className='h-5 w-5'/> {subject.credit} kredit
@@ -51,13 +51,13 @@ const SubjectNode: FC<NodeProps> = ({data}: Props) => {
 
           {open && (
               <div className='flex flex-col gap-1 text-sm font-light'>
-                <hr className='my-2 w-full h-px text-accent-light'/>
+                <hr className='my-2 w-full h-px text-primary-light'/>
                 <div>Előadás: {subject.lessonCount.lecture}</div>
                 <div>Labor: {subject.lessonCount.laboratory}</div>
                 <div>Gyakorlat: {subject.lessonCount.practice}</div>
                 <div>Konzultáció: {subject.lessonCount.consultation}</div>
                 <div>Számonkérés: {subject.test}</div>
-                <hr className='my-2 w-full h-px text-accent-light'/>
+                <hr className='my-2 w-full h-px text-primary-light'/>
               </div>
           )}
 
@@ -66,7 +66,7 @@ const SubjectNode: FC<NodeProps> = ({data}: Props) => {
                 <>
                   <div
                       key={index}
-                      className={`w-10 h-10 text-[20px] text-primary-dark font-bold flex justify-center items-center rounded-md ${
+                      className={`w-10 h-10 text-[20px] text-neutral-dark font-bold flex justify-center items-center rounded-md ${
                           spec === "A"
                               ? "bg-highlight-a"
                               : spec === "B"
@@ -106,7 +106,7 @@ const SubjectNode: FC<NodeProps> = ({data}: Props) => {
                 }`}
             />
             <StarIconOutline
-                className={`h-6 w-6 transition-opacity duration-200 ease-in-out text-primary-light ${
+                className={`h-6 w-6 transition-opacity duration-200 ease-in-out text-neutral-light ${
                     !favorite ? "opacity-100" : "opacity-0"
                 }`}
             />

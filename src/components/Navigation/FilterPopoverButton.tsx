@@ -1,5 +1,5 @@
 import { Popover, Transition } from "@headlessui/react";
-import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/20/solid";
+import { ChevronDownIcon} from "@heroicons/react/20/solid";
 import { Fragment } from "react";
 
 interface Props {
@@ -15,7 +15,7 @@ export default function FilterPopoverButton({ label, panel }: Props) {
           <Popover.Button
             className={`
                 ${open ? "" : "text-opacity-90"}
-                ${open ? "bg-accent-dark text-white" : "bg-transparent "}
+                ${open ? "bg-primary-dark text-neutral-inactive" : "bg-transparent "}
                 group transition-all inline-flex items-center justify-center rounded-md px-3 py-2 text-base font-medium hover:text-opacity-100 focus:outline-none bg-opacity-90 hover:bg-opacity-100 min-w-[145px]`}
           >
             <span>{label}</span>
