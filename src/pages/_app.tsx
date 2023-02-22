@@ -1,5 +1,5 @@
 import "@/styles/globals.css";
-import type {AppProps} from "next/app";
+import type { AppProps } from "next/app";
 import "reactflow/dist/style.css";
 import {Sora} from "@next/font/google";
 

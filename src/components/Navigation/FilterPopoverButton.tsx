@@ -1,5 +1,5 @@
 import { Popover, Transition } from "@headlessui/react";
-import { ChevronDownIcon} from "@heroicons/react/20/solid";
+import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import { Fragment } from "react";
 
 interface Props {

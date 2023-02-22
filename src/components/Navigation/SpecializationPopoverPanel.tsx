@@ -1,43 +1,42 @@
-import {useFilterSettings} from "@/utils/hooks/useFilterSettings";
-import {Specialization} from "@/utils/subjectData";
-import React, {useEffect, useState} from "react";
+import { useFilterSettings } from "@/utils/hooks/useFilterSettings";
+import { Specialization } from "@/utils/subjectData";
+import React, { useEffect, useState } from "react";
 
 interface SpecOption {
-    id: Specialization;
-    label: string;
+  id: Specialization;
+  label: string;
 }
 
 const specializationOptions: SpecOption[] = [
-    {
-        id: "A",
-        label: "Modellező",
-    },
-    {
-        id: "B",
-        label: "Tervező",
-    },
-    {
-        id: "C",
-        label: "Fejlesztő",
-    },
+  {
+    id: "A",
+    label: "Modellező",
+  },
+  {
+    id: "B",
+    label: "Tervező",
+  },
+  {
+    id: "C",
+    label: "Fejlesztő",
+  },
 ];
 
 export default function SpecializationPopoverPanel() {
-    const {settings, setSettings} = useFilterSettings();
-    const [selected, setSelected] = useState(settings.specializations);
+  const { settings, setSettings } = useFilterSettings();
+  const [selected, setSelected] = useState(settings.specializations);
 
-    useEffect(() => {
-        setSettings({specializations: selected});
-    }, [selected, setSettings]);
+  useEffect(() => {
+    setSettings({ specializations: selected });
+  }, [selected, setSettings]);
 
-    const handleSelectedChange = (id: Specialization) => {
-        let newSelected = selected;
-        newSelected.includes(id)
-            ? newSelected.splice(newSelected.indexOf(id), 1)
-            : newSelected.push(id);
-        setSelected(newSelected);
-        console.log(selected);
-    };
+  const handleSelectedChange = (id: Specialization) => {
+    let newSelected = selected;
+    newSelected.includes(id)
+      ? newSelected.splice(newSelected.indexOf(id), 1)
+      : newSelected.push(id);
+    setSelected(newSelected);
+  };
 
     return (
         <div className='mx-auto w-full max-w-md bg-neutral rounded-lg p-2 flex flex-col gap-2 shadow-lg'>
@@ -85,7 +84,7 @@ export default function SpecializationPopoverPanel() {
 }
 
 interface CheckIconProps {
-    showTick: boolean;
+  showTick: boolean;
 }
 
 function CheckIcon({showTick}: CheckIconProps) {

@@ -1,42 +1,42 @@
-import {useFilterSettings} from "@/utils/hooks/useFilterSettings";
-import {Field} from "@/utils/subjectData";
-import React, {useEffect, useState} from "react";
+import { useFilterSettings } from "@/utils/hooks/useFilterSettings";
+import { Field } from "@/utils/subjectData";
+import React, { useEffect, useState } from "react";
 
 interface SpecOption {
-    id: Field;
-    label: string;
+  id: Field;
+  label: string;
 }
 
 const specializationOptions: SpecOption[] = [
-    {
-        id: "matematika",
-        label: "Matematika",
-    },
-    {
-        id: "informatika",
-        label: "Informatika",
-    },
-    {
-        id: "számítástechnika",
-        label: "Számítástechnika",
-    },
+  {
+    id: "matematika",
+    label: "Matematika",
+  },
+  {
+    id: "informatika",
+    label: "Informatika",
+  },
+  {
+    id: "számítástechnika",
+    label: "Számítástechnika",
+  },
 ];
 
 export default function SpecializationPopoverPanel() {
-    const {settings, setSettings} = useFilterSettings();
-    const [selected, setSelected] = useState(settings.fields);
+  const { settings, setSettings } = useFilterSettings();
+  const [selected, setSelected] = useState(settings.fields);
 
-    useEffect(() => {
-        setSettings({fields: selected});
-    }, [selected, setSettings]);
+  useEffect(() => {
+    setSettings({ fields: selected });
+  }, [selected, setSettings]);
 
-    const handleSelectedChange = (id: Field) => {
-        let newSelected = selected;
-        newSelected.includes(id)
-            ? newSelected.splice(newSelected.indexOf(id), 1)
-            : newSelected.push(id);
-        setSelected(newSelected);
-    };
+  const handleSelectedChange = (id: Field) => {
+    let newSelected = selected;
+    newSelected.includes(id)
+      ? newSelected.splice(newSelected.indexOf(id), 1)
+      : newSelected.push(id);
+    setSelected(newSelected);
+  };
 
     return (
         <div className='mx-auto w-full max-w-md bg-neutral-light rounded-lg p-2 flex flex-col gap-2 shadow-lg'>
@@ -75,7 +75,7 @@ export default function SpecializationPopoverPanel() {
 }
 
 interface CheckIconProps {
-    showTick: boolean;
+  showTick: boolean;
 }
 
 function CheckIcon({showTick}: CheckIconProps) {
