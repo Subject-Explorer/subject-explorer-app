@@ -58,9 +58,9 @@ export default function SpecializationPopoverPanel() {
                             <CheckIcon showTick={selected.includes(option.id)}/>
                         </div>
                         <div className='flex items-center'>
-                            <div className={`text-sm font-semibold ${
+                            <div className={`text-sm ${
                                 selected.includes(option.id)
-                                    ? "text-neutral-dark"
+                                    ? "text-neutral-dark font-semibold"
                                     : "text-neutral-inactive"
                             } `}
                             >

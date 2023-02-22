@@ -12,12 +12,6 @@ module.exports = {
     theme: {
         extend: {
             colors: {
-                blue: "#1fb6ff",
-                purple: "#7e5bef",
-                pink: "#ff49db",
-                orange: "#ff7849",
-                green: "#13ce66",
-
                 "neutral-dark": '#191919',
                 neutral: '#3D3D3D',
                 "neutral-light": '#5F5F5F',
@@ -31,6 +25,9 @@ module.exports = {
                 "highlight-c": '#FFA98E',
                 "highlight-favorite": '#F4CF0B'
             },
+            fontSize: {
+                'base': '0.9rem',
+            }
         },
     },
     plugins: [],

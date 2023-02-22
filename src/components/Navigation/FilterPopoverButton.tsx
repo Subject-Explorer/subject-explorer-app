@@ -16,7 +16,7 @@ export default function FilterPopoverButton({ label, panel }: Props) {
             className={`
                 ${open ? "" : "text-opacity-90"}
                 ${open ? "bg-primary-dark text-neutral-inactive" : "bg-transparent "}
-                group transition-all inline-flex items-center justify-center rounded-md px-3 py-2 text-base font-medium hover:text-opacity-100 focus:outline-none bg-opacity-90 hover:bg-opacity-100 min-w-[145px]`}
+                group transition-all inline-flex items-center justify-center rounded-md px-3 py-2 text-base font-light hover:text-opacity-100 focus:outline-none bg-opacity-90 hover:bg-opacity-100 min-w-[145px]`}
           >
             <span>{label}</span>
 
