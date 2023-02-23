@@ -8,7 +8,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
   return (
-    <div className='h-full flex flex-col'>
+    <div className="flex h-full flex-col">
       <Metadata />
       <FilterSettingsProvider>
         <NavBar />
