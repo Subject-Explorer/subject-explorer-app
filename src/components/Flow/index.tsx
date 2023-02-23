@@ -45,13 +45,13 @@ function Flow() {
           },
           type: "subject",
         });
-        if (subject.prerequisites.length > 0) {
+        if (subject.children.length > 0) {
           //TODO: Handle soft prerequisites
-          subject.prerequisites.map((prerequisite) => {
+          subject.children.map((child) => {
             newEdges.push({
-              id: `e-${prerequisite.id}-${subject.id}`,
-              source: prerequisite.id,
-              target: subject.id,
+              id: `e-${subject.id}-${child}`,
+              source: subject.id,
+              target: child,
             });
           });
         }
