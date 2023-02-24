@@ -1,13 +1,12 @@
 import json
 
-def parse_csv(file_name, specialization, table_type) -> list[dict]:
+def parse_csv(file_name, table_type) -> list[dict]:
     data = []
 
     with open(f"./csv/{file_name}", mode="r", encoding="utf-8") as file:
         lines = csv_to_lines(file)
 
     for line in lines:
-        #id = get_id(line[0], specialization, table_type)
         name = line[1]
         lesson_count = get_lesson_count(line)
         test = line[6]
@@ -18,7 +17,6 @@ def parse_csv(file_name, specialization, table_type) -> list[dict]:
         specializations = get_specializations(line, table_type)
 
         subject_data = {
-            #"id": id,
             "code": line[0],
             "type": table_type,
             "name": name,
@@ -41,9 +39,6 @@ def parse_csv(file_name, specialization, table_type) -> list[dict]:
 
         data.append(subject_data)
 
-    #if table_type == "spec-kotval":
-    #    fix_prerequisites(data, specialization)
-
     return data
 
 
@@ -60,12 +55,6 @@ def csv_to_lines(file) -> list[list[str]]:
     # remove trailing spaces
     lines = [[item.strip() for item in line] for line in lines]
     return lines
-
-def get_id(code, specialization, table_type) -> str:
-    if table_type == "spec-kotval":
-        return f"{code}_{specialization}"
-    else:
-        return code
 
 def get_lesson_count(line) -> dict:
     return {
@@ -115,24 +104,6 @@ def get_specializations(line, table_type) -> list[str]:
             specializations.append('C')
     return specializations
 
-def fix_prerequisites(data, spec) -> None:
-    subjects_dict = {}
-
-    # create a dictionary of subjects, with their IDs as keys
-    for semester in data:
-        for subject in semester:
-            subject_id = subject["id"].split('_')[0]
-            subjects_dict[subject_id] = subject
-
-    # replace prerequisite IDs with subject codes
-    for semester in data:
-        for subject in semester:
-            for prerequisite in subject["prerequisites"]:
-                prerequisite_id = prerequisite["id"]
-                if prerequisite_id in subjects_dict:
-                    prerequisite_subject = subjects_dict[prerequisite_id]
-                    prerequisite["id"] = prerequisite_subject["code"] + "_" + spec
-
 def get_depth(subject_id, prerequisites_dict) -> int:
     # base case: subject has no prerequisites
     if subject_id not in prerequisites_dict:
@@ -143,10 +114,6 @@ def get_depth(subject_id, prerequisites_dict) -> int:
     for prerequisite_id in prerequisites_dict[subject_id]:
         depths.append(get_depth(prerequisite_id, prerequisites_dict))
     return max(depths) + 1
-
-def sort_data(data) -> None:
-    for semester in data:
-        semester.sort(key=lambda x: (x["code"], [prereq["id"] for prereq in x["prerequisites"]], x["field"]), reverse=False)
 
 def map_parents_as_children(subject_data_list):
     # Create a dictionary to map each subject data ID to its children IDs and siblings' IDs.
@@ -170,65 +137,10 @@ def process_files(files_to_process) -> list[dict]:
     data = []
     for file_name, specialization, table_type in files_to_process:
         # parse the current file
-        new_data = parse_csv(file_name, specialization, table_type)
+        new_data = parse_csv(file_name, table_type)
         data.extend(new_data)
 
-    """# iterate through the semesters and fill the children fields based on prerequisites
-    children_dict = {}
-    for subject in data:
-        for prerequisite in subject["prerequisites"]:
-            children_dict[prerequisite["id"]].append({
-                "code": subject["code"],
-                "spec": subject["specializations"],
-                "weak": prerequisite["weak"]
-            })
-
-    print(children_dict)
-
-    for subject in data:
-        subject["children"] = []
-        subject["siblings"] = []
-        for childObject in children_dict[subject["code"]]:
-            if childObject["weak"]:
-                subject["siblings"].append(childObject["code"])
-            else:
-                subject["children"].append({"code": childObject["code"], "type": childObject["spec"]})"""
     return data
-
-def transform_nodes(nodes): # to be deleted
-    """
-    Given a 2D array of nodes where each node is a dictionary containing
-    its parents' IDs, removes the parents' IDs and adds the children's IDs
-    to each node instead.
-
-    Args:
-        nodes: A 2D array of nodes, where each node is a dictionary containing
-            its parents' IDs.
-
-    Returns:
-        A 2D array of nodes, where each node is a dictionary containing its
-        children's IDs.
-    """
-    # Create a dictionary to map each node ID to its children IDs.
-    child_map = {}
-    for node in nodes:
-        node_id = node['id']
-        parent_ids = node.pop('parent_ids', [])
-        for parent_id in parent_ids:
-            if parent_id in child_map:
-                child_map[parent_id].append(node_id)
-            else:
-                child_map[parent_id] = [node_id]
-
-    # Add the children's IDs to each node.
-    for node in nodes:
-        node_id = node['id']
-        if node_id in child_map:
-            node['child_ids'] = child_map[node_id]
-        else:
-            node['child_ids'] = []
-
-    return nodes
 
 def save_data(data) -> None:
     with open("../public/data.json", "wb") as f:
