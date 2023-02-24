@@ -24,7 +24,7 @@ export default function SettingGroup({ label, checkboxes, onChange }: Props) {
               key={checkbox.value}
               name={checkbox.label}
               value={checkbox.value}
-              className="mr-2 cursor-pointer rounded-sm bg-transparent text-accent-dark transition-all duration-150 checked:bg-accent"
+              className="mr-2 cursor-pointer rounded-sm bg-transparent text-accent-dark transition-all duration-150 checked:bg-accent-dark"
             />
             <span>{checkbox.label}</span>
           </label>
