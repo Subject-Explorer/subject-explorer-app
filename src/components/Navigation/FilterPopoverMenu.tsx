@@ -1,88 +1,25 @@
+import { useFilterSettings } from "@/utils/hooks/useFilterSettings";
 import { Transition } from "@headlessui/react";
 import React, { Fragment } from "react";
-import SettingGroup, { ICheckbox } from "../Settings/SettingGroup";
+import CheckboxGroup from "../Settings/CheckboxGroup";
 interface Props {
   open: boolean;
 }
 
-const fieldChecks: ICheckbox[] = [
-  {
-    value: "matematika",
-    label: "Matematika",
-    checked: true,
-  },
-  {
-    value: "számítástechnika",
-    label: "Számítástechnika",
-    checked: true,
-  },
-  {
-    value: "informatika",
-    label: "Informatika",
-    checked: true,
-  },
-];
-const specChecks: ICheckbox[] = [
-  {
-    value: "A",
-    label: "Modellező (A)",
-    checked: true,
-  },
-  {
-    value: "B",
-    label: "Tervező (B)",
-    checked: true,
-  },
-  {
-    value: "C",
-    label: "Fejlesztő (C)",
-    checked: true,
-  },
-];
-const testChecks: ICheckbox[] = [
-  {
-    value: "G",
-    label: "G",
-    checked: true,
-  },
-  {
-    value: "K",
-    label: "K",
-    checked: true,
-  },
-  {
-    value: "FG",
-    label: "FG",
-    checked: true,
-  },
-  {
-    value: "XG",
-    label: "XG",
-    checked: true,
-  },
-  {
-    value: "XFG",
-    label: "XFG",
-    checked: true,
-  },
-  {
-    value: "XK",
-    label: "XK",
-    checked: true,
-  },
-];
 export default function FilterPopoverMenu({ open }: Props) {
+  const { settings, setSettings } = useFilterSettings();
+
   const handleFieldCheckChange = (value: string) => {
-    //TODO: Impelment function
+    //TODO: Implement function
   };
   const handleSpecCheckChange = (value: string) => {
-    //TODO: Impelment function
+    //TODO: Implement function
   };
   const handleTestCheckChange = (value: string) => {
-    //TODO: Impelment function
+    //TODO: Implement function
   };
   const handleSubjectTypeCheckChange = (value: string) => {
-    //TODO: Impelment function
+    //TODO: Implement function
   };
   return (
     <Transition
@@ -97,19 +34,19 @@ export default function FilterPopoverMenu({ open }: Props) {
     >
       <div className="absolute left-1/2 top-full z-10 min-w-[200px] max-w-xl -translate-x-1/2 transform px-4 sm:px-0">
         <div className="mx-auto flex w-full max-w-2xl flex-wrap gap-8 rounded-lg bg-primary py-4 px-8 shadow-lg">
-          <SettingGroup
+          <CheckboxGroup
             label="Ismeretkör"
-            checkboxes={fieldChecks}
+            checkboxes={settings.fields}
             onChange={handleFieldCheckChange}
           />
-          <SettingGroup
+          <CheckboxGroup
             label="Specializáció"
-            checkboxes={specChecks}
+            checkboxes={settings.specializations}
             onChange={handleSpecCheckChange}
           />
-          <SettingGroup
+          <CheckboxGroup
             label="Számonkérés"
-            checkboxes={testChecks}
+            checkboxes={settings.tests}
             onChange={handleTestCheckChange}
           />
         </div>
