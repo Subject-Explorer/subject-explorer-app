@@ -1,6 +1,21 @@
 import json
+from typing import NamedTuple
 
-def parse_csv(file_name, table_type) -> list[dict]:
+class SubjectData(NamedTuple):
+    code: str
+    type: str
+    name: str
+    lessonCount: dict
+    test: str
+    credit: int
+    semesters: list[int]
+    prerequisites: list[dict]
+    children: list[str]
+    children_specializations: list[str]
+    field: str
+    specializations: list[str]
+
+def parse_csv(file_name:str, table_type:str) -> list[SubjectData]:
     data = []
 
     with open(f"./csv/{file_name}", mode="r", encoding="utf-8") as file:
@@ -24,8 +39,9 @@ def parse_csv(file_name, table_type) -> list[dict]:
             "test": test,
             "credit": credit,
             "semesters": semesters,
-            "prerequisites": prerequisites,
+            "prerequisites": prerequisites, # later removed
             "children": [],
+            "children_specializations": [],
             "field": field,
             "specializations": specializations
         }
@@ -41,7 +57,6 @@ def parse_csv(file_name, table_type) -> list[dict]:
 
     return data
 
-
 def csv_to_lines(file) -> list[list[str]]:
     lines = file.readlines()
     # remove trailing whitespaces
@@ -56,7 +71,7 @@ def csv_to_lines(file) -> list[list[str]]:
     lines = [[item.strip() for item in line] for line in lines]
     return lines
 
-def get_lesson_count(line) -> dict:
+def get_lesson_count(line:str) -> dict:
     return {
         "lecture": int(line[2]),
         "practice": int(line[3]),
@@ -64,10 +79,10 @@ def get_lesson_count(line) -> dict:
         "consultation": int(line[5])
     }
 
-def get_semesters(semesters_str) -> list[int]:
+def get_semesters(semesters_str:str) -> list[int]:
     return [int(semester) for semester in semesters_str.split(",")]
 
-def get_prerequisites(prerequisites_str) -> list[dict]:
+def get_prerequisites(prerequisites_str:str) -> list[dict]:
     prerequisites = []
     prerequisites_raw = prerequisites_str.strip().split(", ")
     for prerequisite in prerequisites_raw:
@@ -77,7 +92,7 @@ def get_prerequisites(prerequisites_str) -> list[dict]:
             prerequisites.append({"id": prerequisite_id, "weak": weak})
     return prerequisites
 
-def get_field(field_str) -> str:
+def get_field(field_str: str) -> str:
     match field_str:
         case "Inf":
             return "informatika"
@@ -88,7 +103,7 @@ def get_field(field_str) -> str:
         case _:
             return "egyéb"
 
-def get_specializations(line, table_type) -> list[str]:
+def get_specializations(line:list[str], table_type:str) -> list[str]:
     specializations = []
     if len(line) < 18:
         if table_type == "spec-kotval":
@@ -104,7 +119,7 @@ def get_specializations(line, table_type) -> list[str]:
             specializations.append('C')
     return specializations
 
-def get_depth(subject_id, prerequisites_dict) -> int:
+def get_depth(subject_id:str, prerequisites_dict:dict) -> int:
     # base case: subject has no prerequisites
     if subject_id not in prerequisites_dict:
         return 0
@@ -115,7 +130,13 @@ def get_depth(subject_id, prerequisites_dict) -> int:
         depths.append(get_depth(prerequisite_id, prerequisites_dict))
     return max(depths) + 1
 
-def map_parents_as_children(subject_data_list):
+def flatten(l:list[list]) -> list:
+    return [item for sublist in l for item in sublist]
+
+def map_parents_as_children(subject_data_list:list[SubjectData]) -> list[SubjectData]:
+    # - Fills the children field of each subject data with the IDs of its children.
+    # - Also fills the children_specializations field of each subject data with the specializations of its children.
+
     # Create a dictionary to map each subject data ID to its children IDs and siblings' IDs.
     child_map = {}
     for subject_data in subject_data_list:
@@ -129,38 +150,45 @@ def map_parents_as_children(subject_data_list):
 
     # Add the children's IDs to each subject data.
     for subject_data in subject_data_list:
-        subject_data['children'] = child_map.get(subject_data['code'], [])
+        subject_data['children'] = [child["code"] for child in child_map.get(subject_data['code'], [])]
+        subject_data['children_specializations'] = list(set(flatten([child["specializations"] for child in child_map.get(subject_data['code'], [])])))
 
     return subject_data_list
 
-def process_files(files_to_process) -> list[dict]:
+def tree_sort_data(subject_data_list:list[SubjectData]) -> list[list[SubjectData]]:
+    # TODO sort
+    return subject_data_list
+
+def process_files(files_to_process:list[tuple]) -> list[SubjectData]:
     data = []
-    for file_name, specialization, table_type in files_to_process:
+    for file_name, table_type in files_to_process:
         # parse the current file
         new_data = parse_csv(file_name, table_type)
         data.extend(new_data)
 
     return data
 
-def save_data(data) -> None:
+def save_data(data:json) -> None:
     with open("../public/data.json", "wb") as f:
         f.write(json.dumps(data, ensure_ascii=False).encode("utf8"))
 
 
 def main():
     files_to_process = [
-        # (filename, specialization, table_type)
-        ("torzsanyag.csv", "", "torzs"),
-        ("A_spec_kotelezo.csv", "A", "spec-kot"),
-        ("A_spec_kotval.csv", "A", "spec-kotval"),
-        ("B_spec_kotelezo.csv", "B", "spec-kot"),
-        ("B_spec_kotval.csv", "B", "spec-kotval"),
-        ("C_spec_kotelezo.csv", "C", "spec-kot"),
-        ("C_spec_kotval.csv", "C", "spec-kotval")
+        # (filename, table_type)
+        ("torzsanyag.csv", "torzs"),
+        ("A_spec_kotelezo.csv", "spec-kot"),
+        ("A_spec_kotval.csv", "spec-kotval"),
+        ("B_spec_kotelezo.csv", "spec-kot"),
+        ("B_spec_kotval.csv", "spec-kotval"),
+        ("C_spec_kotelezo.csv", "spec-kot"),
+        ("C_spec_kotval.csv", "spec-kotval")
     ]
+    
     data = process_files(files_to_process)
     data = map_parents_as_children(data)
-    #sort_data(data)
+    data = tree_sort_data(data)
+
     save_data(data)
 
 
