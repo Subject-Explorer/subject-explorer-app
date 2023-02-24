@@ -1,14 +1,11 @@
 import SubjectData from "@/utils/subjectData";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect } from "react";
 import ReactFlow, {
-  Node,
-  useNodesState,
-  useEdgesState,
-  addEdge,
-  Connection,
-  Edge,
-  ConnectionLineType,
-  DefaultEdgeOptions,
+    Node,
+    useNodesState,
+    useEdgesState,
+    Edge,
+    DefaultEdgeOptions,
 } from "reactflow";
 import CustomNode from "./CustomNode";
 import SubjectNode from "./SubjectNode";
@@ -23,9 +20,9 @@ const nodeTypes = {
 };
 
 const defaultEdgeOptions: DefaultEdgeOptions = {
-  animated: false,
-  type: "simplebezier",
-  style: { stroke: "#F2A869", strokeWidth: 5 },
+    animated: false,
+    type: "simplebezier",
+    style: { stroke: "#F2A869", strokeWidth: 2 },
 };
 
 function Flow() {
@@ -64,27 +61,22 @@ function Flow() {
     setEdges(newEdges);
   }, []);
 
-  // const onConnect = useCallback(
-  //   (params: Connection | Edge) => setEdges((eds) => addEdge(params, eds)),
-  //   [setEdges]
-  // );
-
-  return (
-    <div className='flex-grow bg-primary-dark stroke-modeler'>
-      <ReactFlow
-        nodes={nodes}
-        onNodesChange={onNodesChange}
-        edges={edges}
-        onEdgesChange={onEdgesChange}
-        // onConnect={onConnect}
-        nodeTypes={nodeTypes}
-        defaultEdgeOptions={defaultEdgeOptions}
-        // connectionLineType={ConnectionLineType.Straight}
-        fitView
-        proOptions={{ hideAttribution: true }}
-      />
-    </div>
-  );
+    return (
+        <div className='flex-grow bg-neutral-dark stroke-modeler'>
+            <ReactFlow
+                nodes={nodes}
+                onNodesChange={onNodesChange}
+                edges={edges}
+                onEdgesChange={onEdgesChange}
+                nodeTypes={nodeTypes}
+                defaultEdgeOptions={defaultEdgeOptions}
+                fitView
+                panOnScroll
+                panOnScrollSpeed={0.5}
+                proOptions={{hideAttribution: true}}
+            />
+        </div>
+    );
 }
 
 export default Flow;
