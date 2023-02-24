@@ -22,7 +22,7 @@ export interface LessonCount {
   laboratory: number;
   consultation: number;
 }
-export interface Prerequisite{
-    id: string;
-    weak: boolean;
+export interface Prerequisite {
+  id: string;
+  weak: boolean;
 }

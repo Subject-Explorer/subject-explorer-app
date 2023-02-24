@@ -3,13 +3,12 @@ import React from "react";
 
 export default function SearchBar() {
   return (
-    <div className='flex-grow min-w-[500px] flex items-center'>
-      <MagnifyingGlassIcon className='w-5 text-neutral-inactive absolute ml-2 top-[38%]' />
+    <div className="flex min-w-[500px] flex-grow items-center">
       <input
-        type='text'
-        id='query'
-        className='bg-neutral-dark border-none h-max text-neutral-inactive text-sm rounded-lg p-2 pl-9 placeholder-neutral-light-light focus:ring-primary focus:border-primary-dark flex-grow font-medium'
-        placeholder='Search'
+        type="text"
+        id="query"
+        className="placeholder-neutral-light-light h-max flex-grow rounded-lg border-none bg-neutral p-2 text-sm font-medium text-neutral-inactive focus:border-primary-dark focus:ring-primary"
+        placeholder="Keresés"
         required
       />
     </div>
