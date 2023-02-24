@@ -5,7 +5,7 @@ import { FilterSettingsProvider } from "@/utils/hooks/useFilterSettings";
 
 export default function Home() {
   return (
-    <div className='h-full flex flex-col'>
+    <div className="flex h-full flex-col">
       <Metadata />
       <FilterSettingsProvider>
         <NavBar />
