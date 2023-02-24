@@ -33,7 +33,7 @@ export default function FilterPopoverMenu({ open }: Props) {
       show={open}
     >
       <div className="absolute left-1/2 top-full z-10 min-w-[200px] max-w-xl -translate-x-1/2 transform px-4 sm:px-0">
-        <div className="mx-auto flex w-full max-w-2xl flex-wrap gap-8 rounded-lg bg-primary py-4 px-8 shadow-lg">
+        <div className="mx-auto flex w-full max-w-2xl flex-wrap gap-8 rounded-lg bg-neutral py-4 px-8 shadow-lg">
           <CheckboxGroup
             label="Ismeretkör"
             checkboxes={settings.fields}

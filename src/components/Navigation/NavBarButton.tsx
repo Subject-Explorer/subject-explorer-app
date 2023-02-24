@@ -11,8 +11,8 @@ export default function NavBarButton({ onClick, icon, active = false }: Props) {
       onClick={onClick}
       className={`cursor-pointer rounded-lg ${
         active
-          ? "bg-primary-dark opacity-50"
-          : "bg-primary-inactive bg-opacity-0"
+          ? "bg-neutral-dark opacity-50"
+          : "bg-neutral-inactive bg-opacity-0"
       }  p-2 transition-all duration-150 ease-in-out hover:bg-opacity-20 hover:shadow-lg`}
     >
       {icon}

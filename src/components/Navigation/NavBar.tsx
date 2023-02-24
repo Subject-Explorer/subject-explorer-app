@@ -22,9 +22,9 @@ export default function NavBar() {
   };
   return (
     <header className="absolute z-50 flex h-20 w-full items-center justify-center">
-      <div className="items-center justify-center gap-2 rounded-md bg-primary p-2 shadow-lg sm:hidden md:flex">
+      <div className="items-center justify-center gap-2 rounded-md bg-neutral p-2 shadow-lg sm:hidden md:flex">
         <div className="w-8">{/*TODO: PUT LOGO HERE*/}</div>
-        <div className="h-8 w-[1px] rounded-lg bg-primary-inactive" />
+        <div className="h-8 w-[1px] rounded-lg bg-neutral-inactive" />
         <SearchBar />
         <NavBarButton
           icon={<MagnifyingGlassIcon className="w-5" />}
