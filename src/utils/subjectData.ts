@@ -6,8 +6,8 @@ export default interface SubjectData {
   test: Test;
   credit: number;
   semesters: number[];
-  children: string[],
-  siblings: string[],
+  children: string[];
+  siblings: string[];
   field: Field;
   specializations: Specialization[];
 }
