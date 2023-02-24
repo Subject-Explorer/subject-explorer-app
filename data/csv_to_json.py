@@ -46,13 +46,6 @@ def parse_csv(file_name:str, table_type:str) -> list[SubjectData]:
             "specializations": specializations
         }
 
-        # if data exists with same code, the prequisites, and specializations else push to data
-        for subject in data:
-            if subject["code"] == line[0]:
-                subject["prerequisites"].extend(subject_data["prerequisites"])
-                subject["specializations"].extend(subject_data["specializations"])
-                break
-
         data.append(subject_data)
 
     return data
@@ -156,8 +149,26 @@ def map_parents_as_children(subject_data_list:list[SubjectData]) -> list[Subject
     return subject_data_list
 
 def tree_sort_data(subject_data_list:list[SubjectData]) -> list[list[SubjectData]]:
-    # TODO sort
+    
+
     return subject_data_list
+
+def merge_data(data:list[SubjectData]) -> list[SubjectData]:
+    # if data exists with same code, the prequisites, and specializations else push to data
+    merged_data = []
+    for i, subject in enumerate(data):
+        for j, subject2 in enumerate(data):
+            if subject["code"] == subject2["code"] and i != j:
+                # TODO Union everything
+                prereqs = list(set(subject["prerequisites"] + subject2["prerequisites"])) # this does not work
+                specs = list(set(subject["specializations"] + subject2["specializations"]))
+                specs.sort()
+                subject["specializations"] = specs
+                subject["prerequisites"] = prereqs
+                data.pop(j)
+        merged_data.append(subject)
+    
+    return merged_data
 
 def process_files(files_to_process:list[tuple]) -> list[SubjectData]:
     data = []
@@ -166,7 +177,10 @@ def process_files(files_to_process:list[tuple]) -> list[SubjectData]:
         new_data = parse_csv(file_name, table_type)
         data.extend(new_data)
 
-    return data
+    # merge same-coded subjects
+    merged_data = merge_data(data)
+
+    return merged_data
 
 def save_data(data:json) -> None:
     with open("../public/data.json", "wb") as f:
