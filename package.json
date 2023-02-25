@@ -12,7 +12,6 @@
     "@headlessui/react": "^1.7.10",
     "@heroicons/react": "^2.0.15",
     "@next/font": "13.1.6",
-    "@nextui-org/react": "^1.0.0-beta.12",
     "@tailwindcss/forms": "^0.5.3",
     "@types/node": "18.11.19",
     "@types/react": "18.0.27",
