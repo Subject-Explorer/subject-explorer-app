@@ -1,4 +1,5 @@
 import { useFilterSettings } from "@/utils/hooks/useFilterSettings";
+import { Check, CheckGroup, CheckTypeKeys } from "@/utils/settingData";
 import { Transition } from "@headlessui/react";
 import React, { Fragment } from "react";
 import CheckboxGroup from "../Settings/CheckboxGroup";
@@ -9,18 +10,20 @@ interface Props {
 export default function FilterPopoverMenu({ open }: Props) {
   const { settings, setSettings } = useFilterSettings();
 
-  const handleFieldCheckChange = (value: string) => {
-    //TODO: Implement function
-  };
-  const handleSpecCheckChange = (value: string) => {
-    //TODO: Implement function
-  };
-  const handleTestCheckChange = (value: string) => {
-    //TODO: Implement function
-  };
-  const handleSubjectTypeCheckChange = (value: string) => {
-    //TODO: Implement function
-  };
+  const handleCheckChange =
+    <T,>(setting: CheckGroup<T>, field: CheckTypeKeys) =>
+    (value: string) => {
+      const index = setting.findIndex((x) => x.value === value);
+      if (index < 0) throw new Error("Cosmic ray error");
+      const newField: Check<T> = {
+        ...setting[index],
+        checked: !setting[index]?.checked,
+      };
+      const newFields: CheckGroup<T> = [...setting];
+      newFields.splice(index, 1, newField);
+      setSettings({ [field]: newFields });
+    };
+
   return (
     <Transition
       as={Fragment}
@@ -37,17 +40,20 @@ export default function FilterPopoverMenu({ open }: Props) {
           <CheckboxGroup
             label="Ismeretkör"
             checkboxes={settings.fields}
-            onChange={handleFieldCheckChange}
+            onChange={handleCheckChange(settings.fields, "fields")}
           />
           <CheckboxGroup
             label="Specializáció"
             checkboxes={settings.specializations}
-            onChange={handleSpecCheckChange}
+            onChange={handleCheckChange(
+              settings.specializations,
+              "specializations"
+            )}
           />
           <CheckboxGroup
             label="Számonkérés"
             checkboxes={settings.tests}
-            onChange={handleTestCheckChange}
+            onChange={handleCheckChange(settings.tests, "tests")}
           />
         </div>
       </div>
