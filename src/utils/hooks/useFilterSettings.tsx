@@ -27,14 +27,18 @@ const FilterSettingsProvider = ({ children }: Props) => {
     }
   }, []);
 
-  const updateSettings = (newSettings: MaybeSettings) => {
-    setSettings((prevSettings) => ({
-      ...prevSettings,
-      ...newSettings,
-    }));
-    if (typeof window !== undefined) {
-      window.localStorage.setItem("filterSettings", JSON.stringify(settings));
-    }
+  const updateSettings = (updateSettings: MaybeSettings) => {
+    setSettings((prevSettings) => {
+      const newSettings = {
+        ...prevSettings,
+        ...updateSettings,
+      };
+      console.log(newSettings.fields);
+      if (typeof window !== undefined) {
+        window.localStorage.setItem("filterSettings", JSON.stringify(settings));
+      }
+      return newSettings;
+    });
   };
 
   return (
