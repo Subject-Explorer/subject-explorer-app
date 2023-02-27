@@ -119,15 +119,15 @@ def map_parents_as_children(subject_data_list: list[dict]) -> list[dict]:
         for prerequisite in prerequisites:
             prerequisite_id = prerequisite['id']
             child_map.setdefault(prerequisite_id, []).append({
-                "code": subject_data['code'],
+                "id": subject_data['id'],
                 "specializations": subject_data['specializations']
             })
 
     # Add the children's IDs to each subject data.
     for subject_data in subject_data_list:
-        subject_data['children'] = [child["code"] for child in child_map.get(subject_data['code'], [])]
+        subject_data['children'] = [child["id"] for child in child_map.get(subject_data['id'], [])]
         subject_data['children_specializations'] = list(
-            set(flatten([child["specializations"] for child in child_map.get(subject_data['code'], [])])))
+            set(flatten([child["specializations"] for child in child_map.get(subject_data['id'], [])])))
     return subject_data_list
 
 
@@ -145,7 +145,7 @@ def merge_data(data: list[dict]) -> list[dict]:
     merged_data = []
     for i, subject in enumerate(data):
         for j, subject2 in enumerate(data):
-            if subject["code"] == subject2["code"] and i != j:
+            if subject["id"] == subject2["id"] and i != j:
                 # TODO: make it nicer
                 for prereq in subject2["prerequisites"]:
                     if prereq not in subject["prerequisites"]:

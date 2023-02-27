@@ -1,6 +1,6 @@
 [
   {
-    "code": "IP-18SZGREG",
+    "id": "IP-18SZGREG",
     "type": "torzs",
     "name": "Számítógépes rendszerek",
     "lessonCount": {
@@ -14,6 +14,12 @@
     "semesters": [
       1
     ],
+    "field": "informatika",
+    "specializations": [
+      "A",
+      "B",
+      "C"
+    ],
     "children": [
       "IP-18WF1EG",
       "IP-18OPREG"
@@ -22,16 +28,10 @@
       "A",
       "C",
       "B"
-    ],
-    "field": "informatika",
-    "specializations": [
-      "A",
-      "B",
-      "C"
     ]
   },
   {
-    "code": "IP-18PROGEG",
+    "id": "IP-18PROGEG",
     "type": "torzs",
     "name": "Programozás",
     "lessonCount": {
@@ -45,6 +45,12 @@
     "semesters": [
       1
     ],
+    "field": "informatika",
+    "specializations": [
+      "A",
+      "B",
+      "C"
+    ],
     "children": [
       "IP-18OEPROGEG",
       "IP-18AA1G"
@@ -53,16 +59,10 @@
       "A",
       "C",
       "B"
-    ],
-    "field": "informatika",
-    "specializations": [
-      "A",
-      "B",
-      "C"
     ]
   },
   {
-    "code": "IP-18IMPROGEG",
+    "id": "IP-18IMPROGEG",
     "type": "torzs",
     "name": "Imperatív programozás",
     "lessonCount": {
@@ -76,6 +76,12 @@
     "semesters": [
       1
     ],
+    "field": "informatika",
+    "specializations": [
+      "A",
+      "B",
+      "C"
+    ],
     "children": [
       "IP-18PNYEG",
       "IP-18KVPNY1EG"
@@ -84,16 +90,10 @@
       "A",
       "C",
       "B"
-    ],
-    "field": "informatika",
-    "specializations": [
-      "A",
-      "B",
-      "C"
     ]
   },
   {
-    "code": "IP-18FUNPEG",
+    "id": "IP-18FUNPEG",
     "type": "torzs",
     "name": "Funkcionális programozás",
     "lessonCount": {
@@ -107,17 +107,17 @@
     "semesters": [
       1
     ],
-    "children": [],
-    "children_specializations": [],
     "field": "informatika",
     "specializations": [
       "A",
       "B",
       "C"
-    ]
+    ],
+    "children": [],
+    "children_specializations": []
   },
   {
-    "code": "IP-18MATAG",
+    "id": "IP-18MATAG",
     "type": "torzs",
     "name": "Matematikai alapok",
     "lessonCount": {
@@ -130,6 +130,12 @@
     "credit": 4,
     "semesters": [
       1
+    ],
+    "field": "matematika",
+    "specializations": [
+      "A",
+      "B",
+      "C"
     ],
     "children": [
       "IP-18AA1G",
@@ -147,16 +153,10 @@
       "A",
       "C",
       "B"
-    ],
-    "field": "matematika",
-    "specializations": [
-      "A",
-      "B",
-      "C"
     ]
   },
   {
-    "code": "IP-18TMKG",
+    "id": "IP-18TMKG",
     "type": "torzs",
     "name": "Egyetemi alapozó és tanulásmódszertani kurzus",
     "lessonCount": {
@@ -170,17 +170,17 @@
     "semesters": [
       1
     ],
-    "children": [],
-    "children_specializations": [],
     "field": "egyéb",
     "specializations": [
       "A",
       "B",
       "C"
-    ]
+    ],
+    "children": [],
+    "children_specializations": []
   },
   {
-    "code": "IP-18IVMEG",
+    "id": "IP-18IVMEG",
     "type": "torzs",
     "name": "Innovatív vállalkozás menedzsment",
     "lessonCount": {
@@ -195,17 +195,17 @@
       1,
       6
     ],
-    "children": [],
-    "children_specializations": [],
     "field": "egyéb",
     "specializations": [
       "A",
       "B",
       "C"
-    ]
+    ],
+    "children": [],
+    "children_specializations": []
   },
   {
-    "code": "IP-18PNYEG",
+    "id": "IP-18PNYEG",
     "type": "torzs",
     "name": "Programozási nyelvek",
     "lessonCount": {
@@ -219,6 +219,12 @@
     "semesters": [
       2
     ],
+    "field": "informatika",
+    "specializations": [
+      "A",
+      "B",
+      "C"
+    ],
     "children": [
       "IP-18OPREG",
       "IP-18KPROGEG",
@@ -229,16 +235,10 @@
       "A",
       "C",
       "B"
-    ],
-    "field": "informatika",
-    "specializations": [
-      "A",
-      "B",
-      "C"
     ]
   },
   {
-    "code": "IP-18OEPROGEG",
+    "id": "IP-18OEPROGEG",
     "type": "torzs",
     "name": "Objektumelvű programozás",
     "lessonCount": {
@@ -251,6 +251,12 @@
     "credit": 6,
     "semesters": [
       2
+    ],
+    "field": "informatika",
+    "specializations": [
+      "A",
+      "B",
+      "C"
     ],
     "children": [
       "IP-18TKHG",
@@ -267,16 +273,10 @@
       "A",
       "C",
       "B"
-    ],
-    "field": "informatika",
-    "specializations": [
-      "A",
-      "B",
-      "C"
     ]
   },
   {
-    "code": "IP-18WF1EG",
+    "id": "IP-18WF1EG",
     "type": "torzs",
     "name": "Web-fejlesztés",
     "lessonCount": {
@@ -290,6 +290,12 @@
     "semesters": [
       2
     ],
+    "field": "informatika",
+    "specializations": [
+      "A",
+      "B",
+      "C"
+    ],
     "children": [
       "IP-18KWEBPROGEG",
       "IP-18cWEBPROGEG"
@@ -298,16 +304,10 @@
       "A",
       "C",
       "B"
-    ],
-    "field": "informatika",
-    "specializations": [
-      "A",
-      "B",
-      "C"
     ]
   },
   {
-    "code": "IP-18AA1E",
+    "id": "IP-18AA1E",
     "type": "torzs",
     "name": "Algoritmusok és adatszerkezetek I",
     "lessonCount": {
@@ -321,6 +321,12 @@
     "semesters": [
       2
     ],
+    "field": "számítástechnika",
+    "specializations": [
+      "A",
+      "B",
+      "C"
+    ],
     "children": [
       "IP-18AA2G"
     ],
@@ -328,16 +334,10 @@
       "A",
       "C",
       "B"
-    ],
-    "field": "számítástechnika",
-    "specializations": [
-      "A",
-      "B",
-      "C"
     ]
   },
   {
-    "code": "IP-18AA1G",
+    "id": "IP-18AA1G",
     "type": "torzs",
     "name": "Algoritmusok és adatszerkezetek I",
     "lessonCount": {
@@ -351,6 +351,12 @@
     "semesters": [
       2
     ],
+    "field": "számítástechnika",
+    "specializations": [
+      "A",
+      "B",
+      "C"
+    ],
     "children": [
       "IP-18AA1E"
     ],
@@ -358,16 +364,10 @@
       "A",
       "C",
       "B"
-    ],
-    "field": "számítástechnika",
-    "specializations": [
-      "A",
-      "B",
-      "C"
     ]
   },
   {
-    "code": "IP-18DM1E",
+    "id": "IP-18DM1E",
     "type": "torzs",
     "name": "Diszkrét matematika I",
     "lessonCount": {
@@ -380,6 +380,12 @@
     "credit": 2,
     "semesters": [
       2
+    ],
+    "field": "matematika",
+    "specializations": [
+      "A",
+      "B",
+      "C"
     ],
     "children": [
       "IP-18aDM2G",
@@ -397,16 +403,10 @@
       "A",
       "C",
       "B"
-    ],
-    "field": "matematika",
-    "specializations": [
-      "A",
-      "B",
-      "C"
     ]
   },
   {
-    "code": "IP-18DM1G",
+    "id": "IP-18DM1G",
     "type": "torzs",
     "name": "Diszkrét matematika I",
     "lessonCount": {
@@ -420,6 +420,12 @@
     "semesters": [
       2
     ],
+    "field": "matematika",
+    "specializations": [
+      "A",
+      "B",
+      "C"
+    ],
     "children": [
       "IP-18DM1E"
     ],
@@ -427,16 +433,10 @@
       "A",
       "C",
       "B"
-    ],
-    "field": "matematika",
-    "specializations": [
-      "A",
-      "B",
-      "C"
     ]
   },
   {
-    "code": "IP-18AN1E",
+    "id": "IP-18AN1E",
     "type": "torzs",
     "name": "Analízis I",
     "lessonCount": {
@@ -449,6 +449,12 @@
     "credit": 2,
     "semesters": [
       2
+    ],
+    "field": "matematika",
+    "specializations": [
+      "A",
+      "B",
+      "C"
     ],
     "children": [
       "IP-18aAN2G",
@@ -459,16 +465,10 @@
       "A",
       "C",
       "B"
-    ],
-    "field": "matematika",
-    "specializations": [
-      "A",
-      "B",
-      "C"
     ]
   },
   {
-    "code": "IP-18AN1G",
+    "id": "IP-18AN1G",
     "type": "torzs",
     "name": "Analízis I",
     "lessonCount": {
@@ -482,6 +482,12 @@
     "semesters": [
       2
     ],
+    "field": "matematika",
+    "specializations": [
+      "A",
+      "B",
+      "C"
+    ],
     "children": [
       "IP-18AN1E"
     ],
@@ -489,16 +495,10 @@
       "A",
       "C",
       "B"
-    ],
-    "field": "matematika",
-    "specializations": [
-      "A",
-      "B",
-      "C"
     ]
   },
   {
-    "code": "IP-18AA2E",
+    "id": "IP-18AA2E",
     "type": "torzs",
     "name": "Algoritmusok és adatszerkezetek II",
     "lessonCount": {
@@ -512,6 +512,12 @@
     "semesters": [
       3
     ],
+    "field": "számítástechnika",
+    "specializations": [
+      "A",
+      "B",
+      "C"
+    ],
     "children": [
       "IP-18AB1G",
       "IP-18MIAE"
@@ -520,16 +526,10 @@
       "A",
       "C",
       "B"
-    ],
-    "field": "számítástechnika",
-    "specializations": [
-      "A",
-      "B",
-      "C"
     ]
   },
   {
-    "code": "IP-18AA2G",
+    "id": "IP-18AA2G",
     "type": "torzs",
     "name": "Algoritmusok és adatszerkezetek II",
     "lessonCount": {
@@ -543,6 +543,12 @@
     "semesters": [
       3
     ],
+    "field": "számítástechnika",
+    "specializations": [
+      "A",
+      "B",
+      "C"
+    ],
     "children": [
       "IP-18AA2E"
     ],
@@ -550,16 +556,10 @@
       "A",
       "C",
       "B"
-    ],
-    "field": "számítástechnika",
-    "specializations": [
-      "A",
-      "B",
-      "C"
     ]
   },
   {
-    "code": "IP-18OPREG",
+    "id": "IP-18OPREG",
     "type": "torzs",
     "name": "Operációs rendszerek",
     "lessonCount": {
@@ -573,17 +573,17 @@
     "semesters": [
       4
     ],
-    "children": [],
-    "children_specializations": [],
     "field": "informatika",
     "specializations": [
       "A",
       "B",
       "C"
-    ]
+    ],
+    "children": [],
+    "children_specializations": []
   },
   {
-    "code": "IP-18AB1E",
+    "id": "IP-18AB1E",
     "type": "torzs",
     "name": "Adatbázisok I",
     "lessonCount": {
@@ -597,6 +597,12 @@
     "semesters": [
       4
     ],
+    "field": "informatika",
+    "specializations": [
+      "A",
+      "B",
+      "C"
+    ],
     "children": [
       "IP-18KVIVISZG",
       "IP-18bAB2G",
@@ -606,16 +612,10 @@
       "A",
       "C",
       "B"
-    ],
-    "field": "informatika",
-    "specializations": [
-      "A",
-      "B",
-      "C"
     ]
   },
   {
-    "code": "IP-18AB1G",
+    "id": "IP-18AB1G",
     "type": "torzs",
     "name": "Adatbázisok I",
     "lessonCount": {
@@ -629,6 +629,12 @@
     "semesters": [
       4
     ],
+    "field": "informatika",
+    "specializations": [
+      "A",
+      "B",
+      "C"
+    ],
     "children": [
       "IP-18AB1E"
     ],
@@ -636,16 +642,10 @@
       "A",
       "C",
       "B"
-    ],
-    "field": "informatika",
-    "specializations": [
-      "A",
-      "B",
-      "C"
     ]
   },
   {
-    "code": "IP-18KPROGEG",
+    "id": "IP-18KPROGEG",
     "type": "torzs",
     "name": "Konkurrens programozás",
     "lessonCount": {
@@ -659,17 +659,17 @@
     "semesters": [
       5
     ],
-    "children": [],
-    "children_specializations": [],
     "field": "informatika",
     "specializations": [
       "A",
       "B",
       "C"
-    ]
+    ],
+    "children": [],
+    "children_specializations": []
   },
   {
-    "code": "IP-18TKHE",
+    "id": "IP-18TKHE",
     "type": "torzs",
     "name": "Telekommunikációs hálózatok",
     "lessonCount": {
@@ -683,17 +683,17 @@
     "semesters": [
       5
     ],
-    "children": [],
-    "children_specializations": [],
     "field": "informatika",
     "specializations": [
       "A",
       "B",
       "C"
-    ]
+    ],
+    "children": [],
+    "children_specializations": []
   },
   {
-    "code": "IP-18TKHG",
+    "id": "IP-18TKHG",
     "type": "torzs",
     "name": "Telekommunikációs hálózatok",
     "lessonCount": {
@@ -707,6 +707,12 @@
     "semesters": [
       5
     ],
+    "field": "informatika",
+    "specializations": [
+      "A",
+      "B",
+      "C"
+    ],
     "children": [
       "IP-18TKHE"
     ],
@@ -714,16 +720,10 @@
       "A",
       "C",
       "B"
-    ],
-    "field": "informatika",
-    "specializations": [
-      "A",
-      "B",
-      "C"
     ]
   },
   {
-    "code": "IP-18MIAE",
+    "id": "IP-18MIAE",
     "type": "torzs",
     "name": "Mesterséges intelligencia",
     "lessonCount": {
@@ -737,17 +737,17 @@
     "semesters": [
       5
     ],
-    "children": [],
-    "children_specializations": [],
     "field": "számítástechnika",
     "specializations": [
       "A",
       "B",
       "C"
-    ]
+    ],
+    "children": [],
+    "children_specializations": []
   },
   {
-    "code": "IP-18JIE",
+    "id": "IP-18JIE",
     "type": "torzs",
     "name": "Jogi ismeretek",
     "lessonCount": {
@@ -762,17 +762,17 @@
       1,
       6
     ],
-    "children": [],
-    "children_specializations": [],
     "field": "egyéb",
     "specializations": [
       "A",
       "B",
       "C"
-    ]
+    ],
+    "children": [],
+    "children_specializations": []
   },
   {
-    "code": "IP-18aEVALKEG",
+    "id": "IP-18aEVALKEG",
     "type": "spec-kot",
     "name": "Eseményvezérelt alkalmazások",
     "lessonCount": {
@@ -786,6 +786,12 @@
     "semesters": [
       3
     ],
+    "field": "informatika",
+    "specializations": [
+      "A",
+      "B",
+      "C"
+    ],
     "children": [
       "IP-18aSZTEG",
       "IP-18KVIWAFEG"
@@ -794,16 +800,10 @@
       "A",
       "C",
       "B"
-    ],
-    "field": "informatika",
-    "specializations": [
-      "A",
-      "B",
-      "C"
     ]
   },
   {
-    "code": "IP-18aAN2E",
+    "id": "IP-18aAN2E",
     "type": "spec-kot",
     "name": "Analízis II",
     "lessonCount": {
@@ -816,6 +816,12 @@
     "credit": 2,
     "semesters": [
       3
+    ],
+    "field": "matematika",
+    "specializations": [
+      "A",
+      "B",
+      "C"
     ],
     "children": [
       "IP-18aVSZEG",
@@ -825,16 +831,10 @@
       "A",
       "C",
       "B"
-    ],
-    "field": "matematika",
-    "specializations": [
-      "A",
-      "B",
-      "C"
     ]
   },
   {
-    "code": "IP-18aAN2G",
+    "id": "IP-18aAN2G",
     "type": "spec-kot",
     "name": "Analízis II",
     "lessonCount": {
@@ -848,6 +848,12 @@
     "semesters": [
       3
     ],
+    "field": "matematika",
+    "specializations": [
+      "A",
+      "B",
+      "C"
+    ],
     "children": [
       "IP-18aAN2E"
     ],
@@ -855,16 +861,10 @@
       "A",
       "C",
       "B"
-    ],
-    "field": "matematika",
-    "specializations": [
-      "A",
-      "B",
-      "C"
     ]
   },
   {
-    "code": "IP-18aDM2E",
+    "id": "IP-18aDM2E",
     "type": "spec-kot",
     "name": "Diszkrét matematika II",
     "lessonCount": {
@@ -878,17 +878,17 @@
     "semesters": [
       3
     ],
-    "children": [],
-    "children_specializations": [],
     "field": "matematika",
     "specializations": [
       "A",
       "B",
       "C"
-    ]
+    ],
+    "children": [],
+    "children_specializations": []
   },
   {
-    "code": "IP-18aDM2G",
+    "id": "IP-18aDM2G",
     "type": "spec-kot",
     "name": "Diszkrét matematika II",
     "lessonCount": {
@@ -901,6 +901,12 @@
     "credit": 3,
     "semesters": [
       3
+    ],
+    "field": "matematika",
+    "specializations": [
+      "A",
+      "B",
+      "C"
     ],
     "children": [
       "IP-18aDM2E"
@@ -909,16 +915,10 @@
       "A",
       "C",
       "B"
-    ],
-    "field": "matematika",
-    "specializations": [
-      "A",
-      "B",
-      "C"
     ]
   },
   {
-    "code": "IP-18aNM1E",
+    "id": "IP-18aNM1E",
     "type": "spec-kot",
     "name": "Numerikus módszerek I",
     "lessonCount": {
@@ -931,6 +931,12 @@
     "credit": 2,
     "semesters": [
       3
+    ],
+    "field": "matematika",
+    "specializations": [
+      "A",
+      "B",
+      "C"
     ],
     "children": [
       "IP-18aNM2G"
@@ -939,16 +945,10 @@
       "A",
       "C",
       "B"
-    ],
-    "field": "matematika",
-    "specializations": [
-      "A",
-      "B",
-      "C"
     ]
   },
   {
-    "code": "IP-18aNM1G",
+    "id": "IP-18aNM1G",
     "type": "spec-kot",
     "name": "Numerikus módszerek I",
     "lessonCount": {
@@ -962,6 +962,12 @@
     "semesters": [
       3
     ],
+    "field": "matematika",
+    "specializations": [
+      "A",
+      "B",
+      "C"
+    ],
     "children": [
       "IP-18aNM1E"
     ],
@@ -969,16 +975,10 @@
       "A",
       "C",
       "B"
-    ],
-    "field": "matematika",
-    "specializations": [
-      "A",
-      "B",
-      "C"
     ]
   },
   {
-    "code": "IP-18aBSZEE",
+    "id": "IP-18aBSZEE",
     "type": "spec-kot",
     "name": "Bevezetés a számításelméletbe",
     "lessonCount": {
@@ -992,17 +992,17 @@
     "semesters": [
       4
     ],
-    "children": [],
-    "children_specializations": [],
     "field": "számítástechnika",
     "specializations": [
       "A",
       "B",
       "C"
-    ]
+    ],
+    "children": [],
+    "children_specializations": []
   },
   {
-    "code": "IP-18aBSZEG",
+    "id": "IP-18aBSZEG",
     "type": "spec-kot",
     "name": "Bevezetés a számításelméletbe",
     "lessonCount": {
@@ -1016,6 +1016,12 @@
     "semesters": [
       4
     ],
+    "field": "számítástechnika",
+    "specializations": [
+      "A",
+      "B",
+      "C"
+    ],
     "children": [
       "IP-18aBSZEE"
     ],
@@ -1023,16 +1029,10 @@
       "A",
       "C",
       "B"
-    ],
-    "field": "számítástechnika",
-    "specializations": [
-      "A",
-      "B",
-      "C"
     ]
   },
   {
-    "code": "IP-18aNM2E",
+    "id": "IP-18aNM2E",
     "type": "spec-kot",
     "name": "Numerikus módszerek II",
     "lessonCount": {
@@ -1046,22 +1046,22 @@
     "semesters": [
       4
     ],
+    "field": "matematika",
+    "specializations": [
+      "A",
+      "B",
+      "C"
+    ],
     "children": [
       "IP-18KVMNMALEG"
     ],
     "children_specializations": [
       "A",
       "B"
-    ],
-    "field": "matematika",
-    "specializations": [
-      "A",
-      "B",
-      "C"
     ]
   },
   {
-    "code": "IP-18aNM2G",
+    "id": "IP-18aNM2G",
     "type": "spec-kot",
     "name": "Numerikus módszerek II",
     "lessonCount": {
@@ -1075,6 +1075,12 @@
     "semesters": [
       4
     ],
+    "field": "matematika",
+    "specializations": [
+      "A",
+      "B",
+      "C"
+    ],
     "children": [
       "IP-18aNM2E"
     ],
@@ -1082,16 +1088,10 @@
       "A",
       "C",
       "B"
-    ],
-    "field": "matematika",
-    "specializations": [
-      "A",
-      "B",
-      "C"
     ]
   },
   {
-    "code": "IP-18aVSZEG",
+    "id": "IP-18aVSZEG",
     "type": "spec-kot",
     "name": "Valószínűségszámítás",
     "lessonCount": {
@@ -1105,6 +1105,12 @@
     "semesters": [
       4
     ],
+    "field": "matematika",
+    "specializations": [
+      "A",
+      "B",
+      "C"
+    ],
     "children": [
       "IP-18aMSAEG"
     ],
@@ -1112,16 +1118,10 @@
       "A",
       "C",
       "B"
-    ],
-    "field": "matematika",
-    "specializations": [
-      "A",
-      "B",
-      "C"
     ]
   },
   {
-    "code": "IP-18aAN3E",
+    "id": "IP-18aAN3E",
     "type": "spec-kot",
     "name": "Analízis III",
     "lessonCount": {
@@ -1135,6 +1135,12 @@
     "semesters": [
       4
     ],
+    "field": "matematika",
+    "specializations": [
+      "A",
+      "B",
+      "C"
+    ],
     "children": [
       "IP-18aANA1G"
     ],
@@ -1142,16 +1148,10 @@
       "A",
       "C",
       "B"
-    ],
-    "field": "matematika",
-    "specializations": [
-      "A",
-      "B",
-      "C"
     ]
   },
   {
-    "code": "IP-18aAN3G",
+    "id": "IP-18aAN3G",
     "type": "spec-kot",
     "name": "Analízis III",
     "lessonCount": {
@@ -1165,6 +1165,12 @@
     "semesters": [
       4
     ],
+    "field": "matematika",
+    "specializations": [
+      "A",
+      "B",
+      "C"
+    ],
     "children": [
       "IP-18aAN3E"
     ],
@@ -1172,16 +1178,10 @@
       "A",
       "C",
       "B"
-    ],
-    "field": "matematika",
-    "specializations": [
-      "A",
-      "B",
-      "C"
     ]
   },
   {
-    "code": "IP-18aSZTEG",
+    "id": "IP-18aSZTEG",
     "type": "spec-kot",
     "name": "Szoftvertechnológia TM",
     "lessonCount": {
@@ -1195,17 +1195,17 @@
     "semesters": [
       4
     ],
-    "children": [],
-    "children_specializations": [],
     "field": "matematika",
     "specializations": [
       "A",
       "B",
       "C"
-    ]
+    ],
+    "children": [],
+    "children_specializations": []
   },
   {
-    "code": "IP-18aDMME",
+    "id": "IP-18aDMME",
     "type": "spec-kot",
     "name": "Diszkrét matematikai modellek és alkalmazásaik",
     "lessonCount": {
@@ -1219,17 +1219,17 @@
     "semesters": [
       5
     ],
-    "children": [],
-    "children_specializations": [],
     "field": "matematika",
     "specializations": [
       "A",
       "B",
       "C"
-    ]
+    ],
+    "children": [],
+    "children_specializations": []
   },
   {
-    "code": "IP-18aMSAEG",
+    "id": "IP-18aMSAEG",
     "type": "spec-kot",
     "name": "Matematikai statisztika",
     "lessonCount": {
@@ -1243,17 +1243,17 @@
     "semesters": [
       5
     ],
-    "children": [],
-    "children_specializations": [],
     "field": "matematika",
     "specializations": [
       "A",
       "B",
       "C"
-    ]
+    ],
+    "children": [],
+    "children_specializations": []
   },
   {
-    "code": "IP-18aANA1E",
+    "id": "IP-18aANA1E",
     "type": "spec-kot",
     "name": "Analízis alkalmazásai",
     "lessonCount": {
@@ -1267,17 +1267,17 @@
     "semesters": [
       5
     ],
-    "children": [],
-    "children_specializations": [],
     "field": "matematika",
     "specializations": [
       "A",
       "B",
       "C"
-    ]
+    ],
+    "children": [],
+    "children_specializations": []
   },
   {
-    "code": "IP-18aANA1G",
+    "id": "IP-18aANA1G",
     "type": "spec-kot",
     "name": "Analízis alkalmazásai",
     "lessonCount": {
@@ -1291,6 +1291,12 @@
     "semesters": [
       5
     ],
+    "field": "matematika",
+    "specializations": [
+      "A",
+      "B",
+      "C"
+    ],
     "children": [
       "IP-18aANA1E"
     ],
@@ -1298,16 +1304,10 @@
       "A",
       "C",
       "B"
-    ],
-    "field": "matematika",
-    "specializations": [
-      "A",
-      "B",
-      "C"
     ]
   },
   {
-    "code": "IP-18KVISZGE",
+    "id": "IP-18KVISZGE",
     "type": "spec-kotval",
     "name": "Számítógépes grafika",
     "lessonCount": {
@@ -1322,6 +1322,12 @@
       3,
       5
     ],
+    "field": "informatika",
+    "specializations": [
+      "A",
+      "B",
+      "C"
+    ],
     "children": [
       "IP-18KVIHSZGE",
       "IP-18KVIHSZGG"
@@ -1330,16 +1336,10 @@
       "A",
       "C",
       "B"
-    ],
-    "field": "informatika",
-    "specializations": [
-      "A",
-      "B",
-      "C"
     ]
   },
   {
-    "code": "IP-18KVISZGG",
+    "id": "IP-18KVISZGG",
     "type": "spec-kotval",
     "name": "Számítógépes grafika",
     "lessonCount": {
@@ -1354,6 +1354,12 @@
       3,
       5
     ],
+    "field": "informatika",
+    "specializations": [
+      "A",
+      "B",
+      "C"
+    ],
     "children": [
       "IP-18KVIHSZGE",
       "IP-18KVIHSZGG"
@@ -1362,16 +1368,10 @@
       "A",
       "C",
       "B"
-    ],
-    "field": "informatika",
-    "specializations": [
-      "A",
-      "B",
-      "C"
     ]
   },
   {
-    "code": "IP-18KVIWAFEG",
+    "id": "IP-18KVIWAFEG",
     "type": "spec-kotval",
     "name": "Web-es alkalmazások fejlesztése",
     "lessonCount": {
@@ -1386,17 +1386,17 @@
       4,
       6
     ],
-    "children": [],
-    "children_specializations": [],
     "field": "informatika",
     "specializations": [
       "A",
       "B",
       "C"
-    ]
+    ],
+    "children": [],
+    "children_specializations": []
   },
   {
-    "code": "IP-18KVSZKRBE",
+    "id": "IP-18KVSZKRBE",
     "type": "spec-kotval",
     "name": "Kriptográfia és biztonság",
     "lessonCount": {
@@ -1410,17 +1410,17 @@
     "semesters": [
       5
     ],
-    "children": [],
-    "children_specializations": [],
     "field": "számítástechnika",
     "specializations": [
       "A",
       "B",
       "C"
-    ]
+    ],
+    "children": [],
+    "children_specializations": []
   },
   {
-    "code": "IP-18KVSZKRBG",
+    "id": "IP-18KVSZKRBG",
     "type": "spec-kotval",
     "name": "Kriptográfia és biztonság",
     "lessonCount": {
@@ -1434,6 +1434,12 @@
     "semesters": [
       5
     ],
+    "field": "számítástechnika",
+    "specializations": [
+      "A",
+      "B",
+      "C"
+    ],
     "children": [
       "IP-18KVSZKRBE"
     ],
@@ -1441,16 +1447,10 @@
       "A",
       "C",
       "B"
-    ],
-    "field": "számítástechnika",
-    "specializations": [
-      "A",
-      "B",
-      "C"
     ]
   },
   {
-    "code": "IP-18KVIGPUEG",
+    "id": "IP-18KVIGPUEG",
     "type": "spec-kotval",
     "name": "GPU programozás",
     "lessonCount": {
@@ -1465,17 +1465,17 @@
       3,
       5
     ],
-    "children": [],
-    "children_specializations": [],
     "field": "informatika",
     "specializations": [
       "A",
       "B",
       "C"
-    ]
+    ],
+    "children": [],
+    "children_specializations": []
   },
   {
-    "code": "IP-18KWEBPROGEG",
+    "id": "IP-18KWEBPROGEG",
     "type": "spec-kotval",
     "name": "Webprogramozás",
     "lessonCount": {
@@ -1489,17 +1489,17 @@
     "semesters": [
       3
     ],
-    "children": [],
-    "children_specializations": [],
     "field": "informatika",
     "specializations": [
       "A",
       "B",
       "C"
-    ]
+    ],
+    "children": [],
+    "children_specializations": []
   },
   {
-    "code": "IP-18KVIKWPROGEG",
+    "id": "IP-18KVIKWPROGEG",
     "type": "spec-kotval",
     "name": "Kliensoldali webprogramozás",
     "lessonCount": {
@@ -1514,6 +1514,12 @@
       5,
       6
     ],
+    "field": "informatika",
+    "specializations": [
+      "A",
+      "B",
+      "C"
+    ],
     "children": [
       "IP-18KVIFSWPROGG"
     ],
@@ -1521,16 +1527,10 @@
       "A",
       "C",
       "B"
-    ],
-    "field": "informatika",
-    "specializations": [
-      "A",
-      "B",
-      "C"
     ]
   },
   {
-    "code": "IP-18KVISZWPROGEG",
+    "id": "IP-18KVISZWPROGEG",
     "type": "spec-kotval",
     "name": "Szerveroldali webprogramozás",
     "lessonCount": {
@@ -1545,6 +1545,12 @@
       5,
       6
     ],
+    "field": "informatika",
+    "specializations": [
+      "A",
+      "B",
+      "C"
+    ],
     "children": [
       "IP-18KVIFSWPROGG"
     ],
@@ -1552,16 +1558,10 @@
       "A",
       "C",
       "B"
-    ],
-    "field": "informatika",
-    "specializations": [
-      "A",
-      "B",
-      "C"
     ]
   },
   {
-    "code": "IP-18KVIFSWPROGG",
+    "id": "IP-18KVIFSWPROGG",
     "type": "spec-kotval",
     "name": "Full stack webprogramozás",
     "lessonCount": {
@@ -1577,17 +1577,17 @@
       5,
       6
     ],
-    "children": [],
-    "children_specializations": [],
     "field": "informatika",
     "specializations": [
       "A",
       "B",
       "C"
-    ]
+    ],
+    "children": [],
+    "children_specializations": []
   },
   {
-    "code": "IP-18KVIVISZE",
+    "id": "IP-18KVIVISZE",
     "type": "spec-kotval",
     "name": "Vállalati információs rendszerek és architektúrák",
     "lessonCount": {
@@ -1601,17 +1601,17 @@
     "semesters": [
       6
     ],
-    "children": [],
-    "children_specializations": [],
     "field": "informatika",
     "specializations": [
       "A",
       "B",
       "C"
-    ]
+    ],
+    "children": [],
+    "children_specializations": []
   },
   {
-    "code": "IP-18KVIVISZG",
+    "id": "IP-18KVIVISZG",
     "type": "spec-kotval",
     "name": "Vállalati információs rendszerek és architektúrák",
     "lessonCount": {
@@ -1625,6 +1625,12 @@
     "semesters": [
       6
     ],
+    "field": "informatika",
+    "specializations": [
+      "A",
+      "B",
+      "C"
+    ],
     "children": [
       "IP-18KVIVISZE"
     ],
@@ -1632,16 +1638,10 @@
       "A",
       "C",
       "B"
-    ],
-    "field": "informatika",
-    "specializations": [
-      "A",
-      "B",
-      "C"
     ]
   },
   {
-    "code": "IP-18KVIBDAE",
+    "id": "IP-18KVIBDAE",
     "type": "spec-kotval",
     "name": "Big Data architektúrák és elemző módszerek",
     "lessonCount": {
@@ -1655,17 +1655,17 @@
     "semesters": [
       5
     ],
-    "children": [],
-    "children_specializations": [],
     "field": "informatika",
     "specializations": [
       "A",
       "B",
       "C"
-    ]
+    ],
+    "children": [],
+    "children_specializations": []
   },
   {
-    "code": "IP-18KVIBDAG",
+    "id": "IP-18KVIBDAG",
     "type": "spec-kotval",
     "name": "Big Data architektúrák és elemző módszerek",
     "lessonCount": {
@@ -1679,6 +1679,12 @@
     "semesters": [
       5
     ],
+    "field": "informatika",
+    "specializations": [
+      "A",
+      "B",
+      "C"
+    ],
     "children": [
       "IP-18KVIBDAE"
     ],
@@ -1686,16 +1692,10 @@
       "A",
       "C",
       "B"
-    ],
-    "field": "informatika",
-    "specializations": [
-      "A",
-      "B",
-      "C"
     ]
   },
   {
-    "code": "IP-18KVIHJEG",
+    "id": "IP-18KVIHJEG",
     "type": "spec-kotval",
     "name": "Haladó Java",
     "lessonCount": {
@@ -1710,17 +1710,17 @@
       4,
       6
     ],
-    "children": [],
-    "children_specializations": [],
     "field": "informatika",
     "specializations": [
       "A",
       "B",
       "C"
-    ]
+    ],
+    "children": [],
+    "children_specializations": []
   },
   {
-    "code": "IP-18KVIKFINNL",
+    "id": "IP-18KVIKFINNL",
     "type": "spec-kotval",
     "name": "Kutatásfejlesztési és innovációs labor",
     "lessonCount": {
@@ -1737,17 +1737,17 @@
       5,
       6
     ],
-    "children": [],
-    "children_specializations": [],
     "field": "informatika",
     "specializations": [
       "A",
       "B",
       "C"
-    ]
+    ],
+    "children": [],
+    "children_specializations": []
   },
   {
-    "code": "IP-18KVSZBGTE",
+    "id": "IP-18KVSZBGTE",
     "type": "spec-kotval",
     "name": "Bevezetés a gépi tanulásba",
     "lessonCount": {
@@ -1761,17 +1761,17 @@
     "semesters": [
       3
     ],
-    "children": [],
-    "children_specializations": [],
     "field": "számítástechnika",
     "specializations": [
       "A",
       "B",
       "C"
-    ]
+    ],
+    "children": [],
+    "children_specializations": []
   },
   {
-    "code": "IP-18KVISZMNAGE",
+    "id": "IP-18KVISZMNAGE",
     "type": "spec-kotval",
     "name": "Szoftver mély neuronhálók alkalmazásához",
     "lessonCount": {
@@ -1786,17 +1786,17 @@
       2,
       4
     ],
-    "children": [],
-    "children_specializations": [],
     "field": "informatika",
     "specializations": [
       "A",
       "B",
       "C"
-    ]
+    ],
+    "children": [],
+    "children_specializations": []
   },
   {
-    "code": "IP-18KVIMNFEG",
+    "id": "IP-18KVIMNFEG",
     "type": "spec-kotval",
     "name": "Mély neuronhálok algoritmusai és fajtái",
     "lessonCount": {
@@ -1810,17 +1810,17 @@
     "semesters": [
       5
     ],
-    "children": [],
-    "children_specializations": [],
     "field": "informatika",
     "specializations": [
       "A",
       "B",
       "C"
-    ]
+    ],
+    "children": [],
+    "children_specializations": []
   },
   {
-    "code": "IP-18KVSZPREE",
+    "id": "IP-18KVSZPREE",
     "type": "spec-kotval",
     "name": "Programozáselmélet",
     "lessonCount": {
@@ -1834,6 +1834,11 @@
     "semesters": [
       3,
       5
+    ],
+    "field": "számítástechnika",
+    "specializations": [
+      "A",
+      "C"
     ],
     "children": [
       "IP-18KVSZPMG",
@@ -1843,15 +1848,10 @@
       "A",
       "C",
       "B"
-    ],
-    "field": "számítástechnika",
-    "specializations": [
-      "A",
-      "C"
     ]
   },
   {
-    "code": "IP-18KVSZPREG",
+    "id": "IP-18KVSZPREG",
     "type": "spec-kotval",
     "name": "Programozáselmélet",
     "lessonCount": {
@@ -1866,21 +1866,21 @@
       3,
       5
     ],
+    "field": "számítástechnika",
+    "specializations": [
+      "A",
+      "C"
+    ],
     "children": [
       "IP-18KVSZPREE"
     ],
     "children_specializations": [
       "A",
       "C"
-    ],
-    "field": "számítástechnika",
-    "specializations": [
-      "A",
-      "C"
     ]
   },
   {
-    "code": "IP-18KVSZPME",
+    "id": "IP-18KVSZPME",
     "type": "spec-kotval",
     "name": "Programozási módszertan",
     "lessonCount": {
@@ -1894,6 +1894,12 @@
     "semesters": [
       4,
       6
+    ],
+    "field": "számítástechnika",
+    "specializations": [
+      "A",
+      "B",
+      "C"
     ],
     "children": [
       "IP-18KVSZORSIG"
@@ -1902,16 +1908,10 @@
       "A",
       "C",
       "B"
-    ],
-    "field": "számítástechnika",
-    "specializations": [
-      "A",
-      "B",
-      "C"
     ]
   },
   {
-    "code": "IP-18KVSZPMG",
+    "id": "IP-18KVSZPMG",
     "type": "spec-kotval",
     "name": "Programozási módszertan",
     "lessonCount": {
@@ -1926,6 +1926,12 @@
       4,
       6
     ],
+    "field": "számítástechnika",
+    "specializations": [
+      "A",
+      "B",
+      "C"
+    ],
     "children": [
       "IP-18KVSZPME"
     ],
@@ -1933,16 +1939,10 @@
       "A",
       "C",
       "B"
-    ],
-    "field": "számítástechnika",
-    "specializations": [
-      "A",
-      "B",
-      "C"
     ]
   },
   {
-    "code": "IP-18KVSZORSIE",
+    "id": "IP-18KVSZORSIE",
     "type": "spec-kotval",
     "name": "Osztott rendszerek specifikációja és implementációja",
     "lessonCount": {
@@ -1956,17 +1956,17 @@
     "semesters": [
       6
     ],
-    "children": [],
-    "children_specializations": [],
     "field": "számítástechnika",
     "specializations": [
       "A",
       "B",
       "C"
-    ]
+    ],
+    "children": [],
+    "children_specializations": []
   },
   {
-    "code": "IP-18KVSZORSIG",
+    "id": "IP-18KVSZORSIG",
     "type": "spec-kotval",
     "name": "Osztott rendszerek specifikációja és implementációja",
     "lessonCount": {
@@ -1980,17 +1980,17 @@
     "semesters": [
       6
     ],
-    "children": [],
-    "children_specializations": [],
     "field": "számítástechnika",
     "specializations": [
       "A",
       "B",
       "C"
-    ]
+    ],
+    "children": [],
+    "children_specializations": []
   },
   {
-    "code": "IP-18KVSZSZME",
+    "id": "IP-18KVSZSZME",
     "type": "spec-kotval",
     "name": "Számítási modellek",
     "lessonCount": {
@@ -2004,17 +2004,17 @@
     "semesters": [
       5
     ],
-    "children": [],
-    "children_specializations": [],
     "field": "számítástechnika",
     "specializations": [
       "A",
       "B",
       "C"
-    ]
+    ],
+    "children": [],
+    "children_specializations": []
   },
   {
-    "code": "IP-18KVSZSZMG",
+    "id": "IP-18KVSZSZMG",
     "type": "spec-kotval",
     "name": "Számítási modellek",
     "lessonCount": {
@@ -2028,6 +2028,12 @@
     "semesters": [
       5
     ],
+    "field": "számítástechnika",
+    "specializations": [
+      "A",
+      "B",
+      "C"
+    ],
     "children": [
       "IP-18KVSZSZME"
     ],
@@ -2035,16 +2041,10 @@
       "A",
       "C",
       "B"
-    ],
-    "field": "számítástechnika",
-    "specializations": [
-      "A",
-      "B",
-      "C"
     ]
   },
   {
-    "code": "IP-18KVSZTME",
+    "id": "IP-18KVSZTME",
     "type": "spec-kotval",
     "name": "Típuselmélet",
     "lessonCount": {
@@ -2058,17 +2058,17 @@
     "semesters": [
       3
     ],
-    "children": [],
-    "children_specializations": [],
     "field": "számítástechnika",
     "specializations": [
       "A",
       "B",
       "C"
-    ]
+    ],
+    "children": [],
+    "children_specializations": []
   },
   {
-    "code": "IP-18KVSZTMG",
+    "id": "IP-18KVSZTMG",
     "type": "spec-kotval",
     "name": "Típuselmélet",
     "lessonCount": {
@@ -2082,6 +2082,12 @@
     "semesters": [
       3
     ],
+    "field": "számítástechnika",
+    "specializations": [
+      "A",
+      "B",
+      "C"
+    ],
     "children": [
       "IP-18KVSZTME"
     ],
@@ -2089,16 +2095,10 @@
       "A",
       "C",
       "B"
-    ],
-    "field": "számítástechnika",
-    "specializations": [
-      "A",
-      "B",
-      "C"
     ]
   },
   {
-    "code": "IP-18KVELE",
+    "id": "IP-18KVELE",
     "type": "spec-kotval",
     "name": "Logika",
     "lessonCount": {
@@ -2112,17 +2112,17 @@
     "semesters": [
       4
     ],
-    "children": [],
-    "children_specializations": [],
     "field": "számítástechnika",
     "specializations": [
       "A",
       "B",
       "C"
-    ]
+    ],
+    "children": [],
+    "children_specializations": []
   },
   {
-    "code": "IP-18KVELG",
+    "id": "IP-18KVELG",
     "type": "spec-kotval",
     "name": "Logika",
     "lessonCount": {
@@ -2136,6 +2136,12 @@
     "semesters": [
       4
     ],
+    "field": "számítástechnika",
+    "specializations": [
+      "A",
+      "B",
+      "C"
+    ],
     "children": [
       "IP-18KVELE"
     ],
@@ -2143,16 +2149,10 @@
       "A",
       "C",
       "B"
-    ],
-    "field": "számítástechnika",
-    "specializations": [
-      "A",
-      "B",
-      "C"
     ]
   },
   {
-    "code": "IP-18KVFPNYEG",
+    "id": "IP-18KVFPNYEG",
     "type": "spec-kotval",
     "name": "Funkcionális nyelvek",
     "lessonCount": {
@@ -2167,17 +2167,17 @@
       4,
       6
     ],
-    "children": [],
-    "children_specializations": [],
     "field": "informatika",
     "specializations": [
       "A",
       "B",
       "C"
-    ]
+    ],
+    "children": [],
+    "children_specializations": []
   },
   {
-    "code": "IP-18KVPNY1EG",
+    "id": "IP-18KVPNY1EG",
     "type": "spec-kotval",
     "name": "Programozási nyelvek (C++)",
     "lessonCount": {
@@ -2193,17 +2193,17 @@
       4,
       5
     ],
-    "children": [],
-    "children_specializations": [],
     "field": "informatika",
     "specializations": [
       "A",
       "B",
       "C"
-    ]
+    ],
+    "children": [],
+    "children_specializations": []
   },
   {
-    "code": "IP-18KVMNMALEG",
+    "id": "IP-18KVMNMALEG",
     "type": "spec-kotval",
     "name": "Numerikus algoritmusok",
     "lessonCount": {
@@ -2217,16 +2217,16 @@
     "semesters": [
       5
     ],
-    "children": [],
-    "children_specializations": [],
     "field": "számítástechnika",
     "specializations": [
       "A",
       "B"
-    ]
+    ],
+    "children": [],
+    "children_specializations": []
   },
   {
-    "code": "IP-18KVPRJG",
+    "id": "IP-18KVPRJG",
     "type": "spec-kotval",
     "name": "Projekteszközök",
     "lessonCount": {
@@ -2240,17 +2240,17 @@
     "semesters": [
       4
     ],
-    "children": [],
-    "children_specializations": [],
     "field": "informatika",
     "specializations": [
       "A",
       "B",
       "C"
-    ]
+    ],
+    "children": [],
+    "children_specializations": []
   },
   {
-    "code": "IP-18KVIHSZGE",
+    "id": "IP-18KVIHSZGE",
     "type": "spec-kotval",
     "name": "Haladó Számítógépes Grafika",
     "lessonCount": {
@@ -2264,17 +2264,17 @@
     "semesters": [
       5
     ],
-    "children": [],
-    "children_specializations": [],
     "field": "informatika",
     "specializations": [
       "A",
       "B",
       "C"
-    ]
+    ],
+    "children": [],
+    "children_specializations": []
   },
   {
-    "code": "IP-18KVIHSZGG",
+    "id": "IP-18KVIHSZGG",
     "type": "spec-kotval",
     "name": "Haladó Számítógépes Grafika",
     "lessonCount": {
@@ -2288,17 +2288,17 @@
     "semesters": [
       5
     ],
-    "children": [],
-    "children_specializations": [],
     "field": "informatika",
     "specializations": [
       "A",
       "B",
       "C"
-    ]
+    ],
+    "children": [],
+    "children_specializations": []
   },
   {
-    "code": "IP-18KVIGUIQTEG",
+    "id": "IP-18KVIGUIQTEG",
     "type": "spec-kotval",
     "name": "GUI programozás Qt-vel",
     "lessonCount": {
@@ -2312,17 +2312,17 @@
     "semesters": [
       3
     ],
-    "children": [],
-    "children_specializations": [],
     "field": "informatika",
     "specializations": [
       "A",
       "B",
       "C"
-    ]
+    ],
+    "children": [],
+    "children_specializations": []
   },
   {
-    "code": "IP-18KVPYEG",
+    "id": "IP-18KVPYEG",
     "type": "spec-kotval",
     "name": "Python",
     "lessonCount": {
@@ -2339,17 +2339,17 @@
       5,
       6
     ],
-    "children": [],
-    "children_specializations": [],
     "field": "informatika",
     "specializations": [
       "A",
       "B",
       "C"
-    ]
+    ],
+    "children": [],
+    "children_specializations": []
   },
   {
-    "code": "IP-18KVaSZKRBG",
+    "id": "IP-18KVaSZKRBG",
     "type": "spec-kotval",
     "name": "Kriptográfia és biztonság",
     "lessonCount": {
@@ -2364,16 +2364,16 @@
       4,
       6
     ],
-    "children": [],
-    "children_specializations": [],
     "field": "számítástechnika",
     "specializations": [
       "A",
       "B"
-    ]
+    ],
+    "children": [],
+    "children_specializations": []
   },
   {
-    "code": "IP-18bPREE",
+    "id": "IP-18bPREE",
     "type": "spec-kot",
     "name": "Programozáselmélet",
     "lessonCount": {
@@ -2387,6 +2387,12 @@
     "semesters": [
       3
     ],
+    "field": "számítástechnika",
+    "specializations": [
+      "A",
+      "B",
+      "C"
+    ],
     "children": [
       "IP-18KVSZORSIG"
     ],
@@ -2394,16 +2400,10 @@
       "A",
       "C",
       "B"
-    ],
-    "field": "számítástechnika",
-    "specializations": [
-      "A",
-      "B",
-      "C"
     ]
   },
   {
-    "code": "IP-18bPREG",
+    "id": "IP-18bPREG",
     "type": "spec-kot",
     "name": "Programozáselmélet",
     "lessonCount": {
@@ -2417,6 +2417,12 @@
     "semesters": [
       3
     ],
+    "field": "számítástechnika",
+    "specializations": [
+      "A",
+      "B",
+      "C"
+    ],
     "children": [
       "IP-18bPREE"
     ],
@@ -2424,16 +2430,10 @@
       "A",
       "C",
       "B"
-    ],
-    "field": "számítástechnika",
-    "specializations": [
-      "A",
-      "B",
-      "C"
     ]
   },
   {
-    "code": "IP-18bEVALKEG",
+    "id": "IP-18bEVALKEG",
     "type": "spec-kot",
     "name": "Eseményvezérelt alkalmazások",
     "lessonCount": {
@@ -2447,6 +2447,12 @@
     "semesters": [
       3
     ],
+    "field": "informatika",
+    "specializations": [
+      "A",
+      "B",
+      "C"
+    ],
     "children": [
       "IP-18bSZTEG"
     ],
@@ -2454,16 +2460,10 @@
       "A",
       "C",
       "B"
-    ],
-    "field": "informatika",
-    "specializations": [
-      "A",
-      "B",
-      "C"
     ]
   },
   {
-    "code": "IP-18bAN2E",
+    "id": "IP-18bAN2E",
     "type": "spec-kot",
     "name": "Analízis II",
     "lessonCount": {
@@ -2476,6 +2476,12 @@
     "credit": 2,
     "semesters": [
       3
+    ],
+    "field": "matematika",
+    "specializations": [
+      "A",
+      "B",
+      "C"
     ],
     "children": [
       "IP-18bNM1G",
@@ -2486,16 +2492,10 @@
       "A",
       "C",
       "B"
-    ],
-    "field": "matematika",
-    "specializations": [
-      "A",
-      "B",
-      "C"
     ]
   },
   {
-    "code": "IP-18bAN2G",
+    "id": "IP-18bAN2G",
     "type": "spec-kot",
     "name": "Analízis II",
     "lessonCount": {
@@ -2509,6 +2509,12 @@
     "semesters": [
       3
     ],
+    "field": "matematika",
+    "specializations": [
+      "A",
+      "B",
+      "C"
+    ],
     "children": [
       "IP-18bAN2E"
     ],
@@ -2516,16 +2522,10 @@
       "A",
       "C",
       "B"
-    ],
-    "field": "matematika",
-    "specializations": [
-      "A",
-      "B",
-      "C"
     ]
   },
   {
-    "code": "IP-18bDM2E",
+    "id": "IP-18bDM2E",
     "type": "spec-kot",
     "name": "Diszkrét matematika II",
     "lessonCount": {
@@ -2539,17 +2539,17 @@
     "semesters": [
       3
     ],
-    "children": [],
-    "children_specializations": [],
     "field": "matematika",
     "specializations": [
       "A",
       "B",
       "C"
-    ]
+    ],
+    "children": [],
+    "children_specializations": []
   },
   {
-    "code": "IP-18bDM2G",
+    "id": "IP-18bDM2G",
     "type": "spec-kot",
     "name": "Diszkrét matematika II",
     "lessonCount": {
@@ -2563,6 +2563,12 @@
     "semesters": [
       3
     ],
+    "field": "matematika",
+    "specializations": [
+      "A",
+      "B",
+      "C"
+    ],
     "children": [
       "IP-18bDM2E"
     ],
@@ -2570,16 +2576,10 @@
       "A",
       "C",
       "B"
-    ],
-    "field": "matematika",
-    "specializations": [
-      "A",
-      "B",
-      "C"
     ]
   },
   {
-    "code": "IP-18bFNYFPRE",
+    "id": "IP-18bFNYFPRE",
     "type": "spec-kot",
     "name": "Formális nyelvek és a fordítóprogramok alapjai",
     "lessonCount": {
@@ -2593,6 +2593,12 @@
     "semesters": [
       4
     ],
+    "field": "számítástechnika",
+    "specializations": [
+      "A",
+      "B",
+      "C"
+    ],
     "children": [
       "IP-18bSZEG"
     ],
@@ -2600,16 +2606,10 @@
       "A",
       "C",
       "B"
-    ],
-    "field": "számítástechnika",
-    "specializations": [
-      "A",
-      "B",
-      "C"
     ]
   },
   {
-    "code": "IP-18bFNYFPRG",
+    "id": "IP-18bFNYFPRG",
     "type": "spec-kot",
     "name": "Formális nyelvek és a fordítóprogramok alapjai",
     "lessonCount": {
@@ -2623,6 +2623,12 @@
     "semesters": [
       4
     ],
+    "field": "számítástechnika",
+    "specializations": [
+      "A",
+      "B",
+      "C"
+    ],
     "children": [
       "IP-18bFNYFPRE"
     ],
@@ -2630,16 +2636,10 @@
       "A",
       "C",
       "B"
-    ],
-    "field": "számítástechnika",
-    "specializations": [
-      "A",
-      "B",
-      "C"
     ]
   },
   {
-    "code": "IP-18bNM1E",
+    "id": "IP-18bNM1E",
     "type": "spec-kot",
     "name": "Numerikus módszerek I",
     "lessonCount": {
@@ -2653,6 +2653,12 @@
     "semesters": [
       4
     ],
+    "field": "matematika",
+    "specializations": [
+      "A",
+      "B",
+      "C"
+    ],
     "children": [
       "IP-18bNM2EG"
     ],
@@ -2660,16 +2666,10 @@
       "A",
       "C",
       "B"
-    ],
-    "field": "matematika",
-    "specializations": [
-      "A",
-      "B",
-      "C"
     ]
   },
   {
-    "code": "IP-18bNM1G",
+    "id": "IP-18bNM1G",
     "type": "spec-kot",
     "name": "Numerikus módszerek I",
     "lessonCount": {
@@ -2683,6 +2683,12 @@
     "semesters": [
       4
     ],
+    "field": "matematika",
+    "specializations": [
+      "A",
+      "B",
+      "C"
+    ],
     "children": [
       "IP-18bNM1E"
     ],
@@ -2690,16 +2696,10 @@
       "A",
       "C",
       "B"
-    ],
-    "field": "matematika",
-    "specializations": [
-      "A",
-      "B",
-      "C"
     ]
   },
   {
-    "code": "IP-18bVSZEG",
+    "id": "IP-18bVSZEG",
     "type": "spec-kot",
     "name": "Valószínűségszámítás és statisztika (T)",
     "lessonCount": {
@@ -2713,17 +2713,17 @@
     "semesters": [
       4
     ],
-    "children": [],
-    "children_specializations": [],
     "field": "matematika",
     "specializations": [
       "A",
       "B",
       "C"
-    ]
+    ],
+    "children": [],
+    "children_specializations": []
   },
   {
-    "code": "IP-18bTVFTEG",
+    "id": "IP-18bTVFTEG",
     "type": "spec-kot",
     "name": "Többváltozós függvénytan",
     "lessonCount": {
@@ -2737,17 +2737,17 @@
     "semesters": [
       4
     ],
-    "children": [],
-    "children_specializations": [],
     "field": "matematika",
     "specializations": [
       "A",
       "B",
       "C"
-    ]
+    ],
+    "children": [],
+    "children_specializations": []
   },
   {
-    "code": "IP-18bSZTEG",
+    "id": "IP-18bSZTEG",
     "type": "spec-kot",
     "name": "Szoftvertechnológia TM",
     "lessonCount": {
@@ -2761,17 +2761,17 @@
     "semesters": [
       4
     ],
-    "children": [],
-    "children_specializations": [],
     "field": "informatika",
     "specializations": [
       "A",
       "B",
       "C"
-    ]
+    ],
+    "children": [],
+    "children_specializations": []
   },
   {
-    "code": "IP-18bAB2E",
+    "id": "IP-18bAB2E",
     "type": "spec-kot",
     "name": "Adatbázisok II",
     "lessonCount": {
@@ -2785,17 +2785,17 @@
     "semesters": [
       5
     ],
-    "children": [],
-    "children_specializations": [],
     "field": "informatika",
     "specializations": [
       "A",
       "B",
       "C"
-    ]
+    ],
+    "children": [],
+    "children_specializations": []
   },
   {
-    "code": "IP-18bAB2G",
+    "id": "IP-18bAB2G",
     "type": "spec-kot",
     "name": "Adatbázisok II",
     "lessonCount": {
@@ -2809,6 +2809,12 @@
     "semesters": [
       5
     ],
+    "field": "informatika",
+    "specializations": [
+      "A",
+      "B",
+      "C"
+    ],
     "children": [
       "IP-18bAB2E"
     ],
@@ -2816,16 +2822,10 @@
       "A",
       "C",
       "B"
-    ],
-    "field": "informatika",
-    "specializations": [
-      "A",
-      "B",
-      "C"
     ]
   },
   {
-    "code": "IP-18bSZEE",
+    "id": "IP-18bSZEE",
     "type": "spec-kot",
     "name": "Számításelmélet",
     "lessonCount": {
@@ -2839,6 +2839,12 @@
     "semesters": [
       5
     ],
+    "field": "számítástechnika",
+    "specializations": [
+      "A",
+      "B",
+      "C"
+    ],
     "children": [
       "IP-18KVSZSZMG"
     ],
@@ -2846,16 +2852,10 @@
       "A",
       "C",
       "B"
-    ],
-    "field": "számítástechnika",
-    "specializations": [
-      "A",
-      "B",
-      "C"
     ]
   },
   {
-    "code": "IP-18bSZEG",
+    "id": "IP-18bSZEG",
     "type": "spec-kot",
     "name": "Számításelmélet",
     "lessonCount": {
@@ -2869,6 +2869,12 @@
     "semesters": [
       5
     ],
+    "field": "számítástechnika",
+    "specializations": [
+      "A",
+      "B",
+      "C"
+    ],
     "children": [
       "IP-18bSZEE"
     ],
@@ -2876,16 +2882,10 @@
       "A",
       "C",
       "B"
-    ],
-    "field": "számítástechnika",
-    "specializations": [
-      "A",
-      "B",
-      "C"
     ]
   },
   {
-    "code": "IP-18bNM2EG",
+    "id": "IP-18bNM2EG",
     "type": "spec-kot",
     "name": "Numerikus módszerek II",
     "lessonCount": {
@@ -2899,22 +2899,22 @@
     "semesters": [
       5
     ],
+    "field": "matematika",
+    "specializations": [
+      "A",
+      "B",
+      "C"
+    ],
     "children": [
       "IP-18KVMNMALEG"
     ],
     "children_specializations": [
       "A",
       "B"
-    ],
-    "field": "matematika",
-    "specializations": [
-      "A",
-      "B",
-      "C"
     ]
   },
   {
-    "code": "IP-18KVbSZKRBG",
+    "id": "IP-18KVbSZKRBG",
     "type": "spec-kotval",
     "name": "Kriptográfia és biztonság",
     "lessonCount": {
@@ -2929,16 +2929,16 @@
       4,
       6
     ],
-    "children": [],
-    "children_specializations": [],
     "field": "számítástechnika",
     "specializations": [
       "A",
       "B"
-    ]
+    ],
+    "children": [],
+    "children_specializations": []
   },
   {
-    "code": "IP-18cWEBPROGEG",
+    "id": "IP-18cWEBPROGEG",
     "type": "spec-kot",
     "name": "Webprogramozás",
     "lessonCount": {
@@ -2952,6 +2952,12 @@
     "semesters": [
       3
     ],
+    "field": "informatika",
+    "specializations": [
+      "A",
+      "B",
+      "C"
+    ],
     "children": [
       "IP-18KVIKWPROGEG",
       "IP-18KVISZWPROGEG"
@@ -2960,16 +2966,10 @@
       "A",
       "C",
       "B"
-    ],
-    "field": "informatika",
-    "specializations": [
-      "A",
-      "B",
-      "C"
     ]
   },
   {
-    "code": "IP-18cPROGTEG",
+    "id": "IP-18cPROGTEG",
     "type": "spec-kot",
     "name": "Programozási technológia",
     "lessonCount": {
@@ -2983,6 +2983,12 @@
     "semesters": [
       3
     ],
+    "field": "informatika",
+    "specializations": [
+      "A",
+      "B",
+      "C"
+    ],
     "children": [
       "IP-18cSZTEG"
     ],
@@ -2990,16 +2996,10 @@
       "A",
       "C",
       "B"
-    ],
-    "field": "informatika",
-    "specializations": [
-      "A",
-      "B",
-      "C"
     ]
   },
   {
-    "code": "IP-18cAN2E",
+    "id": "IP-18cAN2E",
     "type": "spec-kot",
     "name": "Analízis II (F)",
     "lessonCount": {
@@ -3013,6 +3013,12 @@
     "semesters": [
       3
     ],
+    "field": "matematika",
+    "specializations": [
+      "A",
+      "B",
+      "C"
+    ],
     "children": [
       "IP-18cNM1G",
       "IP-18cVSZG"
@@ -3021,16 +3027,10 @@
       "A",
       "C",
       "B"
-    ],
-    "field": "matematika",
-    "specializations": [
-      "A",
-      "B",
-      "C"
     ]
   },
   {
-    "code": "IP-18cAN2G",
+    "id": "IP-18cAN2G",
     "type": "spec-kot",
     "name": "Analízis II (F)",
     "lessonCount": {
@@ -3044,6 +3044,12 @@
     "semesters": [
       3
     ],
+    "field": "matematika",
+    "specializations": [
+      "A",
+      "B",
+      "C"
+    ],
     "children": [
       "IP-18cAN2E"
     ],
@@ -3051,16 +3057,10 @@
       "A",
       "C",
       "B"
-    ],
-    "field": "matematika",
-    "specializations": [
-      "A",
-      "B",
-      "C"
     ]
   },
   {
-    "code": "IP-18cDMAG",
+    "id": "IP-18cDMAG",
     "type": "spec-kot",
     "name": "Diszkrét modellek alkalmazásai",
     "lessonCount": {
@@ -3074,17 +3074,17 @@
     "semesters": [
       3
     ],
-    "children": [],
-    "children_specializations": [],
     "field": "matematika",
     "specializations": [
       "A",
       "B",
       "C"
-    ]
+    ],
+    "children": [],
+    "children_specializations": []
   },
   {
-    "code": "IP-18cSZÁMEA1E",
+    "id": "IP-18cSZÁMEA1E",
     "type": "spec-kot",
     "name": "A számításelmélet alapjai I.",
     "lessonCount": {
@@ -3098,6 +3098,12 @@
     "semesters": [
       4
     ],
+    "field": "számítástechnika",
+    "specializations": [
+      "A",
+      "B",
+      "C"
+    ],
     "children": [
       "IP-18cSZÁMEA2G"
     ],
@@ -3105,16 +3111,10 @@
       "A",
       "C",
       "B"
-    ],
-    "field": "számítástechnika",
-    "specializations": [
-      "A",
-      "B",
-      "C"
     ]
   },
   {
-    "code": "IP-18cSZÁMEA1G",
+    "id": "IP-18cSZÁMEA1G",
     "type": "spec-kot",
     "name": "A számításelmélet alapjai I.",
     "lessonCount": {
@@ -3128,6 +3128,12 @@
     "semesters": [
       4
     ],
+    "field": "számítástechnika",
+    "specializations": [
+      "A",
+      "B",
+      "C"
+    ],
     "children": [
       "IP-18cSZÁMEA1E"
     ],
@@ -3135,16 +3141,10 @@
       "A",
       "C",
       "B"
-    ],
-    "field": "számítástechnika",
-    "specializations": [
-      "A",
-      "B",
-      "C"
     ]
   },
   {
-    "code": "IP-18cNM1G",
+    "id": "IP-18cNM1G",
     "type": "spec-kot",
     "name": "Numerikus módszerek",
     "lessonCount": {
@@ -3158,17 +3158,17 @@
     "semesters": [
       4
     ],
-    "children": [],
-    "children_specializations": [],
     "field": "matematika",
     "specializations": [
       "A",
       "B",
       "C"
-    ]
+    ],
+    "children": [],
+    "children_specializations": []
   },
   {
-    "code": "IP-18cSZTEG",
+    "id": "IP-18cSZTEG",
     "type": "spec-kot",
     "name": "Szoftvertechnológia (F)",
     "lessonCount": {
@@ -3182,17 +3182,17 @@
     "semesters": [
       4
     ],
-    "children": [],
-    "children_specializations": [],
     "field": "informatika",
     "specializations": [
       "A",
       "B",
       "C"
-    ]
+    ],
+    "children": [],
+    "children_specializations": []
   },
   {
-    "code": "IP-18cAB2E",
+    "id": "IP-18cAB2E",
     "type": "spec-kot",
     "name": "Adatbázisok II",
     "lessonCount": {
@@ -3206,17 +3206,17 @@
     "semesters": [
       5
     ],
-    "children": [],
-    "children_specializations": [],
     "field": "informatika",
     "specializations": [
       "A",
       "B",
       "C"
-    ]
+    ],
+    "children": [],
+    "children_specializations": []
   },
   {
-    "code": "IP-18cAB2G",
+    "id": "IP-18cAB2G",
     "type": "spec-kot",
     "name": "Adatbázisok II",
     "lessonCount": {
@@ -3230,6 +3230,12 @@
     "semesters": [
       5
     ],
+    "field": "informatika",
+    "specializations": [
+      "A",
+      "B",
+      "C"
+    ],
     "children": [
       "IP-18cAB2E"
     ],
@@ -3237,16 +3243,10 @@
       "A",
       "C",
       "B"
-    ],
-    "field": "informatika",
-    "specializations": [
-      "A",
-      "B",
-      "C"
     ]
   },
   {
-    "code": "IP-18cSZÁMEA2E",
+    "id": "IP-18cSZÁMEA2E",
     "type": "spec-kot",
     "name": "A számításelmélet alapjai II.",
     "lessonCount": {
@@ -3260,17 +3260,17 @@
     "semesters": [
       5
     ],
-    "children": [],
-    "children_specializations": [],
     "field": "számítástechnika",
     "specializations": [
       "A",
       "B",
       "C"
-    ]
+    ],
+    "children": [],
+    "children_specializations": []
   },
   {
-    "code": "IP-18cSZÁMEA2G",
+    "id": "IP-18cSZÁMEA2G",
     "type": "spec-kot",
     "name": "A számításelmélet alapjai II.",
     "lessonCount": {
@@ -3284,6 +3284,12 @@
     "semesters": [
       5
     ],
+    "field": "számítástechnika",
+    "specializations": [
+      "A",
+      "B",
+      "C"
+    ],
     "children": [
       "IP-18cSZÁMEA2E"
     ],
@@ -3291,16 +3297,10 @@
       "A",
       "C",
       "B"
-    ],
-    "field": "számítástechnika",
-    "specializations": [
-      "A",
-      "B",
-      "C"
     ]
   },
   {
-    "code": "IP-18cVSZG",
+    "id": "IP-18cVSZG",
     "type": "spec-kot",
     "name": "Valószínűségszámítás és statisztika (F)",
     "lessonCount": {
@@ -3314,13 +3314,13 @@
     "semesters": [
       5
     ],
-    "children": [],
-    "children_specializations": [],
     "field": "matematika",
     "specializations": [
       "A",
       "B",
       "C"
-    ]
+    ],
+    "children": [],
+    "children_specializations": []
   }
 ]
