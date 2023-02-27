@@ -1,6 +1,7 @@
 import json
 
-def parse_csv(file_name:str, table_type:str) -> list[dict]:
+
+def parse_csv(file_name: str, table_type: str) -> list[dict]:
     data = []
 
     with open(f"./csv/{file_name}", mode="r", encoding="utf-8") as file:
@@ -24,7 +25,7 @@ def parse_csv(file_name:str, table_type:str) -> list[dict]:
             "test": test,
             "credit": credit,
             "semesters": semesters,
-            "prerequisites": prerequisites, # later removed
+            "prerequisites": prerequisites,  # later removed
             "children": [],
             "children_specializations": [],
             "field": field,
@@ -34,6 +35,7 @@ def parse_csv(file_name:str, table_type:str) -> list[dict]:
         data.append(subject_data)
 
     return data
+
 
 def csv_to_lines(file) -> list[list[str]]:
     lines = file.readlines()
@@ -49,7 +51,8 @@ def csv_to_lines(file) -> list[list[str]]:
     lines = [[item.strip() for item in line] for line in lines]
     return lines
 
-def get_lesson_count(line:str) -> dict:
+
+def get_lesson_count(line: str) -> dict:
     return {
         "lecture": int(line[2]),
         "practice": int(line[3]),
@@ -57,10 +60,12 @@ def get_lesson_count(line:str) -> dict:
         "consultation": int(line[5])
     }
 
-def get_semesters(semesters_str:str) -> list[int]:
+
+def get_semesters(semesters_str: str) -> list[int]:
     return [int(semester) for semester in semesters_str.split(",")]
 
-def get_prerequisites(prerequisites_str:str) -> list[dict]:
+
+def get_prerequisites(prerequisites_str: str) -> list[dict]:
     prerequisites = []
     prerequisites_raw = prerequisites_str.strip().split(", ")
     for prerequisite in prerequisites_raw:
@@ -69,6 +74,7 @@ def get_prerequisites(prerequisites_str:str) -> list[dict]:
             weak = "(gyenge)" in prerequisite
             prerequisites.append({"id": prerequisite_id, "weak": weak})
     return prerequisites
+
 
 def get_field(field_str: str) -> str:
     match field_str:
@@ -81,7 +87,8 @@ def get_field(field_str: str) -> str:
         case _:
             return "egyéb"
 
-def get_specializations(line:list[str], table_type:str) -> list[str]:
+
+def get_specializations(line: list[str], table_type: str) -> list[str]:
     specializations = []
     if len(line) < 18:
         if table_type == "spec-kotval":
@@ -97,10 +104,12 @@ def get_specializations(line:list[str], table_type:str) -> list[str]:
             specializations.append('C')
     return specializations
 
-def flatten(l:list[list]) -> list:
+
+def flatten(l: list[list]) -> list:
     return [item for sublist in l for item in sublist]
 
-def map_parents_as_children(subject_data_list:list[dict]) -> list[dict]:
+
+def map_parents_as_children(subject_data_list: list[dict]) -> list[dict]:
     # - Fills the children field of each subject data with the IDs of its children.
     # - Also fills the children_specializations field of each subject data with the specializations of its children.
 
@@ -118,28 +127,33 @@ def map_parents_as_children(subject_data_list:list[dict]) -> list[dict]:
     # Add the children's IDs to each subject data.
     for subject_data in subject_data_list:
         subject_data['children'] = [child["code"] for child in child_map.get(subject_data['code'], [])]
-        subject_data['children_specializations'] = list(set(flatten([child["specializations"] for child in child_map.get(subject_data['code'], [])])))
+        subject_data['children_specializations'] = list(
+            set(flatten([child["specializations"] for child in child_map.get(subject_data['code'], [])])))
 
     return subject_data_list
 
-def merge_data(data:list[dict]) -> list[dict]:
+
+def merge_data(data: list[dict]) -> list[dict]:
     # if data exists with same code, the prequisites, and specializations else push to data
     merged_data = []
     for i, subject in enumerate(data):
         for j, subject2 in enumerate(data):
             if subject["code"] == subject2["code"] and i != j:
-                # TODO Union everything
-                prereqs = list(set(subject["prerequisites"] + subject2["prerequisites"])) # this does not work
+                # TODO: make it nicer
+                for prereq in subject2["prerequisites"]:
+                    if prereq not in subject["prerequisites"]:
+                        subject["prerequisites"].append(prereq)
+
                 specs = list(set(subject["specializations"] + subject2["specializations"]))
                 specs.sort()
                 subject["specializations"] = specs
-                subject["prerequisites"] = prereqs
                 data.pop(j)
         merged_data.append(subject)
-    
+
     return merged_data
 
-def process_files(files_to_process:list[tuple]) -> list[dict]:
+
+def process_files(files_to_process: list[tuple]) -> list[dict]:
     data = []
     for file_name, table_type in files_to_process:
         # parse the current file
@@ -151,7 +165,8 @@ def process_files(files_to_process:list[tuple]) -> list[dict]:
 
     return merged_data
 
-def save_data(data:json) -> None:
+
+def save_data(data: json) -> None:
     with open("../public/data.json", "wb") as f:
         f.write(json.dumps(data, ensure_ascii=False).encode("utf8"))
 
@@ -167,11 +182,9 @@ def main():
         ("C_spec_kotelezo.csv", "spec-kot"),
         ("C_spec_kotval.csv", "spec-kotval")
     ]
-    
+
     data = process_files(files_to_process)
     data = map_parents_as_children(data)
-    data = tree_sort_data(data)
-
     save_data(data)
 
 
