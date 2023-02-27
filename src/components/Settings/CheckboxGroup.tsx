@@ -33,8 +33,8 @@ export default function CheckboxGroup<T extends string>({
               name={checkbox.label}
               value={checkbox.value}
               checked={checkbox.checked}
-              onClick={() => onChange(checkbox.value)}
-              className={`mr-1 cursor-pointer ring-offset-0 rounded-sm border-2 border-primary-light bg-transparent text-primary-dark outline-0 ring-0 transition-all duration-150 checked:border-none checked:bg-primary-dark`}
+              onChange={() => onChange(checkbox.value)}
+              className={`mr-1 cursor-pointer rounded-sm border-2 border-primary-light bg-transparent text-primary-dark outline-0 ring-0 ring-offset-0 transition-all duration-150 checked:border-none checked:bg-primary-dark`}
             />
             <span
               className={`${

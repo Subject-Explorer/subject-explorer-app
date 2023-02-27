@@ -1,138 +1,159 @@
 import SubjectData from "@/utils/subjectData";
 import {
-    SparklesIcon,
-    StarIcon,
-    XMarkIcon,
-    InformationCircleIcon, AcademicCapIcon,
+  SparklesIcon,
+  StarIcon,
+  XMarkIcon,
+  InformationCircleIcon,
+  AcademicCapIcon,
 } from "@heroicons/react/20/solid";
-import {memo, FC, useState} from "react";
-import {Handle, Position, NodeProps} from "reactflow";
-import {Space_Grotesk} from "@next/font/google";
+import { memo, FC, useState } from "react";
+import { Handle, Position, NodeProps } from "reactflow";
+import { Space_Grotesk } from "@next/font/google";
 
 interface Props {
-  data: SubjectData;
-  xPos: number;
-  yPos: number;
+  data: { subject: SubjectData; disabled: boolean };
+  //   xPos: number;
+  //   yPos: number;
 }
 
 const spaceGrotesk = Space_Grotesk({
-        subsets: ["latin"],
-        weight: ["700"],
-        display: "swap",
-    }
-)
+  subsets: ["latin"],
+  weight: ["700"],
+  display: "swap",
+});
 
-const SubjectNode: FC<NodeProps> = ({data}: Props) => {
-    const subject = data; // For readability purposes
+const SubjectNode: FC<NodeProps> = ({ data }: Props) => {
+  const { subject, disabled } = data;
+  const [open, setOpen] = useState<boolean>(false);
+  const [favorite, setFavorite] = useState<boolean>(false);
+  return (
+    <>
+      <div
+        className={`
+        ${
+          favorite
+            ? "border-2 border-highlight-favorite"
+            : "border-2 border-primary-dark"
+        } 
+        ${disabled ? "opacity-50 saturate-[.2]" : "opacity-100"} 
+        w-[280px] rounded-2xl bg-primary-dark p-6 shadow-md transition-all duration-200 ease-in-out`}
+      >
+        <div
+          className={`${
+            favorite ? "text-highlight-favorite" : "text-neutral-inactive"
+          } text-xs transition-colors duration-150`}
+        >
+          {subject.id}
+        </div>
+        <div className="text-2xl font-bold" style={spaceGrotesk.style}>
+          {subject.name}
+        </div>
+        <hr className="my-2 h-px w-full text-primary-light" />
+        <div className="flex flex-col flex-nowrap items-start gap-1 text-sm font-light">
+          <div className="flex flex-nowrap items-center gap-2">
+            <SparklesIcon
+              className={`${
+                favorite ? "text-highlight-favorite" : "text-primary-light"
+              } h-5 w-5 text-xs transition-colors duration-150`}
+            />{" "}
+            {subject.credit} kredit
+          </div>
+          <div className="flex flex-nowrap items-center gap-2">
+            <AcademicCapIcon
+              className={`${
+                favorite ? "text-highlight-favorite" : "text-primary-light"
+              } h-5 w-5 text-xs transition-colors duration-150`}
+            />{" "}
+            {subject.field.charAt(0).toUpperCase() + subject.field.slice(1)}
+          </div>
+        </div>
 
-    const [open, setOpen] = useState<boolean>(false);
-    const [favorite, setFavorite] = useState<boolean>(false);
-    return (
-        <>
+        {open && (
+          <div className="flex flex-col gap-1 text-sm font-light">
+            <hr className="my-2 h-px w-full text-primary-light" />
+            <div>Előadás: {subject.lessonCount.lecture}</div>
+            <div>Labor: {subject.lessonCount.laboratory}</div>
+            <div>Gyakorlat: {subject.lessonCount.practice}</div>
+            <div>Konzultáció: {subject.lessonCount.consultation}</div>
+            <div>Számonkérés: {subject.test}</div>
+            <hr className="my-2 h-px w-full text-primary-light" />
+          </div>
+        )}
+
+        <div className="mt-2 flex flex-nowrap gap-2.5">
+          {subject.specializations.map((spec, index) => (
             <div
-                className={`${
-                    favorite
-                        ? "border-highlight-favorite border-2"
-                        : "border-primary-dark border-2"
-                }
-                p-6 bg-primary-dark rounded-2xl w-[280px] shadow-md transition-all duration-200 ease-in-out`}
+              key={index}
+              className={`flex h-10 w-10 items-center justify-center rounded-md text-[20px] font-bold text-neutral-dark ${
+                spec === "A"
+                  ? "bg-highlight-a"
+                  : spec === "B"
+                  ? "bg-highlight-b"
+                  : "bg-highlight-c"
+              }`}
             >
-                <div className='text-xs text-neutral-inactive'>{subject.id}</div>
-                <div className='text-2xl font-bold' style={spaceGrotesk.style}>{subject.name}</div>
-                <hr className='my-2 w-full h-px text-primary-light'/>
-                <div className='flex flex-col flex-nowrap gap-1 text-sm font-light items-start'>
-                    <div className='flex flex-nowrap gap-2 items-center'>
-                        <SparklesIcon className='h-5 w-5'/> {subject.credit} kredit
-                    </div>
-                    <div className='flex flex-nowrap gap-2 items-center'>
-                        <AcademicCapIcon className='h-5 w-5'/>{" "}
-                        {subject.field.charAt(0).toUpperCase() + subject.field.slice(1)}
-                    </div>
-                </div>
-
-                {open && (
-                    <div className='flex flex-col gap-1 text-sm font-light'>
-                        <hr className='my-2 w-full h-px text-primary-light'/>
-                        <div>Előadás: {subject.lessonCount.lecture}</div>
-                        <div>Labor: {subject.lessonCount.laboratory}</div>
-                        <div>Gyakorlat: {subject.lessonCount.practice}</div>
-                        <div>Konzultáció: {subject.lessonCount.consultation}</div>
-                        <div>Számonkérés: {subject.test}</div>
-                        <hr className='my-2 w-full h-px text-primary-light'/>
-                    </div>
-                )}
-
-                <div className='flex flex-nowrap gap-2.5 mt-2'>
-                    {subject.specializations.map((spec, index) => (
-                        <>
-                            <div
-                                key={index}
-                                className={`w-10 h-10 text-[20px] text-neutral-dark font-bold flex justify-center items-center rounded-md ${
-                                    spec === "A"
-                                        ? "bg-highlight-a"
-                                        : spec === "B"
-                                            ? "bg-highlight-b"
-                                            : "bg-highlight-c"
-                                }`}
-                            >
-                                {spec}
-                            </div>
-                        </>
-                    ))}
-                </div>
-                <button
-                    onClick={() => {
-                        setOpen(!open);
-                    }}
-                    className='absolute bottom-4 right-4 font-bold text-neutral-inactive'
-                >
-                    <XMarkIcon
-                        className={`h-8 w-8 absolute transition-opacity duration-200 ease-in-out  ${
-                            open ? "opacity-100" : "opacity-0"
-                        }`}
-                    />
-                    <InformationCircleIcon
-                        className={`h-8 w-8 transition-opacity duration-200 ease-in-out  ${
-                            !open ? "opacity-100" : "opacity-0"
-                        }`}
-                    />
-                </button>
-                <button
-                    className='absolute top-4 right-4 font-bold'
-                    onClick={() => setFavorite(!favorite)}
-                >
-                    <StarIcon
-                        className={`h-6 w-6 absolute transition-opacity duration-200 ease-in-out text-highlight-favorite ${
-                            favorite ? "opacity-100" : "opacity-0"
-                        }`}
-                    />
-                    <StarIconOutline
-                        className={`h-6 w-6 transition-opacity duration-200 ease-in-out text-neutral-inactive ${
-                            !favorite ? "opacity-100" : "opacity-0"
-                        }`}
-                    />
-                </button>
+              {spec}
             </div>
-            <Handle type='target' position={Position.Top} className='invisible'/>
-            <Handle type='source' position={Position.Bottom} className='invisible'/>
-        </>
-    );
+          ))}
+        </div>
+        <button
+          onClick={() => {
+            setOpen(!open);
+          }}
+          className="absolute bottom-4 right-4 font-bold text-neutral-inactive"
+        >
+          <XMarkIcon
+            className={`absolute h-8 w-8 transition-opacity duration-200 ease-in-out  ${
+              open ? "opacity-100" : "opacity-0"
+            }`}
+          />
+          <InformationCircleIcon
+            className={`h-8 w-8 transition-opacity duration-200 ease-in-out  ${
+              !open ? "opacity-100" : "opacity-0"
+            }`}
+          />
+        </button>
+        <button
+          className="absolute top-4 right-4 font-bold"
+          onClick={() => setFavorite(!favorite)}
+        >
+          <StarIcon
+            className={`absolute h-6 w-6 text-highlight-favorite transition-opacity duration-200 ease-in-out ${
+              favorite ? "opacity-100" : "opacity-0"
+            }`}
+          />
+          <StarIconOutline
+            className={`h-6 w-6 text-neutral-inactive transition-opacity duration-200 ease-in-out ${
+              !favorite ? "opacity-100" : "opacity-0"
+            }`}
+          />
+        </button>
+        <div
+          className={`${
+            favorite ? "opacity-20" : "opacity-0"
+          } pointer-events-none absolute top-0 left-0 h-full w-full rounded-2xl bg-highlight-favorite mix-blend-color transition-opacity duration-150`}
+        ></div>
+      </div>
+      <Handle type="target" position={Position.Top} className="invisible" />
+      <Handle type="source" position={Position.Bottom} className="invisible" />
+    </>
+  );
 };
 
 function StarIconOutline(props: any) {
   return (
     <svg
-      xmlns='http://www.w3.org/2000/svg'
-      fill='none'
-      viewBox='0 0 24 24'
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
       strokeWidth={1.5}
-      stroke='currentColor'
+      stroke="currentColor"
       {...props}
     >
       <path
-        strokeLinecap='round'
-        strokeLinejoin='round'
-        d='M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z'
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"
       />
     </svg>
   );

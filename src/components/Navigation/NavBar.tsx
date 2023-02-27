@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import SearchBar from "./SearchBar";
 import {
   AdjustmentsHorizontalIcon,
@@ -15,7 +15,11 @@ export default function NavBar() {
 
   const { settings, setSettings } = useFilterSettings();
 
-  const [query, setQuery] = useState<string>("");
+  const [query, setQuery] = useState<string>(settings.query);
+
+  useEffect(() => {
+    setQuery(settings.query);
+  }, [setQuery, settings]);
 
   const handleQuerySearch = () => {
     setSettings({ query: query });
@@ -31,7 +35,11 @@ export default function NavBar() {
       <div className="items-center justify-center gap-2 rounded-md bg-neutral p-2 shadow-lg sm:hidden md:flex">
         <div className="w-8">{/*TODO: PUT LOGO HERE*/}</div>
         <div className="h-8 w-[1px] rounded-lg bg-neutral-inactive" />
-        <SearchBar query={query} setQuery={setQuery} />
+        <SearchBar
+          query={query}
+          setQuery={setQuery}
+          onSubmit={handleQuerySearch}
+        />
         <NavBarButton
           icon={<MagnifyingGlassIcon className="w-5" />}
           onClick={handleQuerySearch}
@@ -44,9 +52,9 @@ export default function NavBar() {
         <NavBarButton
           icon={
             settings.hideDisabled ? (
-              <EyeSlashIcon className="w-5" />
-            ) : (
               <EyeIcon className="w-5" />
+            ) : (
+              <EyeSlashIcon className="w-5" />
             )
           }
           onClick={handleVisibilityChange}

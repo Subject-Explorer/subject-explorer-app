@@ -33,7 +33,6 @@ const FilterSettingsProvider = ({ children }: Props) => {
         ...prevSettings,
         ...updateSettings,
       };
-      console.log(newSettings.fields);
       if (typeof window !== undefined) {
         window.localStorage.setItem("filterSettings", JSON.stringify(settings));
       }
