@@ -139,7 +139,6 @@ def sort_into_semesters(subject_data_list) -> list[list[dict]]:
     return data
 
 
-
 def merge_data(data: list[dict]) -> list[dict]:
     # if data exists with same code, the prequisites, and specializations else push to data
     merged_data = []
@@ -192,6 +191,7 @@ def main():
 
     data = process_files(files_to_process)
     data = map_parents_as_children(data)
+    data = sort_into_semesters(data)
     save_data(data)
 
 
