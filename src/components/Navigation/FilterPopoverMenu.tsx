@@ -1,4 +1,5 @@
 import { useFilterSettings } from "@/utils/hooks/useFilterSettings";
+import { Check, CheckGroup, CheckTypeKeys } from "@/utils/settingData";
 import { Transition } from "@headlessui/react";
 import React, { Fragment } from "react";
 import CheckboxGroup from "../Settings/CheckboxGroup";
@@ -9,18 +10,20 @@ interface Props {
 export default function FilterPopoverMenu({ open }: Props) {
   const { settings, setSettings } = useFilterSettings();
 
-  const handleFieldCheckChange = (value: string) => {
-    //TODO: Implement function
-  };
-  const handleSpecCheckChange = (value: string) => {
-    //TODO: Implement function
-  };
-  const handleTestCheckChange = (value: string) => {
-    //TODO: Implement function
-  };
-  const handleSubjectTypeCheckChange = (value: string) => {
-    //TODO: Implement function
-  };
+  const handleCheckChange =
+    <T,>(setting: CheckGroup<T>, field: CheckTypeKeys) =>
+    (value: string) => {
+      const index = setting.findIndex((x) => x.value === value);
+      if (index < 0) throw new Error("Cosmic ray error");
+      const newField: Check<T> = {
+        ...setting[index],
+        checked: !setting[index]?.checked,
+      };
+      const newFields: CheckGroup<T> = [...setting];
+      newFields.splice(index, 1, newField);
+      setSettings({ [field]: newFields });
+    };
+
   return (
     <Transition
       as={Fragment}
@@ -32,24 +35,29 @@ export default function FilterPopoverMenu({ open }: Props) {
       leaveTo="opacity-0 translate-x-1"
       show={open}
     >
-      <div className="absolute left-1/2 top-full z-10 min-w-[200px] max-w-xl -translate-x-1/2 transform px-4 sm:px-0">
-        <div className="mx-auto flex w-full max-w-2xl flex-wrap gap-8 rounded-lg bg-neutral py-4 px-8 shadow-lg">
-          <CheckboxGroup
-            label="Ismeretkör"
-            checkboxes={settings.fields}
-            onChange={handleFieldCheckChange}
-          />
-          <CheckboxGroup
-            label="Specializáció"
-            checkboxes={settings.specializations}
-            onChange={handleSpecCheckChange}
-          />
-          <CheckboxGroup
-            label="Számonkérés"
-            checkboxes={settings.tests}
-            onChange={handleTestCheckChange}
-          />
-        </div>
+      <div className="absolute left-1/2 top-full z-10 flex min-w-[200px] max-w-xl -translate-x-1/2 transform flex-wrap justify-center gap-8 rounded-lg bg-neutral p-4 shadow-lg sm:px-0">
+        <CheckboxGroup
+          label="Ismeretkör"
+          checkboxes={settings.fields}
+          onChange={handleCheckChange(settings.fields, "fields")}
+          className="max-h-52"
+        />
+        <CheckboxGroup
+          label="Specializáció"
+          checkboxes={settings.specializations}
+          onChange={handleCheckChange(
+            settings.specializations,
+            "specializations"
+          )}
+          className="max-h-52"
+        />
+        <CheckboxGroup
+          label="Számonkérés"
+          checkboxes={settings.tests}
+          onChange={handleCheckChange(settings.tests, "tests")}
+          className="max-h-40"
+        />
+        <div className="min-w-full bg-primary-dark">Credit</div>
       </div>
     </Transition>
   );

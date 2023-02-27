@@ -6,7 +6,10 @@ export default interface Settings {
   specializations: CheckGroup<Specialization>;
   tests: CheckGroup<Test>;
   credits: CreditRange;
+  hideDisabled: boolean;
 }
+
+export type CheckTypeKeys = "fields" | "specializations" | "tests";
 
 export type MaybeSettings = Partial<Settings>;
 
