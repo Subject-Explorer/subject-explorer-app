@@ -1,21 +1,6 @@
 import json
-from typing import NamedTuple
 
-class SubjectData(NamedTuple):
-    code: str
-    type: str
-    name: str
-    lessonCount: dict
-    test: str
-    credit: int
-    semesters: list[int]
-    prerequisites: list[dict]
-    children: list[str]
-    children_specializations: list[str]
-    field: str
-    specializations: list[str]
-
-def parse_csv(file_name:str, table_type:str) -> list[SubjectData]:
+def parse_csv(file_name:str, table_type:str) -> list[dict]:
     data = []
 
     with open(f"./csv/{file_name}", mode="r", encoding="utf-8") as file:
@@ -112,21 +97,10 @@ def get_specializations(line:list[str], table_type:str) -> list[str]:
             specializations.append('C')
     return specializations
 
-def get_depth(subject_id:str, prerequisites_dict:dict) -> int:
-    # base case: subject has no prerequisites
-    if subject_id not in prerequisites_dict:
-        return 0
-
-    # recursive case: return depth of deepest prerequisite plus one
-    depths = []
-    for prerequisite_id in prerequisites_dict[subject_id]:
-        depths.append(get_depth(prerequisite_id, prerequisites_dict))
-    return max(depths) + 1
-
 def flatten(l:list[list]) -> list:
     return [item for sublist in l for item in sublist]
 
-def map_parents_as_children(subject_data_list:list[SubjectData]) -> list[SubjectData]:
+def map_parents_as_children(subject_data_list:list[dict]) -> list[dict]:
     # - Fills the children field of each subject data with the IDs of its children.
     # - Also fills the children_specializations field of each subject data with the specializations of its children.
 
@@ -148,12 +122,7 @@ def map_parents_as_children(subject_data_list:list[SubjectData]) -> list[Subject
 
     return subject_data_list
 
-def tree_sort_data(subject_data_list:list[SubjectData]) -> list[list[SubjectData]]:
-    
-
-    return subject_data_list
-
-def merge_data(data:list[SubjectData]) -> list[SubjectData]:
+def merge_data(data:list[dict]) -> list[dict]:
     # if data exists with same code, the prequisites, and specializations else push to data
     merged_data = []
     for i, subject in enumerate(data):
@@ -170,7 +139,7 @@ def merge_data(data:list[SubjectData]) -> list[SubjectData]:
     
     return merged_data
 
-def process_files(files_to_process:list[tuple]) -> list[SubjectData]:
+def process_files(files_to_process:list[tuple]) -> list[dict]:
     data = []
     for file_name, table_type in files_to_process:
         # parse the current file
