@@ -36,6 +36,8 @@ function Flow() {
     let newEdges: Edge[] = [];
     semesters.map((subjects, semesterIndex) => {
       subjects.map((subject, subjectIndex) => {
+          // if null, skip
+          if (subject === null) return;
         newNodes.push({
           id: subject.id,
           data: subject,

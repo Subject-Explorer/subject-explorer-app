@@ -1,8 +1,8 @@
 import json
 
 
-def parse_csv(file_name, specialization, table_type) -> list[dict]:
-    subjects = []
+def parse_csv(file_name: str, table_type: str) -> list[dict]:
+    data = []
 
     with open(f"./csv/{file_name}", mode="r", encoding="utf-8") as file:
         lines = csv_to_lines(file)
@@ -31,9 +31,9 @@ def parse_csv(file_name, specialization, table_type) -> list[dict]:
             "specializations": specializations
         }
 
-        subjects.append(subject_data)
+        data.append(subject_data)
 
-    return subjects
+    return data
 
 
 def csv_to_lines(file) -> list[list[str]]:
@@ -51,7 +51,7 @@ def csv_to_lines(file) -> list[list[str]]:
     return lines
 
 
-def get_lesson_count(line) -> dict:
+def get_lesson_count(line: str) -> dict:
     return {
         "lecture": int(line[2]),
         "practice": int(line[3]),
@@ -60,11 +60,11 @@ def get_lesson_count(line) -> dict:
     }
 
 
-def get_semesters(semesters_str) -> list[int]:
+def get_semesters(semesters_str: str) -> list[int]:
     return [int(semester) for semester in semesters_str.split(",")]
 
 
-def get_prerequisites(prerequisites_str) -> list[dict]:
+def get_prerequisites(prerequisites_str: str) -> list[dict]:
     prerequisites = []
     prerequisites_raw = prerequisites_str.strip().split(", ")
     for prerequisite in prerequisites_raw:
@@ -75,7 +75,7 @@ def get_prerequisites(prerequisites_str) -> list[dict]:
     return prerequisites
 
 
-def get_field(field_str) -> str:
+def get_field(field_str: str) -> str:
     match field_str:
         case "Inf":
             return "informatika"
@@ -87,7 +87,7 @@ def get_field(field_str) -> str:
             return "egyéb"
 
 
-def get_specializations(line, table_type) -> list[str]:
+def get_specializations(line: list[str], table_type: str) -> list[str]:
     specializations = []
     if len(line) < 18:
         if table_type == "spec-kotval":
@@ -104,58 +104,30 @@ def get_specializations(line, table_type) -> list[str]:
     return specializations
 
 
-def fix_prerequisites(data, spec) -> None:
-    subjects_dict = {}
-
-    # create a dictionary of subjects, with their IDs as keys
-    for semester in data:
-        for subject in semester:
-            subject_id = subject["id"].split('_')[0]
-            subjects_dict[subject_id] = subject
-
-    # replace prerequisite IDs with subject codes
-    for semester in data:
-        for subject in semester:
-            for prerequisite in subject["prerequisites"]:
-                prerequisite_id = prerequisite["id"]
-                if prerequisite_id in subjects_dict:
-                    prerequisite_subject = subjects_dict[prerequisite_id]
-                    prerequisite["id"] = prerequisite_subject["code"] + "_" + spec
+def flatten(l: list[list]) -> list:
+    return [item for sublist in l for item in sublist]
 
 
-def map_parents_as_children(subject_data_list):
+def map_parents_as_children(subject_data_list: list[dict]) -> list[dict]:
+    # - Fills the children field of each subject data with the IDs of its children.
+    # - Also fills the children_specializations field of each subject data with the specializations of its children.
+
     # Create a dictionary to map each subject data ID to its children IDs and siblings' IDs.
     child_map = {}
-    sibling_map = {}
     for subject_data in subject_data_list:
-        subject_data_id = subject_data['id']
         prerequisites = subject_data.pop('prerequisites', [])
         for prerequisite in prerequisites:
             prerequisite_id = prerequisite['id']
-            prerequisite_weak = prerequisite['weak']
-            if prerequisite_weak:
-                if subject_data_id in sibling_map:
-                    sibling_map[subject_data_id].append(prerequisite_id)
-                else:
-                    sibling_map[subject_data_id] = [prerequisite_id]
-            else:
-                if prerequisite_id in child_map:
-                    child_map[prerequisite_id].append(subject_data_id)
-                else:
-                    child_map[prerequisite_id] = [subject_data_id]
+            child_map.setdefault(prerequisite_id, []).append({
+                "code": subject_data['code'],
+                "specializations": subject_data['specializations']
+            })
 
-    # Add the children's IDs and siblings' IDs to each subject data.
+    # Add the children's IDs to each subject data.
     for subject_data in subject_data_list:
-        subject_data_id = subject_data['id']
-        if subject_data_id in child_map:
-            subject_data['children'] = child_map[subject_data_id]
-        else:
-            subject_data['children'] = []
-        if subject_data_id in sibling_map:
-            subject_data['siblings'] = sibling_map[subject_data_id]
-        else:
-            subject_data['siblings'] = []
-
+        subject_data['children'] = [child["code"] for child in child_map.get(subject_data['code'], [])]
+        subject_data['children_specializations'] = list(
+            set(flatten([child["specializations"] for child in child_map.get(subject_data['code'], [])])))
     return subject_data_list
 
 
@@ -167,55 +139,59 @@ def sort_into_semesters(subject_data_list) -> list[list[dict]]:
     return data
 
 
-def get_depth(subject_id, prerequisites_dict) -> int:
-    # base case: subject has no prerequisites
-    if subject_id not in prerequisites_dict:
-        return 0
 
-    # recursive case: return depth of deepest prerequisite plus one
-    depths = []
-    for prerequisite_id in prerequisites_dict[subject_id]:
-        depths.append(get_depth(prerequisite_id, prerequisites_dict))
-    return max(depths) + 1
+def merge_data(data: list[dict]) -> list[dict]:
+    # if data exists with same code, the prequisites, and specializations else push to data
+    merged_data = []
+    for i, subject in enumerate(data):
+        for j, subject2 in enumerate(data):
+            if subject["code"] == subject2["code"] and i != j:
+                # TODO: make it nicer
+                for prereq in subject2["prerequisites"]:
+                    if prereq not in subject["prerequisites"]:
+                        subject["prerequisites"].append(prereq)
 
+                specs = list(set(subject["specializations"] + subject2["specializations"]))
+                specs.sort()
+                subject["specializations"] = specs
+                data.pop(j)
+        merged_data.append(subject)
 
-def sort_data(data) -> None:
-    for semester in data:
-        semester.sort(key=lambda x: (x["code"], [prereq["id"] for prereq in x["prerequisites"]], x["field"]),
-                      reverse=False)
-
-
-def process_files(files_to_process) -> list[dict]:
-    subjects = []
-    for file_name, specialization, table_type in files_to_process:
-        new_data = parse_csv(file_name, specialization, table_type)
-        # add new data to the list of subjects, where subject ids are unique
-        for subject in new_data:
-            if subject["id"] not in [s["id"] for s in subjects]:
-                subjects.append(subject)
-    return subjects
+    return merged_data
 
 
-def save_data(data) -> None:
+def process_files(files_to_process: list[tuple]) -> list[dict]:
+    data = []
+    for file_name, table_type in files_to_process:
+        # parse the current file
+        new_data = parse_csv(file_name, table_type)
+        data.extend(new_data)
+
+    # merge same-coded subjects
+    merged_data = merge_data(data)
+
+    return merged_data
+
+
+def save_data(data: json) -> None:
     with open("../public/data.json", "wb") as f:
         f.write(json.dumps(data, ensure_ascii=False).encode("utf8"))
 
 
 def main():
     files_to_process = [
-        # (filename, specialization, table_type)
-        ("torzsanyag.csv", "", "torzs"),
-        ("A_spec_kotelezo.csv", "A", "spec-kot"),
-        ("A_spec_kotval.csv", "A", "spec-kotval"),
-        ("B_spec_kotelezo.csv", "B", "spec-kot"),
-        ("B_spec_kotval.csv", "B", "spec-kotval"),
-        ("C_spec_kotelezo.csv", "C", "spec-kot"),
-        ("C_spec_kotval.csv", "C", "spec-kotval")
+        # (filename, table_type)
+        ("torzsanyag.csv", "torzs"),
+        ("A_spec_kotelezo.csv", "spec-kot"),
+        ("A_spec_kotval.csv", "spec-kotval"),
+        ("B_spec_kotelezo.csv", "spec-kot"),
+        ("B_spec_kotval.csv", "spec-kotval"),
+        ("C_spec_kotelezo.csv", "spec-kot"),
+        ("C_spec_kotval.csv", "spec-kotval")
     ]
-    subjects = process_files(files_to_process)
-    map_parents_as_children(subjects)
-    data = sort_into_semesters(subjects)
-    # sort_data(data)
+
+    data = process_files(files_to_process)
+    data = map_parents_as_children(data)
     save_data(data)
 
 
