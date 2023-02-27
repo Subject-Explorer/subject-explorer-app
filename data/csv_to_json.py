@@ -8,6 +8,7 @@ def parse_csv(file_name: str, table_type: str) -> list[dict]:
         lines = csv_to_lines(file)
 
     for line in lines:
+        id = line[0]
         name = line[1]
         lesson_count = get_lesson_count(line)
         test = line[6]
@@ -18,16 +19,14 @@ def parse_csv(file_name: str, table_type: str) -> list[dict]:
         specializations = get_specializations(line, table_type)
 
         subject_data = {
-            "code": line[0],
+            "id": id,
             "type": table_type,
             "name": name,
             "lessonCount": lesson_count,
             "test": test,
             "credit": credit,
             "semesters": semesters,
-            "prerequisites": prerequisites,  # later removed
-            "children": [],
-            "children_specializations": [],
+            "prerequisites": prerequisites,
             "field": field,
             "specializations": specializations
         }
@@ -129,8 +128,16 @@ def map_parents_as_children(subject_data_list: list[dict]) -> list[dict]:
         subject_data['children'] = [child["code"] for child in child_map.get(subject_data['code'], [])]
         subject_data['children_specializations'] = list(
             set(flatten([child["specializations"] for child in child_map.get(subject_data['code'], [])])))
-
     return subject_data_list
+
+
+def sort_into_semesters(subject_data_list) -> list[list[dict]]:
+    semesters = 6
+    data = [[] for _ in range(semesters)]
+    for subject_data in subject_data_list:
+        data[subject_data['semesters'][0] - 1].append(subject_data)
+    return data
+
 
 
 def merge_data(data: list[dict]) -> list[dict]:

@@ -1,13 +1,13 @@
 export default interface SubjectData {
   id: string;
-  code: string;
   type: SubjectType;
   name: string;
   lessonCount: LessonCount;
   test: Test;
   credit: number;
   semesters: number[];
-  prerequisites: Prerequisite[];
+  children: string[],
+  siblings: string[],
   field: Field;
   specializations: Specialization[];
 }
@@ -22,7 +22,7 @@ export interface LessonCount {
   laboratory: number;
   consultation: number;
 }
-export interface Prerequisite{
-    id: string;
-    weak: boolean;
+export interface Prerequisite {
+  id: string;
+  weak: boolean;
 }
