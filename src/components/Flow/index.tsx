@@ -5,7 +5,7 @@ import ReactFlow, {
   useNodesState,
   useEdgesState,
   Edge,
-  DefaultEdgeOptions,
+  DefaultEdgeOptions
 } from "reactflow";
 import CustomNode from "./CustomNode";
 import SubjectNode from "./SubjectNode";
@@ -17,20 +17,20 @@ const semesters: SubjectData[][] = data as SubjectData[][];
 
 const nodeTypes = {
   custom: CustomNode,
-  subject: SubjectNode,
+  subject: SubjectNode
 };
 
 const defaultEdgeOptions: DefaultEdgeOptions = {
   animated: false,
   type: "simplebezier",
-  style: { strokeWidth: 2 },
+  style: {strokeWidth: 2}
 };
 
 function Flow() {
   const [nodes, setNodes, onNodesChange] = useNodesState([]);
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
 
-  const { settings } = useFilterSettings();
+  const {settings} = useFilterSettings();
 
   const filterSubject: (subject: SubjectData) => boolean = useCallback(
     (subject: SubjectData) =>
@@ -62,16 +62,16 @@ function Flow() {
     let newEdges: Edge[] = [];
     filteredSemesters.map((subjects, semesterIndex) => {
       subjects.map((subject, subjectIndex) => {
-          // if null, skip
-          if (subject === null) return;
+        // if null, skip
+        if (subject === null) return;
         newNodes.push({
           id: subject.id,
-          data: { subject: subject, disabled: !filterSubject(subject) },
+          data: {subject: subject, disabled: !filterSubject(subject)},
           position: {
             x: subjectIndex * 400,
-            y: semesterIndex * 400,
+            y: semesterIndex * 400
           },
-          type: "subject",
+          type: "subject"
         });
         if (subject.children.length > 0) {
           //TODO: Handle soft prerequisites
@@ -79,7 +79,7 @@ function Flow() {
             newEdges.push({
               id: `e-${subject.id}-${child}`,
               source: subject.id,
-              target: child,
+              target: child
             });
           });
         }
@@ -101,7 +101,7 @@ function Flow() {
         fitView
         panOnScroll
         panOnScrollSpeed={0.5}
-        proOptions={{ hideAttribution: true }}
+        proOptions={{hideAttribution: true}}
         selectionOnDrag={false}
       />
     </div>
