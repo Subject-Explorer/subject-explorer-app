@@ -1,4 +1,5 @@
 import json
+from manual_sorter import sort_manually
 
 
 def parse_csv(file_name: str, table_type: str) -> list[dict]:
@@ -191,7 +192,7 @@ def main():
 
     data = process_files(files_to_process)
     data = map_parents_as_children(data)
-    data = sort_into_semesters(data)
+    data = sort_manually(data)
     save_data(data)
 
 
