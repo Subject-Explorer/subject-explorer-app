@@ -8,28 +8,22 @@ public class Population {
     private final double mutationRate;
     private final double crossoverRate;
     private final int elitismCount;
-    private final int maxGeneration;
 
-    public Population(int populationSize, double mutationRate, double crossoverRate, int elitismCount,
-            int maxGeneration) {
+    public Population(int populationSize, double mutationRate, double crossoverRate, int elitismCount) {
         this.populationSize = populationSize;
         this.mutationRate = mutationRate;
         this.crossoverRate = crossoverRate;
         this.elitismCount = elitismCount;
-        this.maxGeneration = maxGeneration;
         this.population = new Chromosome[populationSize];
     }
 
-    public Chromosome solve() {
+    public Chromosome progress(int generations) {
         // Step 1: Evaluate the fitness of each individual
         evaluatePopulation(population);
 
         // Step 2: Repeat the evolution process until the termination criterion is met
-        int generation = 0;
-        while (generation < maxGeneration) {
+        for (int generation = 0; generation < generations; generation++) {
             this.evolve();
-
-            generation++;
         }
 
         // Step 3: Return the fittest individual as the solution
@@ -102,31 +96,11 @@ public class Population {
         Chromosome[] newPopulation = new Chromosome[populationSize];
         Arrays.sort(population, Comparator.comparingDouble(Chromosome::getFitness));
         Arrays.sort(offspring, Comparator.comparingDouble(Chromosome::getFitness));
-        for (int i = 0; i < elitismCount; i++) {
-            newPopulation[i] = population[i];
-        }
-        for (int i = elitismCount; i < populationSize; i++) {
-            newPopulation[i] = offspring[i - elitismCount];
-        }
+        if (elitismCount >= 0) System.arraycopy(population, 0, newPopulation, 0, elitismCount);
+        if (populationSize - elitismCount >= 0)
+            System.arraycopy(offspring, 0, newPopulation, elitismCount, populationSize - elitismCount);
         return newPopulation;
     }
-
-    public Chromosome[] getPopulation() {
-        return population;
-    }
-
-    public Chromosome getChromosome(int index) {
-        return population[index];
-    }
-
-    public void setChromosome(int index, Chromosome chromosome) {
-        population[index] = chromosome;
-    }
-
-    public int getPopulationSize() {
-        return populationSize;
-    }
-
     private Chromosome tournamentSelection(Chromosome[] population) {
         int indexA = (int) (Math.random() * populationSize);
         int indexB = (int) (Math.random() * populationSize);
@@ -225,7 +199,7 @@ public class Population {
         }
 
         public Population initialize() {
-            return new Population(populationSize, mutationRate, crossoverRate, elitismCount, maxGeneration);
+            return new Population(populationSize, mutationRate, crossoverRate, elitismCount);
         }
     }
 }
