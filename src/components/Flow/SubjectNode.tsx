@@ -178,14 +178,14 @@ const SubjectNode: FC<NodeProps> = ({ data }: Props) => {
       </div>
 
       <Handle
-        id="w-t"
-        type="target"
+        id="w-s"
+        type="source"
         position={Position.Left}
         className="-left-2 h-10 w-2 rounded-none rounded-l-md border-none bg-neutral opacity-40"
       />
       <Handle
-        id="w-s"
-        type="source"
+        id="w-t"
+        type="target"
         position={Position.Right}
         className="-right-2 h-10 w-2 rounded-none rounded-r-md border-none bg-neutral opacity-40"
       />

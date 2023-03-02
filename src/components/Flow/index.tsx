@@ -7,6 +7,7 @@ import ReactFlow, {
   Edge,
   DefaultEdgeOptions,
   SelectionMode,
+  MiniMap,
 } from "reactflow";
 import CustomNode from "./CustomNode";
 import SubjectNode, { NodeData } from "./SubjectNode";
@@ -35,6 +36,7 @@ function Flow() {
 
   const filterSubject: (subject: SubjectData) => boolean = useCallback(
     (subject: SubjectData) =>
+      subject !== null &&
       subject.name.toLowerCase().includes(settings.query.toLowerCase()) &&
       settings.fields.some(
         (fieldCheckbox) =>
@@ -89,7 +91,7 @@ function Flow() {
           //TODO: Handle soft prerequisites
           if (child.weak) {
             newEdges.push({
-              id: `e-${node.data.subject.id}-${child}_w`,
+              id: `e-${node.data.subject.id}-${child.id}_w`,
               source: node.data.subject.id,
               target: child.id,
               sourceNode: node,
@@ -97,18 +99,19 @@ function Flow() {
               targetNode: childNode,
               targetHandle: `w-t`,
             });
-          }
-          node.data.subject.specializations.map((spec) => {
-            newEdges.push({
-              id: `e-${node.data.subject.id}_${spec}-${child}_${spec}`,
-              source: node.data.subject.id,
-              target: child.id,
-              sourceNode: node,
-              sourceHandle: `${spec}-s`,
-              targetNode: childNode,
-              targetHandle: `${spec}-t`,
+          } else {
+            node.data.subject.specializations.map((spec) => {
+              newEdges.push({
+                id: `e-${node.data.subject.id}_${spec}-${child.id}_${spec}`,
+                source: node.data.subject.id,
+                target: child.id,
+                sourceNode: node,
+                sourceHandle: `${spec}-s`,
+                targetNode: childNode,
+                targetHandle: `${spec}-t`,
+              });
             });
-          });
+          }
         }
       });
     });
@@ -130,11 +133,13 @@ function Flow() {
         defaultViewport={{ x: 0, y: 0, zoom: 0.2 }}
         panOnScroll
         panOnScrollSpeed={0.5}
-        panOnDrag={false}
+        // panOnDrag={false}
         proOptions={{ hideAttribution: true }}
-        selectionOnDrag
-        selectionMode={SelectionMode.Partial}
-      />
+        // selectionOnDrag
+        // selectionMode={SelectionMode.Partial}
+      >
+        <MiniMap />
+      </ReactFlow>
     </div>
   );
 }
