@@ -1,4 +1,4 @@
-import SubjectData from "@/utils/subjectData";
+import SubjectData, { Prerequisite } from "@/utils/subjectData";
 import { useCallback, useEffect } from "react";
 import ReactFlow, {
   Node,
@@ -6,9 +6,10 @@ import ReactFlow, {
   useEdgesState,
   Edge,
   DefaultEdgeOptions,
+  SelectionMode,
 } from "reactflow";
 import CustomNode from "./CustomNode";
-import SubjectNode from "./SubjectNode";
+import SubjectNode, { NodeData } from "./SubjectNode";
 import data from "../../../public/data.json";
 import { useFilterSettings } from "@/utils/hooks/useFilterSettings";
 
@@ -58,28 +59,54 @@ function Flow() {
       ? semesters.map((semester) => semester.filter(filterSubject))
       : semesters;
 
-    let newNodes: Node[] = [];
+    let newNodes: Node<NodeData>[] = [];
     let newEdges: Edge[] = [];
     filteredSemesters.map((subjects, semesterIndex) => {
       subjects.map((subject, subjectIndex) => {
-          // if null, skip
-          if (subject === null) return;
+        // if null, skip
+        if (subject === null) return;
         newNodes.push({
           id: subject.id,
-          data: { subject: subject, disabled: !filterSubject(subject) },
+          data: {
+            subject: subject,
+            disabled: !filterSubject(subject),
+          },
           position: {
             x: subjectIndex * 400,
             y: semesterIndex * 400,
           },
           type: "subject",
         });
-        if (subject.children.length > 0) {
+      });
+    });
+    newNodes.map((node) => {
+      if (node.data.subject.children.length < 1) return;
+
+      node.data.subject.children.map((child: Prerequisite) => {
+        const childNode = newNodes.find((node) => node.id === child.id);
+        //TODO: Handle hidden state
+        if (childNode) {
           //TODO: Handle soft prerequisites
-          subject.children.map((child) => {
+          if (child.weak) {
             newEdges.push({
-              id: `e-${subject.id}-${child}`,
-              source: subject.id,
-              target: child,
+              id: `e-${node.data.subject.id}-${child}_w`,
+              source: node.data.subject.id,
+              target: child.id,
+              sourceNode: node,
+              sourceHandle: `w-s`,
+              targetNode: childNode,
+              targetHandle: `w-t`,
+            });
+          }
+          node.data.subject.specializations.map((spec) => {
+            newEdges.push({
+              id: `e-${node.data.subject.id}_${spec}-${child}_${spec}`,
+              source: node.data.subject.id,
+              target: child.id,
+              sourceNode: node,
+              sourceHandle: `${spec}-s`,
+              targetNode: childNode,
+              targetHandle: `${spec}-t`,
             });
           });
         }
@@ -99,10 +126,14 @@ function Flow() {
         nodeTypes={nodeTypes}
         defaultEdgeOptions={defaultEdgeOptions}
         fitView
+        fitViewOptions={{ minZoom: 0.2 }}
+        defaultViewport={{ x: 0, y: 0, zoom: 0.2 }}
         panOnScroll
         panOnScrollSpeed={0.5}
+        panOnDrag={false}
         proOptions={{ hideAttribution: true }}
-        selectionOnDrag={false}
+        selectionOnDrag
+        selectionMode={SelectionMode.Partial}
       />
     </div>
   );

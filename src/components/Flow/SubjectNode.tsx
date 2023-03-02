@@ -10,6 +10,7 @@ import { memo, FC, useState } from "react";
 import { Handle, Position, NodeProps } from "reactflow";
 import { Space_Grotesk } from "@next/font/google";
 
+export type NodeData = { subject: SubjectData; disabled: boolean };
 interface Props {
   data: { subject: SubjectData; disabled: boolean };
   //   xPos: number;
@@ -28,6 +29,27 @@ const SubjectNode: FC<NodeProps> = ({ data }: Props) => {
   const [favorite, setFavorite] = useState<boolean>(false);
   return (
     <>
+      <div className="absolute -top-2 flex w-full flex-nowrap justify-center">
+        <Handle
+          id="A-t"
+          type="target"
+          position={Position.Bottom}
+          className="static h-2 w-10 translate-x-0 rounded-none rounded-tl-md border-none bg-highlight-a opacity-40"
+        />
+        <Handle
+          id="B-t"
+          type="target"
+          position={Position.Bottom}
+          className="static h-2 w-10 translate-x-0 rounded-none border-none bg-highlight-b opacity-40"
+        />
+        <Handle
+          id="C-t"
+          type="target"
+          position={Position.Bottom}
+          className="static h-2 w-10 translate-x-0 rounded-none rounded-tr-md border-none bg-highlight-c opacity-40"
+        />
+      </div>
+
       <div
         className={`
         ${
@@ -134,8 +156,39 @@ const SubjectNode: FC<NodeProps> = ({ data }: Props) => {
           } pointer-events-none absolute top-0 left-0 h-full w-full rounded-2xl bg-highlight-favorite mix-blend-color transition-opacity duration-150`}
         ></div>
       </div>
-      <Handle type="target" position={Position.Top} className="invisible" />
-      <Handle type="source" position={Position.Bottom} className="invisible" />
+      <div className="absolute -bottom-2 flex w-full flex-nowrap justify-center">
+        <Handle
+          id="A-s"
+          type="source"
+          position={Position.Bottom}
+          className="static h-2 w-10 translate-x-0 rounded-none rounded-bl-md border-none bg-highlight-a opacity-40"
+        />
+        <Handle
+          id="B-s"
+          type="source"
+          position={Position.Bottom}
+          className="static h-2 w-10 translate-x-0 rounded-none border-none bg-highlight-b opacity-40"
+        />
+        <Handle
+          id="C-s"
+          type="source"
+          position={Position.Bottom}
+          className="static h-2 w-10 translate-x-0 rounded-none rounded-br-md border-none bg-highlight-c opacity-40"
+        />
+      </div>
+
+      <Handle
+        id="w-t"
+        type="target"
+        position={Position.Left}
+        className="-left-2 h-10 w-2 rounded-none rounded-l-md border-none bg-neutral opacity-40"
+      />
+      <Handle
+        id="w-s"
+        type="source"
+        position={Position.Right}
+        className="-right-2 h-10 w-2 rounded-none rounded-r-md border-none bg-neutral opacity-40"
+      />
     </>
   );
 };
