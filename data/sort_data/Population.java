@@ -3,40 +3,112 @@ import java.util.Comparator;
 import java.util.Random;
 
 public class Population {
-    private final Chromosome[] population;
-    private final int size;
+    private Chromosome[] population;
+    private final int populationSize;
+    private final double mutationRate;
+    private final double crossoverRate;
+    private final int elitismCount;
+    private final int maxGeneration;
 
-    public Population(int size) {
-        this.size = size;
-        this.population = new Chromosome[size];
+    public Population(int populationSize, double mutationRate, double crossoverRate, int elitismCount,
+            int maxGeneration) {
+        this.populationSize = populationSize;
+        this.mutationRate = mutationRate;
+        this.crossoverRate = crossoverRate;
+        this.elitismCount = elitismCount;
+        this.maxGeneration = maxGeneration;
+        this.population = new Chromosome[populationSize];
     }
 
-    public void initialize(NodeGrid base) {
+    public Chromosome solve() {
+        // Step 1: Evaluate the fitness of each individual
+        evaluatePopulation(population);
+
+        // Step 2: Repeat the evolution process until the termination criterion is met
+        int generation = 0;
+        while (generation < maxGeneration) {
+            this.evolve();
+
+            generation++;
+        }
+
+        // Step 3: Return the fittest individual as the solution
+        return getFittestIndividual(population);
+    }
+
+    private void evaluatePopulation(Chromosome[] population) {
+        for (Chromosome chromosome : population) {
+            chromosome.evaluate();
+        }
+
+        Arrays.sort(population, Comparator.comparingDouble(Chromosome::getFitness));
+    }
+
+    private Chromosome[] selectParents(Chromosome[] population) {
+        // select parents using tournament selection
+        Chromosome[] parents = new Chromosome[population.length];
+        for (int i = 0; i < population.length; i++) {
+            parents[i] = tournamentSelection(population);
+        }
+        return parents;
+    }
+
+    public void initializeWith(NodeGrid base) {
         Chromosome baseChromosome = Chromosome.fromNodes(base);
         this.fill(baseChromosome);
-        this.mutate(0.3);
+        this.mutateOffspring(population);
+    }
+
+    public Chromosome getFittestIndividual(Chromosome[] population) {
+        return population[0];
+    }
+
+    public void evolve() {
+        // Step 3.1: Select the parents for crossover
+        Chromosome[] parents = selectParents(population);
+
+        // Step 3.2: Perform crossover to generate offspring
+        Chromosome[] offspring = performCrossover(parents);
+
+        // Step 3.3: Mutate the offspring
+        mutateOffspring(offspring);
+
+        // Step 3.4: Evaluate the fitness of the offspring
+        evaluatePopulation(offspring);
+
+        // Step 3.5: Select the individuals for the next generation
+        population = selectPopulation(population, offspring);
+
+        // Step 3.6: Evaluate the fitness of the new population
+        evaluatePopulation(population);
     }
 
     public void fill(Chromosome base) {
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i < populationSize; i++) {
             population[i] = base.copy();
         }
     }
 
-    public void mutate(double mutationRate) {
+    public void mutateOffspring(Chromosome[] offspring) {
         Random random = new Random();
-        for (Chromosome chromosome : population) {
+        for (Chromosome chromosome : offspring) {
             if (random.nextDouble() < mutationRate) {
                 chromosome.shuffle();
             }
         }
     }
 
-    public void elitism(int offspringSize) {
+    public Chromosome[] selectPopulation(Chromosome[] population, Chromosome[] offspring) {
+        Chromosome[] newPopulation = new Chromosome[populationSize];
         Arrays.sort(population, Comparator.comparingDouble(Chromosome::getFitness));
-        for (int i = 0; i < offspringSize; i++) {
-            population[size - i - 1] = offspring[i];
+        Arrays.sort(offspring, Comparator.comparingDouble(Chromosome::getFitness));
+        for (int i = 0; i < elitismCount; i++) {
+            newPopulation[i] = population[i];
         }
+        for (int i = elitismCount; i < populationSize; i++) {
+            newPopulation[i] = offspring[i - elitismCount];
+        }
+        return newPopulation;
     }
 
     public Chromosome[] getPopulation() {
@@ -51,27 +123,19 @@ public class Population {
         population[index] = chromosome;
     }
 
-    public int getSize() {
-        return size;
+    public int getPopulationSize() {
+        return populationSize;
     }
 
-    public Chromosome[] getParents(int parentSize) {
-        Chromosome[] parents = new Chromosome[parentSize];
-        for (int i = 0; i < parentSize; i++) {
-            parents[i] = tournamentSelection();
-        }
-        return parents;
-    }
-
-    private Chromosome tournamentSelection() {
-        int indexA = (int) (Math.random() * size);
-        int indexB = (int) (Math.random() * size);
+    private Chromosome tournamentSelection(Chromosome[] population) {
+        int indexA = (int) (Math.random() * populationSize);
+        int indexB = (int) (Math.random() * populationSize);
         Chromosome chromosomeA = population[indexA];
         Chromosome chromosomeB = population[indexB];
         return chromosomeA.getFitness() < chromosomeB.getFitness() ? chromosomeA : chromosomeB;
     }
 
-    public Chromosome[] getOffspring(Chromosome[] parents) {
+    public Chromosome[] performCrossover(Chromosome[] parents) {
         Chromosome[] offspring = new Chromosome[parents.length];
         for (int i = 0; i < parents.length; i += 2) {
             offspring[i] = orderCrossover(parents[i], parents[i + 1]);
@@ -118,5 +182,50 @@ public class Population {
             }
         }
         return new Chromosome(parentA.getConnections(), offspringPermutation);
+    }
+
+    public static class Initializer {
+        private int populationSize;
+        private double mutationRate;
+        private double crossoverRate;
+        private int elitismCount;
+        private int maxGeneration;
+
+        public Initializer() {
+            this.populationSize = 100;
+            this.mutationRate = 0.01;
+            this.crossoverRate = 0.95;
+            this.elitismCount = 10;
+            this.maxGeneration = 100;
+        }
+
+        public Initializer withPopulationSize(int populationSize) {
+            this.populationSize = populationSize;
+            return this;
+        }
+
+        public Initializer withMutationRate(double mutationRate) {
+            this.mutationRate = mutationRate;
+            return this;
+        }
+
+        public Initializer withCrossoverRate(double crossoverRate) {
+            this.crossoverRate = crossoverRate;
+            return this;
+        }
+
+        public Initializer withElitismCount(int elitismCount) {
+            this.elitismCount = elitismCount;
+            return this;
+        }
+
+        public Initializer withMaxGeneration(int maxGeneration) {
+            this.maxGeneration = maxGeneration;
+            return this;
+        }
+
+        public Population initialize() {
+            return new Population(populationSize, mutationRate, crossoverRate, elitismCount, maxGeneration);
+        }
     }
 }

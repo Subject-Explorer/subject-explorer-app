@@ -5,7 +5,7 @@ import java.util.Random;
 public class Chromosome {
     private final HashMap<Integer, int[]> connections;
     private final int[][] permutation;
-    int fitness = -1;
+    double fitness = -1;
 
     public Chromosome(HashMap<Integer, int[]> connections, int[][] permutation) {
         this.connections = connections;
@@ -57,10 +57,7 @@ public class Chromosome {
         }
     }
 
-    public double getFitness() {
-        if (fitness != -1) {
-            return fitness;
-        }
+    public void evaluate(){
         double totalDistance = 0;
         for (int node : connections.keySet()) {
             int[] nodeConnections = connections.get(node);
@@ -68,7 +65,11 @@ public class Chromosome {
                 totalDistance += flatDistance(node, connection);
             }
         }
-        return 1 / totalDistance;
+        this.fitness = 1 / totalDistance;
+    }
+
+    public double getFitness() {
+        return this.fitness;
     }
 
     public double flatDistance(int i, int j) {
