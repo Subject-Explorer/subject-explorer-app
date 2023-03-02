@@ -21,6 +21,9 @@ def sort_manually(datalist:list[dict]) -> list[list[dict]]:
                     sorted_data[i].append(None)
                     break
                 if subject["id"] == col:
+                    # check if subject is already in the sequence
+                    if subject["id"] in [s["id"] for s in flatten(sorted_data) if s != None]:
+                        print(f"Subject {subject['id']} is already in the sequence")
                     sorted_data[i].append(subject)
                     break
             # list the ids of subjects that are not in the data list (debug)
