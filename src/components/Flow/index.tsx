@@ -63,7 +63,9 @@ function Flow() {
 
     let newNodes: Node<NodeData>[] = [];
     let newEdges: Edge[] = [];
+    let even = 0;
     filteredSemesters.map((subjects, semesterIndex) => {
+      even = 1-even;
       subjects.map((subject, subjectIndex) => {
         // if null, skip
         if (subject === null) return;
@@ -74,7 +76,7 @@ function Flow() {
             disabled: !filterSubject(subject),
           },
           position: {
-            x: subjectIndex * 400,
+            x: subjectIndex * 400 + even * 200,
             y: semesterIndex * 400,
           },
           type: "subject",
