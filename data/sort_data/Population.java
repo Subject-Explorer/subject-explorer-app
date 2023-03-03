@@ -3,114 +3,97 @@ import java.util.Comparator;
 import java.util.Random;
 
 public class Population {
-    private Chromosome[] population;
+    private Specimen[] population;
     private final int populationSize;
     private final double mutationRate;
     private final double crossoverRate;
-    private final int elitismCount;
+    private final int eliteSize;
 
-    public Population(int populationSize, double mutationRate, double crossoverRate, int elitismCount) {
+    public Population(int populationSize, double mutationRate, double crossoverRate, int eliteSize) {
+        this.population = new Specimen[populationSize];
         this.populationSize = populationSize;
         this.mutationRate = mutationRate;
         this.crossoverRate = crossoverRate;
-        this.elitismCount = elitismCount;
-        this.population = new Chromosome[populationSize];
+        this.eliteSize = eliteSize;
     }
 
-    public Chromosome progress(int generations) {
-        // Step 1: Evaluate the fitness of each individual
-        evaluatePopulation(population);
+    public void initializeWith(Specimen base) {
+        this.fill(base);
+        this.mutateOffspring(population);
+        this.evaluatePopulation(population);
+    }
 
-        // Step 2: Repeat the evolution process until the termination criterion is met
+    public void progress(int generations) {
         for (int generation = 0; generation < generations; generation++) {
             this.evolve();
+            this.evaluatePopulation(population);
         }
-
-        // Step 3: Return the fittest individual as the solution
-        return getFittestIndividual(population);
     }
 
-    private void evaluatePopulation(Chromosome[] population) {
-        for (Chromosome chromosome : population) {
-            chromosome.evaluate();
-        }
-
-        Arrays.sort(population, Comparator.comparingDouble(Chromosome::getFitness));
+    private void evolve() {
+        Specimen[] parents = selectParents(population);
+        Specimen[] offspring = performCrossover(parents);
+        mutateOffspring(offspring);
+        evaluatePopulation(offspring);
+        population = selectPopulation(population, offspring);
     }
 
-    private Chromosome[] selectParents(Chromosome[] population) {
+    private void evaluatePopulation(Specimen[] population) {
+        for (Specimen specimen : population) {
+            specimen.evaluate();
+        }
+
+        Arrays.sort(population, Comparator.comparingDouble(Specimen::getFitness));
+    }
+
+    private Specimen[] selectParents(Specimen[] population) {
         // select parents using tournament selection
-        Chromosome[] parents = new Chromosome[population.length];
+        Specimen[] parents = new Specimen[population.length];
         for (int i = 0; i < population.length; i++) {
             parents[i] = tournamentSelection(population);
         }
         return parents;
     }
 
-    public void initializeWith(NodeGrid base) {
-        Chromosome baseChromosome = Chromosome.fromNodes(base);
-        this.fill(baseChromosome);
-        this.mutateOffspring(population);
-    }
-
-    public Chromosome getFittestIndividual(Chromosome[] population) {
+    public Specimen getFittestIndividual() {
         return population[0];
     }
 
-    public void evolve() {
-        // Step 3.1: Select the parents for crossover
-        Chromosome[] parents = selectParents(population);
-
-        // Step 3.2: Perform crossover to generate offspring
-        Chromosome[] offspring = performCrossover(parents);
-
-        // Step 3.3: Mutate the offspring
-        mutateOffspring(offspring);
-
-        // Step 3.4: Evaluate the fitness of the offspring
-        evaluatePopulation(offspring);
-
-        // Step 3.5: Select the individuals for the next generation
-        population = selectPopulation(population, offspring);
-
-        // Step 3.6: Evaluate the fitness of the new population
-        evaluatePopulation(population);
-    }
-
-    public void fill(Chromosome base) {
+    public void fill(Specimen base) {
         for (int i = 0; i < populationSize; i++) {
             population[i] = base.copy();
         }
     }
 
-    public void mutateOffspring(Chromosome[] offspring) {
+    public void mutateOffspring(Specimen[] offspring) {
         Random random = new Random();
-        for (Chromosome chromosome : offspring) {
+        for (Specimen specimen : offspring) {
             if (random.nextDouble() < mutationRate) {
-                chromosome.shuffle();
+                specimen.shuffle();
             }
         }
     }
 
-    public Chromosome[] selectPopulation(Chromosome[] population, Chromosome[] offspring) {
-        Chromosome[] newPopulation = new Chromosome[populationSize];
-        Arrays.sort(population, Comparator.comparingDouble(Chromosome::getFitness));
-        Arrays.sort(offspring, Comparator.comparingDouble(Chromosome::getFitness));
-        if (elitismCount >= 0) System.arraycopy(population, 0, newPopulation, 0, elitismCount);
-        if (populationSize - elitismCount >= 0)
-            System.arraycopy(offspring, 0, newPopulation, elitismCount, populationSize - elitismCount);
+    public Specimen[] selectPopulation(Specimen[] population, Specimen[] offspring) {
+        Specimen[] newPopulation = new Specimen[populationSize];
+        Arrays.sort(population, Comparator.comparingDouble(Specimen::getFitness));
+        Arrays.sort(offspring, Comparator.comparingDouble(Specimen::getFitness));
+        if (eliteSize >= 0) System.arraycopy(population, 0, newPopulation, 0, eliteSize);
+        if (populationSize - eliteSize >= 0)
+            System.arraycopy(offspring, 0, newPopulation, eliteSize, populationSize - eliteSize);
         return newPopulation;
     }
-    private Chromosome tournamentSelection(Chromosome[] population) {
+
+    private Specimen tournamentSelection(Specimen[] population) {
         int indexA = (int) (Math.random() * populationSize);
         int indexB = (int) (Math.random() * populationSize);
-        Chromosome chromosomeA = population[indexA];
-        Chromosome chromosomeB = population[indexB];
-        return chromosomeA.getFitness() < chromosomeB.getFitness() ? chromosomeA : chromosomeB;
+        Specimen specimenA = population[indexA];
+        Specimen specimenB = population[indexB];
+        return specimenA.getFitness() < specimenB.getFitness() ? specimenA : specimenB;
     }
 
-    public Chromosome[] performCrossover(Chromosome[] parents) {
-        Chromosome[] offspring = new Chromosome[parents.length];
+    public Specimen[] performCrossover(Specimen[] parents) {
+        Specimen[] offspring = new Specimen[parents.length];
         for (int i = 0; i < parents.length; i += 2) {
             offspring[i] = orderCrossover(parents[i], parents[i + 1]);
             offspring[i + 1] = orderCrossover(parents[i + 1], parents[i]);
@@ -118,16 +101,17 @@ public class Population {
         return offspring;
     }
 
-    private Chromosome orderCrossover(Chromosome parentA, Chromosome parentB) {
-        int[][] permutationA = parentA.getPermutation();
-        int[][] permutationB = parentB.getPermutation();
-        int[][] offspringPermutation = new int[permutationA.length][permutationA[0].length];
-        int row = (int) (Math.random() * permutationA.length);
-        int columnA = (int) (Math.random() * permutationA[row].length);
-        int columnB = (int) (Math.random() * permutationA[row].length);
+    private Specimen orderCrossover(Specimen parentA, Specimen parentB) {
+        int[][] permutationA = parentA.getChromosome();
+        int[][] permutationB = parentB.getChromosome();
+        int[][] offspringChromosome = new int[Specimen.rows][Specimen.columns];
+
+        int row = (int) (Math.random() * Specimen.rows);
+        int columnA = (int) (Math.random() * Specimen.columns);
+        int columnB = (int) (Math.random() * Specimen.columns);
         int start = Math.min(columnA, columnB);
         int end = Math.max(columnA, columnB);
-        System.arraycopy(permutationA[row], start, offspringPermutation[row], start, end - start);
+        System.arraycopy(permutationA[row], start, offspringChromosome[row], start, end - start);
 
         int[] remaining = new int[permutationA[row].length - (end - start)];
         int remainingIndex = 0;
@@ -151,11 +135,11 @@ public class Population {
                 }
             }
             if (!found) {
-                offspringPermutation[row][remainingIndexB] = value;
+                offspringChromosome[row][remainingIndexB] = value;
                 remainingIndexB++;
             }
         }
-        return new Chromosome(parentA.getConnections(), offspringPermutation);
+        return new Specimen(offspringChromosome);
     }
 
     public static class Initializer {

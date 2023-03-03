@@ -1,7 +1,8 @@
 public class Main {
 
     public static void main(String[] args) {
-        NodeGrid base = NodeGrid.fromFile("./../../public/data.json");
+        NodeGrid subjects = NodeGrid.fromFile("./../../public/data.json");
+        Specimen base = Specimen.fromNodes(subjects);
 
         Population population = new Population.Initializer()
                 .withPopulationSize(100)
@@ -11,5 +12,9 @@ public class Main {
                 .withMaxGeneration(100)
                 .initialize();
         population.initializeWith(base);
+
+        population.progress(1000);
+        Specimen winner = population.getFittestIndividual();
+
     }
 }

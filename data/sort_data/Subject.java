@@ -11,7 +11,7 @@ public class Subject {
     private List<Integer> semesters;
     private String field;
     private List<String> specializations;
-    private List<Subject> children;
+    private List<String> children;
 
     public String getId() {
         return id;
@@ -85,11 +85,11 @@ public class Subject {
         this.specializations = specializations;
     }
 
-    public List<Subject> getChildren() {
+    public List<String> getChildren() {
         return children;
     }
 
-    public void setChildren(List<Subject> children) {
+    public void setChildren(List<String> children) {
         this.children = children;
     }
 }
