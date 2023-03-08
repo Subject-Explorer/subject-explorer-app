@@ -35,8 +35,7 @@ function Flow() {
   const { settings } = useFilterSettings();
 
   const filterSubject: (subject: SubjectData) => boolean = useCallback(
-    (subject: SubjectData) =>
-      subject !== null &&
+    (subject: SubjectData) => subject &&
       subject.name.toLowerCase().includes(settings.query.toLowerCase()) &&
       settings.fields.some(
         (fieldCheckbox) =>
