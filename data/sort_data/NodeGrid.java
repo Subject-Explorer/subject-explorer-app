@@ -17,8 +17,9 @@ class NodeGrid{
     public static NodeGrid fromFile(String path){
         NodeGridJSONParser parser = new NodeGridJSONParser(path);
         Subject[][] nodes = parser.getNodes();
-        HashMap<String, String[]> connections = parser.getConnections();
+        HashMap<Subject, Subject[]> connections = parser.getConnections();
 
+        // TODO: Refactor types
         NodeGrid grid = new NodeGrid(nodes.length, nodes[0].length);
         grid.nodes = nodes;
         grid.connections = connections;
@@ -31,5 +32,25 @@ class NodeGrid{
 
     public HashMap<Subject, Subject[]> getConnections(){
         return connections;
+    }
+
+    public int[][] childrenPositions(Subject subject){
+        String[] children = subject.getChildren();
+        int[][] positions = new int[children.length][2];
+        for(int i = 0; i < children.length; i++){
+            positions[i] = positionOf(children[i]);
+        }
+        return positions;
+    }
+
+    public int[] positionOf(String id){
+        for(int row = 0; row < nodes.length; row++){
+            for(int column = 0; column < nodes[row].length; column++){
+                if(nodes[row][column] != null && nodes[row][column].getId().equals(id)){
+                    return new int[]{row, column};
+                }
+            }
+        }
+        return null;
     }
 }

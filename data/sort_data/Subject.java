@@ -85,8 +85,8 @@ public class Subject {
         this.specializations = specializations;
     }
 
-    public List<String> getChildren() {
-        return children;
+    public String[] getChildren() {
+        return children.toArray(new String[0]);
     }
 
     public void setChildren(List<String> children) {
