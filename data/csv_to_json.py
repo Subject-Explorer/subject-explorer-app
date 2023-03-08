@@ -1,4 +1,5 @@
 import json
+from manual_sorter import sort_manually
 
 
 def parse_csv(file_name: str, table_type: str) -> list[dict]:
@@ -120,14 +121,14 @@ def map_parents_as_children(subject_data_list: list[dict]) -> list[dict]:
             prerequisite_id = prerequisite['id']
             child_map.setdefault(prerequisite_id, []).append({
                 "id": subject_data['id'],
-                "specializations": subject_data['specializations']
+                "specializations": subject_data['specializations'],
+                "weak": prerequisite["weak"]
             })
 
     # Add the children's IDs to each subject data.
     for subject_data in subject_data_list:
-        subject_data['children'] = [child["id"] for child in child_map.get(subject_data['id'], [])]
-        subject_data['children_specializations'] = list(
-            set(flatten([child["specializations"] for child in child_map.get(subject_data['id'], [])])))
+        subject_data['children'] = [child for child in child_map.get(subject_data['id'], [])]
+
     return subject_data_list
 
 
@@ -140,23 +141,31 @@ def sort_into_semesters(subject_data_list) -> list[list[dict]]:
 
 
 def merge_data(data: list[dict]) -> list[dict]:
-    # if data exists with same code, the prequisites, and specializations else push to data
-    merged_data = []
-    for i, subject in enumerate(data):
-        for j, subject2 in enumerate(data):
-            if subject["id"] == subject2["id"] and i != j:
-                # TODO: make it nicer
-                for prereq in subject2["prerequisites"]:
-                    if prereq not in subject["prerequisites"]:
-                        subject["prerequisites"].append(prereq)
+    merged_data = {}
+    for subject in data:
+        subject_id = subject["id"]
+        if subject_id not in merged_data:
+            merged_data[subject_id] = subject.copy()
+            merged_data[subject_id]["prerequisites"] = [{"id": prereq["id"], "weak": prereq["weak"]} for prereq in merged_data[subject_id]["prerequisites"]]
+            merged_data[subject_id]["specializations"] = set(merged_data[subject_id]["specializations"])
+        else:
+            merged_data[subject_id]["prerequisites"].extend({"id": prereq["id"], "weak": prereq["weak"]} for prereq in subject["prerequisites"])
+            merged_data[subject_id]["specializations"].update(subject["specializations"])
 
-                specs = list(set(subject["specializations"] + subject2["specializations"]))
-                specs.sort()
-                subject["specializations"] = specs
-                data.pop(j)
-        merged_data.append(subject)
+    for subject_id in merged_data:
+        merged_data[subject_id]["prerequisites"] = remove_duplicates(merged_data[subject_id]["prerequisites"])
+        merged_data[subject_id]["specializations"] = sorted(list(merged_data[subject_id]["specializations"]))
 
-    return merged_data
+    return list(merged_data.values())
+
+def remove_duplicates(lst):
+    seen = set()
+    result = []
+    for item in lst:
+        if item["id"] not in seen:
+            seen.add(item["id"])
+            result.append(item)
+    return result
 
 
 def process_files(files_to_process: list[tuple]) -> list[dict]:
@@ -191,7 +200,7 @@ def main():
 
     data = process_files(files_to_process)
     data = map_parents_as_children(data)
-    data = sort_into_semesters(data)
+    data = sort_manually(data)
     save_data(data)
 
 

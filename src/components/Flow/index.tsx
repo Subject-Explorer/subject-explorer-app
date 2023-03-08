@@ -1,14 +1,16 @@
-import SubjectData from "@/utils/subjectData";
+import SubjectData, { Prerequisite } from "@/utils/subjectData";
 import { useCallback, useEffect } from "react";
 import ReactFlow, {
   Node,
   useNodesState,
   useEdgesState,
   Edge,
-  DefaultEdgeOptions
+  DefaultEdgeOptions,
+  SelectionMode,
+  MiniMap,
 } from "reactflow";
 import CustomNode from "./CustomNode";
-import SubjectNode from "./SubjectNode";
+import SubjectNode, { NodeData } from "./SubjectNode";
 import data from "../../../public/data.json";
 import { useFilterSettings } from "@/utils/hooks/useFilterSettings";
 
@@ -17,23 +19,24 @@ const semesters: SubjectData[][] = data as SubjectData[][];
 
 const nodeTypes = {
   custom: CustomNode,
-  subject: SubjectNode
+  subject: SubjectNode,
 };
 
 const defaultEdgeOptions: DefaultEdgeOptions = {
   animated: false,
   type: "simplebezier",
-  style: {strokeWidth: 2}
+  style: { strokeWidth: 2 },
 };
 
 function Flow() {
   const [nodes, setNodes, onNodesChange] = useNodesState([]);
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
 
-  const {settings} = useFilterSettings();
+  const { settings } = useFilterSettings();
 
   const filterSubject: (subject: SubjectData) => boolean = useCallback(
     (subject: SubjectData) =>
+      subject !== null &&
       subject.name.toLowerCase().includes(settings.query.toLowerCase()) &&
       settings.fields.some(
         (fieldCheckbox) =>
@@ -58,30 +61,59 @@ function Flow() {
       ? semesters.map((semester) => semester.filter(filterSubject))
       : semesters;
 
-    let newNodes: Node[] = [];
+    let newNodes: Node<NodeData>[] = [];
     let newEdges: Edge[] = [];
+    let even = 0;
     filteredSemesters.map((subjects, semesterIndex) => {
+      even = 1-even;
       subjects.map((subject, subjectIndex) => {
         // if null, skip
         if (subject === null) return;
         newNodes.push({
           id: subject.id,
-          data: {subject: subject, disabled: !filterSubject(subject)},
-          position: {
-            x: subjectIndex * 400,
-            y: semesterIndex * 400
+          data: {
+            subject: subject,
+            disabled: !filterSubject(subject),
           },
-          type: "subject"
+          position: {
+            x: subjectIndex * 400 + even * 200,
+            y: semesterIndex * 400,
+          },
+          type: "subject",
         });
-        if (subject.children.length > 0) {
+      });
+    });
+    newNodes.map((node) => {
+      if (node.data.subject.children.length < 1) return;
+
+      node.data.subject.children.map((child: Prerequisite) => {
+        const childNode = newNodes.find((node) => node.id === child.id);
+        //TODO: Handle hidden state
+        if (childNode) {
           //TODO: Handle soft prerequisites
-          subject.children.map((child) => {
+          if (child.weak) {
             newEdges.push({
-              id: `e-${subject.id}-${child}`,
-              source: subject.id,
-              target: child
+              id: `e-${node.data.subject.id}-${child.id}_w`,
+              source: node.data.subject.id,
+              target: child.id,
+              sourceNode: node,
+              sourceHandle: `w-s`,
+              targetNode: childNode,
+              targetHandle: `w-t`,
             });
-          });
+          } else {
+            node.data.subject.specializations.map((spec) => {
+              newEdges.push({
+                id: `e-${node.data.subject.id}_${spec}-${child.id}_${spec}`,
+                source: node.data.subject.id,
+                target: child.id,
+                sourceNode: node,
+                sourceHandle: `${spec}-s`,
+                targetNode: childNode,
+                targetHandle: `${spec}-t`,
+              });
+            });
+          }
         }
       });
     });
@@ -99,11 +131,17 @@ function Flow() {
         nodeTypes={nodeTypes}
         defaultEdgeOptions={defaultEdgeOptions}
         fitView
+        fitViewOptions={{ minZoom: 0.2 }}
+        defaultViewport={{ x: 0, y: 0, zoom: 0.2 }}
         panOnScroll
         panOnScrollSpeed={0.5}
-        proOptions={{hideAttribution: true}}
-        selectionOnDrag={false}
-      />
+        // panOnDrag={false}
+        proOptions={{ hideAttribution: true }}
+        // selectionOnDrag
+        // selectionMode={SelectionMode.Partial}
+      >
+        <MiniMap />
+      </ReactFlow>
     </div>
   );
 }
