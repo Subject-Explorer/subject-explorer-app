@@ -1,6 +1,13 @@
+import processing.core.PApplet;
+import ui.Window;
+
 public class Main {
 
     public static void main(String[] args) {
+        PApplet.main(Window.class);
+    }
+
+    private void initialize() {
         NodeGrid subjects = NodeGrid.fromFile("./../../public/data.json");
         Individual.initializeChromosome(subjects);
         Individual base = new Individual();
@@ -16,6 +23,5 @@ public class Main {
 
         population.progress(1000);
         Individual winner = population.getFittestIndividual();
-
     }
 }
