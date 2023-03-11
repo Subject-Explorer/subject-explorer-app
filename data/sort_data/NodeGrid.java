@@ -1,5 +1,6 @@
 import java.util.HashMap;
 
+// TODO: Add javadoc
 class NodeGrid{
     Subject[][] nodes;
     HashMap<Subject, Subject[]> connections;

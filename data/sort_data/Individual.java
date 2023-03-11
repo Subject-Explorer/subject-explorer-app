@@ -1,6 +1,7 @@
 import java.util.LinkedList;
 import java.util.Random;
 
+// TODO: Add javadoc
 public class Individual {
     private static int rows = 0, columns = 0;
     private static int[][] connections;

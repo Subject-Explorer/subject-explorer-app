@@ -1,6 +1,7 @@
 import processing.core.PApplet;
 import ui.Window;
 
+// TODO: Add javadoc
 public class Main {
 
     public static void main(String[] args) {
