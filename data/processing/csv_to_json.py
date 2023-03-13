@@ -2,6 +2,7 @@ import sys
 import os
 import argparse
 import json
+import csv
 from manual_sorter import sort_manually
 
 DEF_REL_CSV_PATH = "../csv"
@@ -193,7 +194,12 @@ def save_data(data, path:str) -> None:
 
 
 def output_csv_files(data, path:str) -> None:
-    pass
+    with open(os.path.join(path, "connections.csv"), "w", newline='') as f:
+        writer = csv.writer(f, delimiter=';')
+        writer.writerow(["Parent", "Child"])
+        for subject in data:
+            for child in subject["children"]:
+                writer.writerow([subject["id"], child["id"]])
 
 
 def check_args():
@@ -201,12 +207,13 @@ def check_args():
     parser.add_argument("-o", "--out", help="Path to the output file", required = False)
     parser.add_argument("-m", "--manual-sorting", help="Sort manually, needs a sequence.csv file, use -mp <path> to change the default sequence file path which is defined in manual_sorter.py", required = False, action='store_true')
     parser.add_argument("-mp", "--manual-sequence", help="Path to the manual sequence file", required = False)
-    parser.add_argument("-ocsv", "--output-csv-files", help="Path to custom csv files for further processing, generates these files if this flag is set", required = False)
+    parser.add_argument("-ocsv", "--output-csv-files", help="Path to a directory for custom csv files for further processing, generates these files if this flag is set", required = False)
 
     args = parser.parse_args()
 
     csv_path = os.path.abspath(args.csv) if args.csv else None
     manual_seq_path = os.path.abspath(args.manual_sequence) if args.manual_sequence else None
+    ocsvs_path = os.path.abspath(args.output_csv_files) if args.output_csv_files else None
 
     if manual_seq_path != None:
         if not os.path.isfile(manual_seq_path):
@@ -215,7 +222,12 @@ def check_args():
     
     if csv_path != None:
         if not os.path.exists(csv_path):
-                print("Error: path for CSV files does not exist: " + csv_path)
+                print("Error: path for input CSV files, directory does not exist: " + csv_path)
+                sys.exit(1)
+
+    if ocsvs_path != None:
+        if not os.path.exists(ocsvs_path):
+                print("Error: path for custom output CSV files, directory does not exist: " + ocsvs_path)
                 sys.exit(1)
     
     return args
@@ -246,15 +258,14 @@ def main():
     
     if args.output_csv_files:
         output_csv_files(data, args.output_csv_files)
-
-    if args.manual_sorting:
-        data = sort_manually(args.manual_sequence, data)
     else:
-        pass
-        # auto sort
+        if args.manual_sorting:
+            data = sort_manually(args.manual_sequence, data)
+        else:
+            pass
+            # auto sort
 
-    
-    save_data(data, full_out_file_path)
+        save_data(data, full_out_file_path)
 
 
 if __name__ == "__main__":
