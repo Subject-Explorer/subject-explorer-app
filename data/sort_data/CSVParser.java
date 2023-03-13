@@ -1,6 +1,4 @@
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.LinkedList;
 import java.util.Scanner;
 
@@ -38,9 +36,9 @@ class CSVParser {
      * @param path The path to the CSV file
      * @return The parsed data
      */
-    public static String[][] parse(String path) {
+    public static String[][] parse(String path) throws FileNotFoundException {
         // Read the lines
-        Scanner scanner = new Scanner(path);
+        Scanner scanner = new Scanner(new File(path));
         LinkedList<String[]> lines = new LinkedList<>();
 
         // Parse the lines

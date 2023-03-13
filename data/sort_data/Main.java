@@ -16,6 +16,9 @@ import ui.Window;
  * @version 2023-03-13
  */
 public class Main {
+    private static final String NODE_PATH = "data/test_nodes.csv";
+    private static final String CONNECTION_PATH = "data/test_connections.csv";
+    private static final String SOLUTION_PATH = "data/solution.csv";
 
     /**
      * The main method of the application.
@@ -25,31 +28,29 @@ public class Main {
      */
     public static void main(String[] args) {
         // Initialize the processing window
-        PApplet.main(Window.class);
+        // PApplet.main(Window.class);
 
-        // Read the data from the files
-        String nodePath = "./../seq.csv";
-        String connectionPath = "./../connections.csv";
-        NodeGrid nodes = NodeGrid.fromFiles(nodePath, connectionPath);
-
-        // Initialize the base individual
-        Individual.initializeChromosome(nodes);
-        Individual base = new Individual();
-
-        // Initialize the population
-        Population population = new Population();
-        population.fill(base);
-
-        // Run the genetic algorithm
-        population.progress(1000);
-
-        // Get the solution
-        Individual winner = population.getFittestIndividual();
-        String[][] solution = Individual.Chromosome.apply(nodes.getNodes(), winner.getChromosome());
-
-        // Write the solution to a file
         try {
-            CSVParser.write(solution, "./../solution.csv");
+            // Read the data from the files
+            NodeGrid nodes = NodeGrid.fromFiles(NODE_PATH, CONNECTION_PATH);
+
+            // Initialize the base individual
+            Individual.initializeChromosome(nodes);
+            Individual base = new Individual(); // For multi-run evolution
+
+            // Initialize the population
+            Population population = new Population(100, 0.8, 0.9, 10);
+            population.initialize();
+
+            // Run the genetic algorithm
+            population.progress(10000);
+
+            // Get the solution
+            Individual winner = population.getFittestIndividual();
+            String[][] solution = Individual.Chromosome.apply(nodes.getNodes(), winner.getChromosome());
+
+            // Write the solution to a file
+            CSVParser.write(solution, SOLUTION_PATH);
         } catch (Exception e) {
             e.printStackTrace();
         }

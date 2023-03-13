@@ -188,7 +188,7 @@ public class Individual {
         /**
          * The base chromosome
          */
-        public static final int[][] base = base();
+        public static int[][] base;
 
         /**
          * Initializes the chromosome without any swapping.
@@ -283,6 +283,9 @@ public class Individual {
             // Set the dimensions of the chromosomes
             Individual.rows = nodes.length;
             Individual.columns = nodes[0].length;
+
+            // Set the base chromosome
+            Chromosome.base = Chromosome.base();
 
             // Set the connections of the chromosomes
             Individual.connections = mapConnections(nodes, connections);

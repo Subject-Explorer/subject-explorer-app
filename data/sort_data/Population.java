@@ -39,6 +39,10 @@ public class Population {
      * The size of the elite
      */
     private final int eliteSize;
+    /**
+     * The index of the current generation
+     */
+    private int generationIndex = 0;
 
     /**
      * Creates a new population with default parameters.
@@ -95,6 +99,7 @@ public class Population {
         for (int generation = 0; generation < generations; generation++) {
             this.evolve();
             this.evaluatePopulation(population);
+            System.out.println("Generation: " + (generation+1) + " | Best fitness: " + population[0].getFitness());
         }
     }
 
@@ -111,6 +116,7 @@ public class Population {
         mutateOffspring(offspring);
         evaluatePopulation(offspring);
         population = selectPopulation(population, offspring);
+        generationIndex++;
     }
 
     /**

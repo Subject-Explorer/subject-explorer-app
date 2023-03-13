@@ -1,3 +1,5 @@
+import java.io.FileNotFoundException;
+
 /**
  * NodeGrid.java
  * <p>
@@ -38,7 +40,7 @@ class NodeGrid {
      * @param connectionPath The path of the connection file
      * @return The NodeGrid instance
      */
-    public static NodeGrid fromFiles(String nodePath, String connectionPath) {
+    public static NodeGrid fromFiles(String nodePath, String connectionPath) throws FileNotFoundException {
         // Parse the data from the files
         String[][] nodeData = CSVParser.parse(nodePath);
         String[][] connectionData = CSVParser.parse(connectionPath);
