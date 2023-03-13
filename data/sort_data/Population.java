@@ -41,10 +41,27 @@ public class Population {
     private final int eliteSize;
 
     /**
+     * Creates a new population with default parameters.
+     * <p>
+     * The population is initialized with random individuals.
+     * </p>
+     * The default parameters are:
+     * <ul>
+     *     <li>Population size: 100</li>
+     *     <li>Mutation rate: 0.3</li>
+     *     <li>Crossover rate: 0.9</li>
+     *     <li>Elite size: 10</li>
+     * </ul>
+     */
+    public Population() {
+        this(100, 0.3, 0.9, 10);
+    }
+
+    /**
      * Creates a new population with the given parameters.
      * <p>
      * The population is initialized with random individuals.
-     * <p>
+     * </p>
      *
      * @param populationSize The size of the population
      * @param mutationRate   The mutation rate of the genetic algorithm
@@ -64,20 +81,6 @@ public class Population {
      */
     public void initialize() {
         this.randomize();
-    }
-
-    /**
-     * Initializes the population with the given individual.
-     * <p>
-     * The population is filled with copies of the given individual.
-     * <p>
-     *
-     * @param base The individual to fill the population with
-     */
-    public void initializeWith(Individual base) {
-        this.fill(base);
-        this.mutateOffspring(population);
-        this.evaluatePopulation(population);
     }
 
     /**
@@ -112,7 +115,8 @@ public class Population {
 
     /**
      * Evaluates the fitness of each individual in the given population, and sorts the population by fitness.
-     * @param population
+     *
+     * @param population The population
      */
     private void evaluatePopulation(Individual[] population) {
         for (Individual individual : population) {
@@ -124,7 +128,8 @@ public class Population {
 
     /**
      * Selects two parents from the population using tournament selection.
-     * @param population
+     *
+     * @param population The population
      * @return The selected parents
      */
     private Individual[] selectParents(Individual[] population) {
@@ -138,6 +143,7 @@ public class Population {
 
     /**
      * Returns the best individual from the sorted population.
+     *
      * @return The best individual
      */
     public Individual getFittestIndividual() {
@@ -146,9 +152,10 @@ public class Population {
 
     /**
      * Fills the population with copies of the given individual.
-     * @param base
+     *
+     * @param base The individual to copy
      */
-    private void fill(Individual base) {
+    public void fill(Individual base) {
         for (int i = 0; i < populationSize; i++) {
             population[i] = base.copy();
         }
@@ -166,7 +173,8 @@ public class Population {
 
     /**
      * Introduces random mutations into the offspring.
-     * @param offspring
+     *
+     * @param offspring The offspring
      */
     public void mutateOffspring(Individual[] offspring) {
         Random random = new Random();
@@ -237,51 +245,5 @@ public class Population {
             offspring[i + 1] = Individual.fromParents(parents[i + 1], parents[i]);
         }
         return offspring;
-    }
-
-    // TODO: Add javadoc
-    public static class Initializer {
-        private int populationSize;
-        private double mutationRate;
-        private double crossoverRate;
-        private int elitismCount;
-        private int maxGeneration;
-
-        public Initializer() {
-            this.populationSize = 100;
-            this.mutationRate = 0.01;
-            this.crossoverRate = 0.95;
-            this.elitismCount = 10;
-            this.maxGeneration = 100;
-        }
-
-        public Initializer withPopulationSize(int populationSize) {
-            this.populationSize = populationSize;
-            return this;
-        }
-
-        public Initializer withMutationRate(double mutationRate) {
-            this.mutationRate = mutationRate;
-            return this;
-        }
-
-        public Initializer withCrossoverRate(double crossoverRate) {
-            this.crossoverRate = crossoverRate;
-            return this;
-        }
-
-        public Initializer withElitismCount(int elitismCount) {
-            this.elitismCount = elitismCount;
-            return this;
-        }
-
-        public Initializer withMaxGeneration(int maxGeneration) {
-            this.maxGeneration = maxGeneration;
-            return this;
-        }
-
-        public Population initialize() {
-            return new Population(populationSize, mutationRate, crossoverRate, elitismCount);
-        }
     }
 }

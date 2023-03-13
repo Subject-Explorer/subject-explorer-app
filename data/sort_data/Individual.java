@@ -1,4 +1,3 @@
-import java.util.LinkedList;
 import java.util.Random;
 
 // TODO: Add javadoc
@@ -128,49 +127,39 @@ public class Individual {
             return chromosome;
         }
 
-        public static Individual initializeWith(NodeGrid nodeGrid) {
-            Subject[][] subjects = nodeGrid.getNodes();
+        public static void initializeWith(NodeGrid nodeGrid) {
+            String[][] nodes = nodeGrid.getNodes();
+            String[][] connections = nodeGrid.getConnections();
 
-            Individual.rows = subjects.length;
-            Individual.columns = subjects[0].length;
-            Individual.connections = connectionsFromSubjects(subjects);
-
-            return new Individual(Chromosome.base());
+            Individual.rows = nodes.length;
+            Individual.columns = nodes[0].length;
+            Individual.connections = mapConnections(nodes, connections);
         }
 
-        private static int[][] connectionsFromSubjects(Subject[][] subjects) {
-            LinkedList<int[]> connections = new LinkedList<>();
-            for (int row = 0; row < rows; row++) {
-                for (int column = 0; column < columns; column++) {
-                    if (subjects[row][column] == null) continue;
-                    for (String id : subjects[row][column].getChildren()) {
-                        int[] position = findPositionByID(subjects, id);
-                        connections.add(new int[]{
-                            row,
-                            column,
-                            position[0],
-                            position[1]
-                        });
-                    }
-                }
+        private static int[][] mapConnections(String[][] nodes, String[][] connections) {
+            int[][] mappedConnections = new int[connections.length][4];
+            for (int i = 0; i < connections.length; i++) {
+                int[] positionA = findPosition(connections[i][0], nodes);
+                int[] positionB = findPosition(connections[i][1], nodes);
+                mappedConnections[i] = new int[]{positionA[0], positionA[1], positionB[0], positionB[1]};
             }
-            return connections.toArray(new int[0][0]);
+            return mappedConnections;
         }
 
-        private static int[] findPositionByID(Subject[][] subjects, String id) {
+        private static int[] findPosition(String wanted, String[][] nodes) {
             for (int row = 0; row < rows; row++) {
                 for (int column = 0; column < columns; column++) {
-                    if (subjects[row][column].getId().equals(id)) return new int[]{row, column};
+                    if (nodes[row][column].equals(wanted)) return new int[]{row, column};
                 }
             }
             return new int[]{-1, -1};
         }
 
-        public static Subject[][] apply(Subject[][] subjects, int[][] chromosome) {
-            Subject[][] newSubjects = new Subject[rows][columns];
+        public static String[][] apply(String[][] nodes, int[][] chromosome) {
+            String[][] newSubjects = new String[rows][columns];
             for (int row = 0; row < rows; row++) {
                 for (int column = 0; column < columns; column++) {
-                    newSubjects[row][chromosome[row][column]] = subjects[row][column];
+                    newSubjects[row][chromosome[row][column]] = nodes[row][column];
                 }
             }
             return newSubjects;
