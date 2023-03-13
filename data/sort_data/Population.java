@@ -13,7 +13,7 @@ import java.util.Random;
  * It also contains the methods for selecting parents, performing crossover,
  * and mutating the offspring.
  * The population is an array of {@link Individual} instances.
- * <p>
+ * </p>
  *
  * @author Boér Bence
  * @version 2023-03-10

@@ -5,10 +5,10 @@ import processing.core.PApplet;
 /**
  * ui.Navigator.java
  * <p>
- *     The navigator of the window.
- *     This class is responsible for handling the navigation of the window.
- *     It is responsible for handling the input and calculating the new offsets
- *     and zoom of the window.
+ * The navigator of the window.
+ * This class is responsible for handling the navigation of the window.
+ * It is responsible for handling the input and calculating the new offsets
+ * and zoom of the window.
  * <p>
  *
  * @author Boér Bence

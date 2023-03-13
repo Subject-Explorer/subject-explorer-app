@@ -5,13 +5,13 @@ import processing.core.PApplet;
 /**
  * ui.Window.java
  * <p>
- *     The main window of the application.
- *     This class is the main class of the application, and is responsible for
- *     creating the window and handling the input.
- *     It also contains the main method of the application.
- *     The window is a {@link PApplet} instance, and is responsible for drawing
- *     the NodeGrid to the screen.
- *     The window also contains the {@link InputField} for the JSON source path.
+ * The main window of the application.
+ * This class is the main class of the application, and is responsible for
+ * creating the window and handling the input.
+ * It also contains the main method of the application.
+ * The window is a {@link PApplet} instance, and is responsible for drawing
+ * the NodeGrid to the screen.
+ * The window also contains the {@link InputField} for the JSON source path.
  * <p>
  *
  * @author Boér Bence
@@ -74,7 +74,7 @@ public class Window extends PApplet {
         Navigator.reset();
 
         // Initialize the "JSON source" input field
-        source = new InputField(this, "JSON source", width*0.2f, height*0.2f);
+        source = new InputField(this, "JSON source", width * 0.2f, height * 0.2f);
     }
 
     /**
@@ -97,7 +97,7 @@ public class Window extends PApplet {
      * This method is called every time a key is pressed.
      */
     @Override
-    public void keyPressed(){
+    public void keyPressed() {
         // Notify the input field of the key press
         source.keyPressed();
 

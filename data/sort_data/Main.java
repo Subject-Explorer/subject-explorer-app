@@ -4,12 +4,12 @@ import ui.Window;
 /**
  * Main.java
  * <p>
- *     The main class of the application.
- *     This class is responsible for initializing the application.
- *     It is responsible for initializing the processing window, reading the data
- *     from the files, initializing the base individual, initializing the population,
- *     running the genetic algorithm, getting the solution, and writing the solution
- *     to a file.
+ * The main class of the application.
+ * This class is responsible for initializing the application.
+ * It is responsible for initializing the processing window, reading the data
+ * from the files, initializing the base individual, initializing the population,
+ * running the genetic algorithm, getting the solution, and writing the solution
+ * to a file.
  * <p>
  *
  * @author Boér Bence

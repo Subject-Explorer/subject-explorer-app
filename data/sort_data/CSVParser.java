@@ -6,6 +6,9 @@ import java.util.Scanner;
 
 /**
  * Utility class for reading and writing CSV files.
+ *
+ * @author Boér Bence
+ * @version 2023-03-13
  */
 class CSVParser {
     /**
