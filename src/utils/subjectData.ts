@@ -6,8 +6,7 @@ export default interface SubjectData {
   test: Test;
   credit: number;
   semesters: number[];
-  children: string[],
-  children_specializations: Specialization[],
+  children: Prerequisite[];
   field: Field;
   specializations: Specialization[];
 }
@@ -24,5 +23,6 @@ export interface LessonCount {
 }
 export interface Prerequisite {
   id: string;
+  specializations: Specialization[];
   weak: boolean;
 }
