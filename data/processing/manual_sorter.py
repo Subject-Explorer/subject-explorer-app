@@ -1,11 +1,12 @@
+import os
 import json
 import csv
 
-MANUAL_SEQUENCE_JSON = "./seq.json"
-MANUAL_SEQUENCE_CSV = "./seq.csv"
+#MANUAL_SEQUENCE_JSON = "in/seq.json"
+DEF_REL_SEQ_PATH = "in/seq.csv"
 
 
-def flatten(l: list[list]) -> list:
+def flatten(l:list[list]) -> list:
     return [item for sublist in l for item in sublist]
 
 
@@ -23,10 +24,11 @@ def read_csv_to_json(file_path):
             json_data.append(row)
     return json.dumps(json_data)
 
-def sort_manually(datalist:list[dict]) -> list[list[dict]]:
+def sort_manually(seq_path:str, datalist:list[dict]) -> list[list[dict]]:
     #f = open(MANUAL_SEQUENCE_JSON, encoding="utf8")
     #data:list = json.load(f)
-    data:list = json.loads(read_csv_to_json(MANUAL_SEQUENCE_CSV))
+    full_seq_path = os.path.join(os.getcwd(), seq_path) if seq_path != None else os.path.join(os.path.dirname(__file__), DEF_REL_SEQ_PATH)
+    data:list = json.loads(read_csv_to_json(full_seq_path))
 
     sorted_data = [[] for _ in range(len(data))]
 

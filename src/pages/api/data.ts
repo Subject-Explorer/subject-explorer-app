@@ -9,7 +9,7 @@ export default function handler(
 ) {
     const dataDirectory = path.join(process.cwd(), 'public');
     let data = [] as SubjectData[];
-    let datastring = fs.readFileSync(dataDirectory + '\\data.json', 'utf8');
+    let datastring = fs.readFileSync(dataDirectory + '/data.json', 'utf8');
     data = JSON.parse(datastring);
     res.status(200).json(data);
 }
