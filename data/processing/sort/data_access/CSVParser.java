@@ -118,7 +118,7 @@ public class CSVParser {
         // Replace the empty strings with null values in the new array
         for (int i = 0; i < data.length; i++) {
             for (int j = 0; j < data[i].length; j++) {
-                if (data[i][j].equals("")) {
+                if (data[i][j] == null || data[i][j].equals("")) {
                     newData[i][j] = null;
                 } else {
                     newData[i][j] = data[i][j];

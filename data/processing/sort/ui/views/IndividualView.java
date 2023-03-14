@@ -26,19 +26,21 @@ public class IndividualView {
 
     private void displayNodes() {
         if (individual == null) return;
-        int[][] nodes = individual.getChromosome();
+
+        short[][] nodes = individual.getChromosome();
         for (int row = 0; row < nodes.length; row++) {
             for (int id = 0; id < nodes[row].length; id++) {
                 int colum = nodes[row][id];
-                NodeView.display(window, id, colum, row);
+                NodeView.display(window, id, (float) (colum + (row % 2 == 0 ? 0.5 : 0)), row * 2);
             }
         }
     }
 
     private void displayConnections() {
-        if(individual == null) return;
-        int[][] connections = individual.getConnections();
-        for (int[] connection : connections) {
+        if (individual == null) return;
+
+        short[][] connections = individual.getConnections();
+        for (short[] connection : connections) {
             ConnectionView.display(window, connection, individual.getChromosome());
         }
     }
