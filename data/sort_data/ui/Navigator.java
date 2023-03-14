@@ -105,7 +105,7 @@ public class Navigator {
      * This method is called once per frame.
      */
     private static void apply() {
-        window.translate(window.width / 2f, window.height / 2f);
+        // window.translate(window.width / 2f, window.height / 2f);
         window.scale(window.zoom);
         window.translate(window.offsetX, window.offsetY);
     }

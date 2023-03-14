@@ -1,4 +1,4 @@
-package genetic;
+package genetic_algorithm;
 
 import java.util.Arrays;
 import java.util.Comparator;
@@ -208,8 +208,8 @@ public class Population {
      */
     public Individual[] selectPopulation(Individual[] population, Individual[] offspring) {
         Individual[] newPopulation = new Individual[populationSize];
-        Arrays.sort(population, Comparator.comparingDouble(Individual::getFitness));
-        Arrays.sort(offspring, Comparator.comparingDouble(Individual::getFitness));
+        Arrays.sort(population, Comparator.comparingDouble(Individual::getFitness).reversed());
+        Arrays.sort(offspring, Comparator.comparingDouble(Individual::getFitness).reversed());
         if (eliteSize >= 0) System.arraycopy(population, 0, newPopulation, 0, eliteSize);
         if (populationSize - eliteSize >= 0)
             System.arraycopy(offspring, 0, newPopulation, eliteSize, populationSize - eliteSize);

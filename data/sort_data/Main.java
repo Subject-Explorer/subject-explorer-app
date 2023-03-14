@@ -1,6 +1,6 @@
 import data_access.CSVParser;
-import genetic.Individual;
-import genetic.Population;
+import genetic_algorithm.Individual;
+import genetic_algorithm.Population;
 import processing.core.PApplet;
 import representation.NodeGrid;
 import ui.Window;
@@ -20,9 +20,9 @@ import ui.Window;
  * @version 2023-03-13
  */
 public class Main {
-    private static final String NODE_PATH = "data/solution.csv";
-    private static final String CONNECTION_PATH = "data/test_connections.csv";
-    private static final String SOLUTION_PATH = "data/solution.csv";
+    private static final String NODE_PATH = "solution.csv";
+    private static final String CONNECTION_PATH = "test_connections.csv";
+    private static final String SOLUTION_PATH = "solution.csv";
 
     /**
      * The main method of the application.
@@ -47,7 +47,7 @@ public class Main {
             Individual base = new Individual(); // For multi-run evolution
 
             // Initialize the population
-            Population population = new Population(100, 0.8, 0.9, 10);
+            Population population = new Population(100, 0.2, 0.9, 10);
             // population.initialize();
             population.fill(base);
 
@@ -55,7 +55,7 @@ public class Main {
             for (int i = 0; i < 1000; i++) {
                 population.progress(100);
                 window.setIndividual(population.getFittestIndividual());
-                Thread.sleep(5000);
+                Thread.sleep(100);
             }
 
             // Get the solution

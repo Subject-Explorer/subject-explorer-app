@@ -73,6 +73,7 @@ public class Window extends PApplet {
         // Set the title of the window
         surface.setTitle("Visual graph sorting");
         colorMode(HSB, 1);
+        rectMode(CENTER);
 
         // Initialize the navigator with the current window instance
         Navigator.initialize(this);
@@ -101,7 +102,7 @@ public class Window extends PApplet {
         // source.display();
     }
 
-    public void setIndividual(genetic.Individual individual) {
+    public void setIndividual(genetic_algorithm.Individual individual) {
         this.individual.setIndividual(individual);
     }
 

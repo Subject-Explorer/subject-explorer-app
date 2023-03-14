@@ -1,4 +1,4 @@
-package genetic;
+package genetic_algorithm;
 
 import representation.NodeGrid;
 
