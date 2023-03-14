@@ -22,12 +22,12 @@ public class Window extends PApplet {
     /**
      * The width of the window
      */
-    private static final int WIDTH = 640;
+    private static final int WIDTH = 1000;
 
     /**
      * The height of the window
      */
-    private static final int HEIGHT = 400;
+    private static final int HEIGHT = 600;
 
     /**
      * The zoom of the window
@@ -60,8 +60,10 @@ public class Window extends PApplet {
      */
     @Override
     public void settings() {
-        size(WIDTH, HEIGHT);
-        pixelDensity(displayDensity());
+        //size(WIDTH, HEIGHT);
+        fullScreen();
+        //pixelDensity(displayDensity());
+        pixelDensity(2);
     }
 
     /**

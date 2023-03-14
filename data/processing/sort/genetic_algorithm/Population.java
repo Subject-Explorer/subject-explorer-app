@@ -2,7 +2,6 @@ package genetic_algorithm;
 
 import java.util.Arrays;
 import java.util.Comparator;
-import java.util.Random;
 
 /**
  * genetic.Population.java
@@ -60,7 +59,7 @@ public class Population {
      * </ul>
      */
     public Population() {
-        this(100, 0.3, 0.9, 10);
+        this(100, 0.3, 0.9, 0.1);
     }
 
     /**
@@ -74,12 +73,12 @@ public class Population {
      * @param crossoverRate  The crossover rate of the genetic algorithm
      * @param eliteSize      The size of the elite
      */
-    public Population(int populationSize, double mutationRate, double crossoverRate, int eliteSize) {
+    public Population(int populationSize, double mutationRate, double crossoverRate, double eliteSize) {
         this.population = new Individual[populationSize];
         this.populationSize = populationSize;
         this.mutationRate = mutationRate;
         this.crossoverRate = crossoverRate;
-        this.eliteSize = eliteSize;
+        this.eliteSize = (int) (eliteSize * populationSize);
     }
 
     /**
@@ -101,7 +100,7 @@ public class Population {
         for (int generation = 0; generation < generations; generation++) {
             this.evolve();
             this.evaluatePopulation(population);
-            System.out.println("Generation: " + (generation+1) + " | Best fitness: " + population[0].getFitness());
+            System.out.println("Generation: " + (generation + 1) + " | Least pain: " + population[0].getPain());
         }
     }
 
@@ -131,7 +130,7 @@ public class Population {
             individual.evaluate();
         }
 
-        Arrays.sort(population, Comparator.comparingDouble(Individual::getFitness).reversed());
+        Arrays.sort(population, Comparator.comparingDouble(Individual::getPain));
     }
 
     /**
@@ -185,11 +184,8 @@ public class Population {
      * @param offspring The offspring
      */
     public void mutateOffspring(Individual[] offspring) {
-        Random random = new Random();
         for (Individual individual : offspring) {
-            if (random.nextDouble() < mutationRate) {
-                individual.mutate(10);
-            }
+            individual.mutate(mutationRate);
         }
     }
 
@@ -208,8 +204,8 @@ public class Population {
      */
     public Individual[] selectPopulation(Individual[] population, Individual[] offspring) {
         Individual[] newPopulation = new Individual[populationSize];
-        Arrays.sort(population, Comparator.comparingDouble(Individual::getFitness).reversed());
-        Arrays.sort(offspring, Comparator.comparingDouble(Individual::getFitness).reversed());
+        Arrays.sort(population, Comparator.comparingDouble(Individual::getPain));
+        Arrays.sort(offspring, Comparator.comparingDouble(Individual::getPain));
         if (eliteSize >= 0) System.arraycopy(population, 0, newPopulation, 0, eliteSize);
         if (populationSize - eliteSize >= 0)
             System.arraycopy(offspring, 0, newPopulation, eliteSize, populationSize - eliteSize);
@@ -232,7 +228,7 @@ public class Population {
         int indexB = (int) (Math.random() * populationSize);
         Individual individualA = population[indexA];
         Individual individualB = population[indexB];
-        return individualA.getFitness() < individualB.getFitness() ? individualA : individualB;
+        return individualA.getPain() < individualB.getPain() ? individualA : individualB;
     }
 
     /**

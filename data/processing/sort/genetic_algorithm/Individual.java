@@ -26,11 +26,11 @@ public class Individual {
     /**
      * Row count of any chromosome
      */
-    private static int rows = 0;
+    private static short rows = 0;
     /**
      * Column count of any chromosome
      */
-    private static int columns = 0;
+    private static short columns = 0;
     /**
      * The connections between the nodes, represented by a 2D array of integers
      * Each row represents a connection between two nodes:
@@ -42,7 +42,7 @@ public class Individual {
      * </ul>
      * indices of the node in the chromosome
      */
-    private static int[][] connections;
+    private static short[][] connections;
     /**
      * The random number generator
      */
@@ -52,11 +52,11 @@ public class Individual {
      * The chromosome of the individual.
      * Each row contains the column indices of the nodes in the row.
      */
-    private final int[][] chromosome;
+    private final short[][] chromosome;
     /**
      * The fitness of the individual
      */
-    double fitness = -1;
+    short pain = Short.MAX_VALUE;
 
     /**
      * Creates a new individual with a random chromosome.
@@ -71,7 +71,7 @@ public class Individual {
      *
      * @param chromosome The chromosome of the individual
      */
-    public Individual(int[][] chromosome) {
+    public Individual(short[][] chromosome) {
         this.chromosome = chromosome;
         this.evaluate();
     }
@@ -112,7 +112,7 @@ public class Individual {
      * @return The copy of the individual
      */
     public Individual copy() {
-        int[][] chromosomeCopy = new int[rows][columns];
+        short[][] chromosomeCopy = new short[rows][columns];
         for (int i = 0; i < chromosome.length; i++) {
             System.arraycopy(chromosome[i], 0, chromosomeCopy[i], 0, chromosome[0].length);
         }
@@ -127,7 +127,7 @@ public class Individual {
      * @param columnB The second column
      */
     private void swap(int row, int columnA, int columnB) {
-        int temp = chromosome[row][columnA];
+        short temp = chromosome[row][columnA];
         chromosome[row][columnA] = chromosome[row][columnB];
         chromosome[row][columnB] = temp;
     }
@@ -137,7 +137,7 @@ public class Individual {
      *
      * @return The chromosome of the individual
      */
-    public int[][] getChromosome() {
+    public short[][] getChromosome() {
         return chromosome;
     }
 
@@ -146,7 +146,7 @@ public class Individual {
      *
      * @return The connections of the individual
      */
-    public int[][] getConnections() {
+    public short[][] getConnections() {
         return connections;
     }
 
@@ -168,6 +168,18 @@ public class Individual {
             this.swap(row, columnA, columnB);
         }
     }
+    public void mutate(double mutationRate) {
+        int row, columnA, columnB;
+        for (int counter = (int) (mutationRate * rows * columns); counter > 0; --counter) {
+            // Randomly select a row and two columns
+            row = random.nextInt(rows);
+            columnA = random.nextInt(columns);
+            columnB = random.nextInt(columns);
+
+            // Swap the values of the columns
+            this.swap(row, columnA, columnB);
+        }
+    }
 
     /**
      * Evaluates the fitness of the individual.
@@ -175,14 +187,14 @@ public class Individual {
      */
     public void evaluate() {
         // Calculate the total distance of the individual
-        double totalDistance = 1;
-        for (int[] connection : connections) {
+        short totalDistance = 1;
+        for (short[] connection : connections) {
             // Calculate the distance between the two nodes, and add it to the total distance
             totalDistance += Math.abs(chromosome[connection[0]][connection[1]] - chromosome[connection[2]][connection[3]]);
         }
 
         // The fitness is inversely proportional to the total distance
-        this.fitness = 1 / totalDistance;
+        this.pain = totalDistance;
     }
 
     /**
@@ -190,8 +202,8 @@ public class Individual {
      *
      * @return The fitness of the individual
      */
-    public double getFitness() {
-        return this.fitness;
+    public short getPain() {
+        return this.pain;
     }
 
     /**
@@ -201,18 +213,18 @@ public class Individual {
         /**
          * The base chromosome
          */
-        public static int[][] base;
+        public static short[][] base;
 
         /**
          * Initializes the chromosome without any swapping.
          *
          * @return The base chromosome
          */
-        private static int[][] base() {
+        private static short[][] base() {
             // Create the base chromosome
-            int[][] chromosome = new int[rows][columns];
-            for (int row = 0; row < rows; row++) {
-                for (int column = 0; column < columns; column++) {
+            short[][] chromosome = new short[rows][columns];
+            for (short row = 0; row < rows; row++) {
+                for (short column = 0; column < columns; column++) {
                     // The value of each cell in a row is the column index
                     chromosome[row][column] = column;
                 }
@@ -225,18 +237,18 @@ public class Individual {
          *
          * @return The randomized chromosome
          */
-        private static int[][] randomized() {
+        private static short[][] randomized() {
             // Create a copy of the base chromosome
-            int[][] chromosome = new int[rows][columns];
-            for (int row = 0; row < rows; row++) {
+            short[][] chromosome = new short[rows][columns];
+            for (short row = 0; row < rows; row++) {
                 System.arraycopy(base[row], 0, chromosome[row], 0, columns);
             }
 
             // Swap the values of each column in each row
-            for (int row = 0; row < rows; row++) {
-                for (int column = 0; column < columns; column++) {
+            for (short row = 0; row < rows; row++) {
+                for (short column = 0; column < columns; column++) {
                     int rnd = random.nextInt(chromosome[row].length);
-                    int temp = chromosome[row][column];
+                    short temp = chromosome[row][column];
                     chromosome[row][column] = chromosome[row][rnd];
                     chromosome[row][rnd] = temp;
                 }
@@ -250,24 +262,24 @@ public class Individual {
          * @param parents The parents of the individual
          * @return The chromosome of the individual
          */
-        public static int[][] combine(Individual... parents) {
+        public static short[][] combine(Individual... parents) {
             // Create a new chromosome
-            int[][] chromosome = new int[rows][columns];
+            short[][] chromosome = new short[rows][columns];
             boolean[][] unavailable = new boolean[rows][columns];
 
             // Fill the chromosome with the values of the parents
-            for (int row = 0; row < rows; row++) {
-                for (int column = 0; column < columns; column++) {
+            for (short row = 0; row < rows; row++) {
+                for (short column = 0; column < columns; column++) {
                     // Randomly select a parent
                     Individual parent = parents[random.nextInt(parents.length)];
-                    int gene = parent.chromosome[row][column];
-                    int adjustedLeft = gene;
-                    int adjustedRight = gene;
+                    short gene = parent.chromosome[row][column];
+                    short adjustedLeft = gene;
+                    short adjustedRight = gene;
 
                     // Find the closest available value to the gene
                     while (unavailable[row][adjustedLeft] && unavailable[row][adjustedRight]) {
-                        adjustedLeft = (adjustedLeft - 1 + columns) % columns;
-                        adjustedRight = (adjustedRight + 1) % columns;
+                        adjustedLeft = (short) ((adjustedLeft - 1 + columns) % columns);
+                        adjustedRight = (short) ((adjustedRight + 1) % columns);
                     }
 
                     // Add the value to the chromosome
@@ -294,8 +306,8 @@ public class Individual {
             String[][] connections = nodeGrid.getConnections();
 
             // Set the dimensions of the chromosomes
-            Individual.rows = nodes.length;
-            Individual.columns = nodes[0].length;
+            Individual.rows = (short) nodes.length;
+            Individual.columns = (short) nodes[0].length;
 
             // Set the base chromosome
             Chromosome.base = Chromosome.base();
@@ -311,18 +323,18 @@ public class Individual {
          * @param connections The connections of the node grid
          * @return The mapped connections
          */
-        private static int[][] mapConnections(String[][] nodes, String[][] connections) {
+        private static short[][] mapConnections(String[][] nodes, String[][] connections) {
             // Map the connections to the chromosome
-            int[][] mappedConnections = new int[connections.length][4];
+            short[][] mappedConnections = new short[connections.length][4];
 
             // Find the position of each node in the node grid
             for (int i = 0; i < connections.length; i++) {
                 // Translate the nodes to positions
-                int[] positionA = findPosition(connections[i][0], nodes);
-                int[] positionB = findPosition(connections[i][1], nodes);
+                short[] positionA = findPosition(connections[i][0], nodes);
+                short[] positionB = findPosition(connections[i][1], nodes);
 
                 // Add the positions to the mapped connections
-                mappedConnections[i] = new int[]{positionA[0], positionA[1], positionB[0], positionB[1]};
+                mappedConnections[i] = new short[]{positionA[0], positionA[1], positionB[0], positionB[1]};
             }
             return mappedConnections;
         }
@@ -334,16 +346,16 @@ public class Individual {
          * @param nodes  The node grid to find the position in
          * @return The position of the node
          */
-        private static int[] findPosition(String wanted, String[][] nodes) {
+        private static short[] findPosition(String wanted, String[][] nodes) {
             // Find the position of the node in the node grid with a linear search
-            for (int row = 0; row < rows; row++) {
-                for (int column = 0; column < columns; column++) {
-                    if (nodes[row][column].equals(wanted)) return new int[]{row, column};
+            for (short row = 0; row < rows; row++) {
+                for (short column = 0; column < columns; column++) {
+                    if (wanted.equals(nodes[row][column])) return new short[]{row, column};
                 }
             }
 
             // Return an invalid position if the node was not found
-            return new int[]{-1, -1};
+            return new short[]{-1, -1};
         }
 
         /**
@@ -354,7 +366,7 @@ public class Individual {
          * @param chromosome The chromosome to apply to the node matrix
          * @return The node matrix rearranged according to the chromosome
          */
-        public static String[][] apply(String[][] nodes, int[][] chromosome) {
+        public static String[][] apply(String[][] nodes, short[][] chromosome) {
             String[][] newSubjects = new String[rows][columns];
             // Iterate over the rows and columns of the chromosome
             for (int row = 0; row < rows; row++) {
