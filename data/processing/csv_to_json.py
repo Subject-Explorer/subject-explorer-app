@@ -1,11 +1,18 @@
+import sys
+import os
+import argparse
 import json
+import csv
 from manual_sorter import sort_manually
 
+DEF_REL_CSV_PATH = "../csv"
+DEF_REL_OUT_PATH = "../../public/data.json"
+parser = argparse.ArgumentParser()
 
-def parse_csv(file_name: str, table_type: str) -> list[dict]:
+def parse_csv(path:str, file_name:str, table_type:str) -> list[dict]:
     data = []
 
-    with open(f"./csv/{file_name}", mode="r", encoding="utf-8") as file:
+    with open(f"{path}/{file_name}", mode="r", encoding="utf-8") as file:
         lines = csv_to_lines(file)
 
     for line in lines:
@@ -52,7 +59,7 @@ def csv_to_lines(file) -> list[list[str]]:
     return lines
 
 
-def get_lesson_count(line: str) -> dict:
+def get_lesson_count(line:list[str]) -> dict:
     return {
         "lecture": int(line[2]),
         "practice": int(line[3]),
@@ -61,11 +68,11 @@ def get_lesson_count(line: str) -> dict:
     }
 
 
-def get_semesters(semesters_str: str) -> list[int]:
+def get_semesters(semesters_str:str) -> list[int]:
     return [int(semester) for semester in semesters_str.split(",")]
 
 
-def get_prerequisites(prerequisites_str: str) -> list[dict]:
+def get_prerequisites(prerequisites_str:str) -> list[dict]:
     prerequisites = []
     prerequisites_raw = prerequisites_str.strip().split(", ")
     for prerequisite in prerequisites_raw:
@@ -76,7 +83,7 @@ def get_prerequisites(prerequisites_str: str) -> list[dict]:
     return prerequisites
 
 
-def get_field(field_str: str) -> str:
+def get_field(field_str:str) -> str:
     match field_str:
         case "Inf":
             return "informatika"
@@ -88,7 +95,7 @@ def get_field(field_str: str) -> str:
             return "egyéb"
 
 
-def get_specializations(line: list[str], table_type: str) -> list[str]:
+def get_specializations(line:list[str], table_type:str) -> list[str]:
     specializations = []
     if len(line) < 18:
         if table_type == "spec-kotval":
@@ -105,11 +112,11 @@ def get_specializations(line: list[str], table_type: str) -> list[str]:
     return specializations
 
 
-def flatten(l: list[list]) -> list:
+def flatten(l:list[list]) -> list:
     return [item for sublist in l for item in sublist]
 
 
-def map_parents_as_children(subject_data_list: list[dict]) -> list[dict]:
+def map_parents_as_children(subject_data_list:list[dict]) -> list[dict]:
     # - Fills the children field of each subject data with the IDs of its children.
     # - Also fills the children_specializations field of each subject data with the specializations of its children.
 
@@ -140,7 +147,7 @@ def sort_into_semesters(subject_data_list) -> list[list[dict]]:
     return data
 
 
-def merge_data(data: list[dict]) -> list[dict]:
+def merge_data(data:list[dict]) -> list[dict]:
     merged_data = {}
     for subject in data:
         subject_id = subject["id"]
@@ -168,11 +175,11 @@ def remove_duplicates(lst):
     return result
 
 
-def process_files(files_to_process: list[tuple]) -> list[dict]:
+def process_files(files_to_process:list[tuple], csv_dir_path:str) -> list[dict]:
     data = []
     for file_name, table_type in files_to_process:
         # parse the current file
-        new_data = parse_csv(file_name, table_type)
+        new_data = parse_csv(csv_dir_path, file_name, table_type)
         data.extend(new_data)
 
     # merge same-coded subjects
@@ -181,12 +188,54 @@ def process_files(files_to_process: list[tuple]) -> list[dict]:
     return merged_data
 
 
-def save_data(data: json) -> None:
-    with open("../public/data.json", "wb") as f:
+def save_data(data, path:str) -> None:
+    with open(path, "wb") as f:
         f.write(json.dumps(data, ensure_ascii=False).encode("utf8"))
 
 
+def output_csv_files(data, path:str) -> None:
+    with open(os.path.join(path, "connections.csv"), "w", newline='') as f:
+        writer = csv.writer(f, delimiter=';')
+        writer.writerow(["Parent", "Child"])
+        for subject in data:
+            for child in subject["children"]:
+                writer.writerow([subject["id"], child["id"]])
+
+
+def check_args():
+    parser.add_argument("-csv", "--csv", help="Path to the directory of the csv files", required = False)
+    parser.add_argument("-o", "--out", help="Path to the output file", required = False)
+    parser.add_argument("-m", "--manual-sorting", help="Sort manually, needs a sequence.csv file, use -mp <path> to change the default sequence file path which is defined in manual_sorter.py", required = False, action='store_true')
+    parser.add_argument("-mp", "--manual-sequence", help="Path to the manual sequence file", required = False)
+    parser.add_argument("-ocsv", "--output-csv-files", help="Path to a directory for custom csv files for further processing, generates these files if this flag is set", required = False)
+
+    args = parser.parse_args()
+
+    csv_path = os.path.abspath(args.csv) if args.csv else None
+    manual_seq_path = os.path.abspath(args.manual_sequence) if args.manual_sequence else None
+    ocsvs_path = os.path.abspath(args.output_csv_files) if args.output_csv_files else None
+
+    if manual_seq_path != None:
+        if not os.path.isfile(manual_seq_path):
+            print("Error: path does not exist: " + manual_seq_path)
+            sys.exit(1)
+    
+    if csv_path != None:
+        if not os.path.exists(csv_path):
+                print("Error: path for input CSV files, directory does not exist: " + csv_path)
+                sys.exit(1)
+
+    if ocsvs_path != None:
+        if not os.path.exists(ocsvs_path):
+                print("Error: path for custom output CSV files, directory does not exist: " + ocsvs_path)
+                sys.exit(1)
+    
+    return args
+
+
 def main():
+    args = check_args()
+
     files_to_process = [
         # (filename, table_type)
         ("torzsanyag.csv", "torzs"),
@@ -198,10 +247,25 @@ def main():
         ("C_spec_kotval.csv", "spec-kotval")
     ]
 
-    data = process_files(files_to_process)
+    full_csv_dir_path = os.path.join(os.getcwd(), args.csv) if args.csv != None else os.path.join(os.path.dirname(__file__), DEF_REL_CSV_PATH)
+    full_out_file_path = os.path.join(os.getcwd(), args.out) if args.out != None else os.path.join(os.path.dirname(__file__), DEF_REL_OUT_PATH)
+    
+    #print("FULL CSV PATH:\n" + full_csv_dir_path)
+    #print("FULL OUT PATH:\n" + full_out_file_path)
+    
+    data = process_files(files_to_process, full_csv_dir_path)
     data = map_parents_as_children(data)
-    data = sort_manually(data)
-    save_data(data)
+    
+    if args.output_csv_files:
+        output_csv_files(data, args.output_csv_files)
+    else:
+        if args.manual_sorting:
+            data = sort_manually(args.manual_sequence, data)
+        else:
+            pass
+            # auto sort
+
+        save_data(data, full_out_file_path)
 
 
 if __name__ == "__main__":
