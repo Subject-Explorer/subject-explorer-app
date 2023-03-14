@@ -1,7 +1,11 @@
+package genetic;
+
+import representation.NodeGrid;
+
 import java.util.Random;
 
 /**
- * Individual.java
+ * genetic.IndividualView.java
  * <p>
  * The individual of the genetic algorithm.
  * This class is responsible for creating and managing the individuals of the
@@ -138,6 +142,15 @@ public class Individual {
     }
 
     /**
+     * Returns the connections of the individual.
+     *
+     * @return The connections of the individual
+     */
+    public int[][] getConnections() {
+        return connections;
+    }
+
+    /**
      * Mutates the individual.
      * The individual is mutated by swapping the values of two random columns in a random row.
      *
@@ -162,7 +175,7 @@ public class Individual {
      */
     public void evaluate() {
         // Calculate the total distance of the individual
-        double totalDistance = 0;
+        double totalDistance = 1;
         for (int[] connection : connections) {
             // Calculate the distance between the two nodes, and add it to the total distance
             totalDistance += Math.abs(chromosome[connection[0]][connection[1]] - chromosome[connection[2]][connection[3]]);

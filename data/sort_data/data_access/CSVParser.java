@@ -1,3 +1,5 @@
+package data_access;
+
 import java.io.*;
 import java.util.LinkedList;
 import java.util.Scanner;
@@ -8,7 +10,7 @@ import java.util.Scanner;
  * @author Boér Bence
  * @version 2023-03-13
  */
-class CSVParser {
+public class CSVParser {
     /**
      * Writes the given data to the given path.
      *

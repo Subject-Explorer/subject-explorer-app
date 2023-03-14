@@ -1,9 +1,11 @@
+package genetic;
+
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Random;
 
 /**
- * Population.java
+ * genetic.Population.java
  * <p>
  * The population of the genetic algorithm.
  * This class is responsible for creating and managing the population of the
@@ -51,7 +53,7 @@ public class Population {
      * </p>
      * The default parameters are:
      * <ul>
-     *     <li>Population size: 100</li>
+     *     <li>genetic.Population size: 100</li>
      *     <li>Mutation rate: 0.3</li>
      *     <li>Crossover rate: 0.9</li>
      *     <li>Elite size: 10</li>
@@ -129,7 +131,7 @@ public class Population {
             individual.evaluate();
         }
 
-        Arrays.sort(population, Comparator.comparingDouble(Individual::getFitness));
+        Arrays.sort(population, Comparator.comparingDouble(Individual::getFitness).reversed());
     }
 
     /**

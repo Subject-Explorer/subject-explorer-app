@@ -1,6 +1,7 @@
 package ui;
 
 import processing.core.PApplet;
+import ui.views.IndividualView;
 
 /**
  * ui.Window.java
@@ -10,7 +11,7 @@ import processing.core.PApplet;
  * creating the window and handling the input.
  * It also contains the main method of the application.
  * The window is a {@link PApplet} instance, and is responsible for drawing
- * the NodeGrid to the screen.
+ * the representation.NodeGrid to the screen.
  * The window also contains the {@link InputField} for the JSON source path.
  * <p>
  *
@@ -49,6 +50,11 @@ public class Window extends PApplet {
     private InputField source;
 
     /**
+     * The individual to be displayed
+     */
+    private IndividualView individual;
+
+    /**
      * The settings of the window, overriding the default {@link PApplet} settings.
      * This method is called once at the start of the program.
      */
@@ -66,6 +72,7 @@ public class Window extends PApplet {
     public void setup() {
         // Set the title of the window
         surface.setTitle("Visual graph sorting");
+        colorMode(HSB, 1);
 
         // Initialize the navigator with the current window instance
         Navigator.initialize(this);
@@ -75,6 +82,7 @@ public class Window extends PApplet {
 
         // Initialize the "JSON source" input field
         source = new InputField(this, "JSON source", width * 0.2f, height * 0.2f);
+        individual = new IndividualView(this);
     }
 
     /**
@@ -83,13 +91,18 @@ public class Window extends PApplet {
      */
     @Override
     public void draw() {
-        background(0);
+        background(0.1f);
 
         // Update the position of the window through the navigator
         Navigator.update();
 
+        individual.display();
         // Draw the input field
-        source.display();
+        // source.display();
+    }
+
+    public void setIndividual(genetic.Individual individual) {
+        this.individual.setIndividual(individual);
     }
 
     /**

@@ -1,4 +1,8 @@
+import data_access.CSVParser;
+import genetic.Individual;
+import genetic.Population;
 import processing.core.PApplet;
+import representation.NodeGrid;
 import ui.Window;
 
 /**
@@ -16,7 +20,7 @@ import ui.Window;
  * @version 2023-03-13
  */
 public class Main {
-    private static final String NODE_PATH = "data/test_nodes.csv";
+    private static final String NODE_PATH = "data/solution.csv";
     private static final String CONNECTION_PATH = "data/test_connections.csv";
     private static final String SOLUTION_PATH = "data/solution.csv";
 
@@ -30,6 +34,10 @@ public class Main {
         // Initialize the processing window
         // PApplet.main(Window.class);
 
+        String[] processingArgs = {Window.class.getName()};
+        Window window = new Window();
+        PApplet.runSketch(processingArgs, window);
+
         try {
             // Read the data from the files
             NodeGrid nodes = NodeGrid.fromFiles(NODE_PATH, CONNECTION_PATH);
@@ -40,10 +48,15 @@ public class Main {
 
             // Initialize the population
             Population population = new Population(100, 0.8, 0.9, 10);
-            population.initialize();
+            // population.initialize();
+            population.fill(base);
 
             // Run the genetic algorithm
-            population.progress(10000);
+            for (int i = 0; i < 1000; i++) {
+                population.progress(100);
+                window.setIndividual(population.getFittestIndividual());
+                Thread.sleep(5000);
+            }
 
             // Get the solution
             Individual winner = population.getFittestIndividual();

@@ -1,16 +1,24 @@
+package representation;
+
+import data_access.CSVParser;
+
 import java.io.FileNotFoundException;
 
 /**
- * NodeGrid.java
+ * representation.NodeGrid.java
  * <p>
  * This class is used to store the data from the node and connection files.
  * It is used to create a grid of nodes and connections.
  * </p>
+ * <ul>
+ *     <li>{@link #nodes} The nodes matrix</li>
+ *     <li>{@link #connections} The connections matrix</li>
+ * </ul>
  *
  * @author Boér Bence
  * @version 2023-03-13
  */
-class NodeGrid {
+public class NodeGrid {
     /**
      * The nodes matrix
      */
@@ -21,7 +29,7 @@ class NodeGrid {
     String[][] connections;
 
     /**
-     * The constructor of the NodeGrid class.
+     * The constructor of the representation.NodeGrid class.
      * This method is called once at the start of the program.
      *
      * @param nodes       The nodes matrix
@@ -33,19 +41,19 @@ class NodeGrid {
     }
 
     /**
-     * The static method for creating a NodeGrid instance from the node and connection files.
+     * The static method for creating a representation.NodeGrid instance from the node and connection files.
      * This method is called once at the start of the program.
      *
      * @param nodePath       The path of the node file
      * @param connectionPath The path of the connection file
-     * @return The NodeGrid instance
+     * @return The representation.NodeGrid instance
      */
     public static NodeGrid fromFiles(String nodePath, String connectionPath) throws FileNotFoundException {
         // Parse the data from the files
         String[][] nodeData = CSVParser.parse(nodePath);
         String[][] connectionData = CSVParser.parse(connectionPath);
 
-        // Create and return a new NodeGrid instance
+        // Create and return a new representation.NodeGrid instance
         return new NodeGrid(nodeData, connectionData);
     }
 

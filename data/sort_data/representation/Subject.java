@@ -1,8 +1,10 @@
+package representation;
+
 import java.util.List;
 import java.util.Map;
 
 /**
- * Subject.java
+ * representation.Subject.java
  * <p>
  * The subject of the curriculum (Data class).
  * This class represents a subject of the curriculum.

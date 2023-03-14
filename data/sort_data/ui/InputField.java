@@ -97,13 +97,13 @@ class InputField {
      */
     void display() {
         // If the input field is active, draw a grey background, otherwise draw a black background
-        window.fill(active ? 40 : 0);
-        window.stroke(255);
+        window.fill(active ? 0.4f : 0f);
+        window.stroke(1f);
         window.rect(X, Y, WIDTH, HEIGHT);
 
         // Make the text white and left-aligned
         window.textAlign(window.LEFT, window.CENTER);
-        window.fill(255);
+        window.fill(1f);
 
         // Draw the label of the input field
         window.textSize(16);
