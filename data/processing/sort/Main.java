@@ -20,9 +20,9 @@ import ui.Window;
  * @version 2023-03-13
  */
 public class Main {
-    private static final String NODE_PATH = "data/processing/out/solution.csv";
+    private static final String NODE_PATH = "data/processing/out/solution_v3.csv";
     private static final String CONNECTION_PATH = "data/processing/out/connections.csv";
-    private static final String SOLUTION_PATH = "data/processing/out/solution.csv";
+    private static final String SOLUTION_PATH = "data/processing/out/solution_v3.csv";
 
     /**
      * The main method of the application.
@@ -43,15 +43,16 @@ public class Main {
             // Initialize the base individual
             Individual.initializeChromosome(nodes);
             Individual base = new Individual(); // For multi-run evolution
+            window.setIndividual(base);
 
             // Initialize the population
-            Population population = new Population(1000, 0.01, 0.9, 0.3);
-            //population.initialize();
+            Population population = new Population(1000, 0.008, 0.9, 0.3);
+            // population.initialize();
             population.fill(base);
 
             for (int i = 0; i < 1000; i++) {
                 // Run the genetic algorithm
-                population.progress(1000);
+                population.progress(200);
 
                 // Get the solution
                 Individual winner = population.getFittestIndividual();

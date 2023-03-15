@@ -100,7 +100,7 @@ public class Population {
         for (int generation = 0; generation < generations; generation++) {
             this.evolve();
             this.evaluatePopulation(population);
-            System.out.println("Generation: " + (generation + 1) + " | Least pain: " + population[0].getPain());
+            System.out.println("Generation: " + (generationIndex) + " | Least pain: " + population[0].getPain());
         }
     }
 
