@@ -1,5 +1,5 @@
 import SubjectData, { Prerequisite } from "@/utils/subjectData";
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import ReactFlow, {
   Node,
   useNodesState,
@@ -8,6 +8,10 @@ import ReactFlow, {
   DefaultEdgeOptions,
   SelectionMode,
   MiniMap,
+  ReactFlowProvider,
+  useReactFlow,
+  Controls,
+  useKeyPress,
 } from "reactflow";
 import CustomNode from "./CustomNode";
 import SubjectNode, { NodeData } from "./SubjectNode";
@@ -28,9 +32,16 @@ const defaultEdgeOptions: DefaultEdgeOptions = {
   style: { strokeWidth: 2 },
 };
 
-function Flow() {
+function FlowView() {
   const [nodes, setNodes, onNodesChange] = useNodesState([]);
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
+
+  const { setViewport, fitView } = useReactFlow();
+
+  const handleTransform = useCallback(() => {
+    // setViewport({ x: 500, y: 100, zoom: 0.4 }, { duration: 800 });
+    fitView({ duration: 800 });
+  }, [fitView]);
 
   const { settings } = useFilterSettings();
 
@@ -56,6 +67,11 @@ function Flow() {
     [settings]
   );
 
+  const spaceKey = useKeyPress("Space");
+  useEffect(() => {
+    fitView({ duration: 800, padding: 0.1 });
+  }, [spaceKey, fitView]);
+
   useEffect(() => {
     const filteredSemesters = settings.hideDisabled
       ? semesters.map((semester) => semester.filter(filterSubject))
@@ -65,7 +81,7 @@ function Flow() {
     let newEdges: Edge[] = [];
     let even = 0;
     filteredSemesters.map((subjects, semesterIndex) => {
-      even = 1-even;
+      even = 1 - even;
       subjects.map((subject, subjectIndex) => {
         // if null, skip
         if (subject === null) return;
@@ -119,7 +135,13 @@ function Flow() {
     });
     setNodes(newNodes);
     setEdges(newEdges);
-  }, [setNodes, setEdges, settings, filterSubject]);
+    setNeedsViewUpdate((x) => !x);
+  }, [setNodes, setEdges, settings, filterSubject, handleTransform, fitView]);
+
+  const [needsViewUpdate, setNeedsViewUpdate] = useState(false);
+  useEffect(() => {
+    handleTransform();
+  }, [needsViewUpdate, handleTransform]);
 
   return (
     <div className="stroke-modeler flex-grow bg-neutral-dark">
@@ -133,17 +155,19 @@ function Flow() {
         fitView
         fitViewOptions={{ minZoom: 0.2 }}
         defaultViewport={{ x: 0, y: 0, zoom: 0.2 }}
+        minZoom={0}
         panOnScroll
         panOnScrollSpeed={0.5}
-        // panOnDrag={false}
         proOptions={{ hideAttribution: true }}
-        // selectionOnDrag
-        // selectionMode={SelectionMode.Partial}
-      >
-        <MiniMap />
-      </ReactFlow>
+      />
     </div>
   );
 }
+
+const Flow = () => (
+  <ReactFlowProvider>
+    <FlowView />
+  </ReactFlowProvider>
+);
 
 export default Flow;
