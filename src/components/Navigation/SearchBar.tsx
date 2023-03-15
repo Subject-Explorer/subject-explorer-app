@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FormEvent, useRef } from "react";
 
 interface Props {
   query: string;
@@ -6,16 +6,19 @@ interface Props {
   onSubmit: React.FormEventHandler<HTMLFormElement>;
 }
 export default function SearchBar({ query, setQuery, onSubmit }: Props) {
+  const inputField = useRef<HTMLInputElement>(null);
   return (
     <form
       noValidate
-      onSubmit={(e: any) => {
+      onSubmit={(e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         onSubmit(e);
+        inputField.current?.blur();
       }}
       className="flex min-w-[500px] flex-grow items-center"
     >
       <input
+        ref={inputField}
         type="text"
         id="query"
         value={query}
