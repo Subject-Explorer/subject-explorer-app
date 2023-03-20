@@ -43,6 +43,8 @@ public class Individual {
      * indices of the node in the chromosome
      */
     private static short[][] connections;
+
+    private static short[][] secondary_connections;
     /**
      * The random number generator
      */
@@ -56,7 +58,7 @@ public class Individual {
     /**
      * The fitness of the individual
      */
-    short pain = Short.MAX_VALUE;
+    float pain = Float.MAX_VALUE;
 
     /**
      * Creates a new individual with a random chromosome.
@@ -187,10 +189,13 @@ public class Individual {
      */
     public void evaluate() {
         // Calculate the total distance of the individual
-        short totalDistance = 1;
+        float totalDistance = 0;
         for (short[] connection : connections) {
-            // Calculate the distance between the two nodes, and add it to the total distance
-            totalDistance += Math.abs(chromosome[connection[0]][connection[1]] - chromosome[connection[2]][connection[3]]);
+            // Calculate the distance between the two nodes in 1D, and add it to the total distance
+            totalDistance += Math.pow(Math.abs(chromosome[connection[0]][connection[1]] - chromosome[connection[2]][connection[3]]), 2);
+
+            // Calculate the distance between the two nodes in 2D, and add it to the total distance
+            // totalDistance += Math.pow(Math.sqrt(Math.pow(chromosome[connection[0]][connection[1]] - chromosome[connection[2]][connection[3]], 2) + Math.pow(connection[0] - connection[2], 2)), 2);
         }
 
         // The fitness is inversely proportional to the total distance
@@ -202,7 +207,7 @@ public class Individual {
      *
      * @return The fitness of the individual
      */
-    public short getPain() {
+    public float getPain() {
         return this.pain;
     }
 
