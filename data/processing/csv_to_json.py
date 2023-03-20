@@ -147,6 +147,28 @@ def sort_into_semesters(subject_data_list) -> list[list[dict]]:
     return data
 
 
+def sort_into_semesters_EAGY(arr:list[dict]) -> list[list[dict]]:
+    def is_pair(item1, item2):
+        return item1["id"][:-1] == item2["id"][:-1] and item1["id"][-1] != item2["id"][-1]
+
+    def swap_pair(item1, item2):
+        if not is_pair(item1, item2):
+            return False
+        return item1["id"][-1] == "G" and item2["id"][-1] == "E"
+
+    sorted_arr = sort_into_semesters(arr)
+
+    for sem in sorted_arr:
+        for i in range(len(sem) - 1):
+            if is_pair(sem[i], sem[i+1]):
+                sem[i], sem[i+1] = sem[i+1], sem[i]
+        for i in range(len(sem) - 1):
+            if swap_pair(sem[i], sem[i+1]):
+                sem[i], sem[i+1] = sem[i+1], sem[i]
+
+    return sorted_arr
+
+
 def merge_data(data:list[dict]) -> list[dict]:
     merged_data = {}
     for subject in data:
@@ -164,6 +186,7 @@ def merge_data(data:list[dict]) -> list[dict]:
         merged_data[subject_id]["specializations"] = sorted(list(merged_data[subject_id]["specializations"]))
 
     return list(merged_data.values())
+
 
 def remove_duplicates(lst):
     seen = set()
@@ -196,10 +219,17 @@ def save_data(data, path:str) -> None:
 def output_csv_files(data, path:str) -> None:
     with open(os.path.join(path, "connections.csv"), "w", newline='') as f:
         writer = csv.writer(f, delimiter=';')
-        writer.writerow(["Parent", "Child"])
+        #writer.writerow(["Parent", "Child"])
         for subject in data:
             for child in subject["children"]:
                 writer.writerow([subject["id"], child["id"]])
+    
+    with open(os.path.join(path, "semester_EAGY_sorted.csv"), "w", newline='') as f:
+        writer = csv.writer(f, delimiter=';')
+        sorted_semserters = sort_into_semesters_EAGY(data)
+        for semester in sorted_semserters:
+            writer.writerow([subject["id"] for subject in semester])
+
 
 
 def check_args():
@@ -222,13 +252,13 @@ def check_args():
     
     if csv_path != None:
         if not os.path.exists(csv_path):
-                print("Error: path for input CSV files, directory does not exist: " + csv_path)
-                sys.exit(1)
+            print("Error: path for input CSV files, directory does not exist: " + csv_path)
+            sys.exit(1)
 
     if ocsvs_path != None:
         if not os.path.exists(ocsvs_path):
-                print("Error: path for custom output CSV files, directory does not exist: " + ocsvs_path)
-                sys.exit(1)
+            print("Error: path for custom output CSV files, directory does not exist: " + ocsvs_path)
+            sys.exit(1)
     
     return args
 
